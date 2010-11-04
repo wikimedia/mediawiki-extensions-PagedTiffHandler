@@ -113,7 +113,6 @@ class TiffReader {
 
 	public function check( $debug = false ) {
 		$offset = $this->ifd_offsets[$this->embed_files]['offset'];
-		$rounds = 0;
 		// loop over all ifd
 		while ( $offset && $offset <= $this->real_eof ) {
 			// save the offset if it is the highest one

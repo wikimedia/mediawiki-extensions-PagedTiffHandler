@@ -60,11 +60,8 @@ class PagedTiffHandler extends ImageHandler {
 	 * - check for running-identify-service
 	 */
 	function verifyUpload( $fileName ) {
-		global $wgTiffMaxEmbedFiles, $wgTiffMaxMetaSize, $wgMaxUploadSize, 
-			$wgTiffRejectOnError, $wgTiffRejectOnWarning, $wgTiffUseTiffReader, 
-			$wgTiffReaderPath, $wgTiffReaderCheckEofForJS;
+		global $wgTiffUseTiffReader, $wgTiffReaderCheckEofForJS;
 
-		wfLoadExtensionMessages( 'PagedTiffHandler' );
 		$status = Status::newGood();
 		if ( $wgTiffUseTiffReader ) {
 			$tr = new TiffReader( $fileName );
@@ -382,6 +379,7 @@ class PagedTiffHandler extends ImageHandler {
 
 		wfProfileIn( 'PagedTiffHandler' );
 		wfDebug( __METHOD__ . ": $cmd\n" );
+		$retval = null;
 		$err = wfShellExec( $cmd, $retval );
 		wfProfileOut( 'PagedTiffHandler' );
 

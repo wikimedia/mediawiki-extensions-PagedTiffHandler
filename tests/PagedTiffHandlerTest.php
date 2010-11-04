@@ -25,7 +25,6 @@ error_reporting( E_ALL );
 class PagedTiffHandlerTest extends PHPUnit_Framework_TestCase {
 
 	private $handler;
-	private $image;
 	private $preCheckError = false;
 
 	function upload( $title, $path ) {
