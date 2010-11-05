@@ -481,7 +481,6 @@ class PagedTiffHandler extends ImageHandler {
 			}
 		}
 
-		wfLoadExtensionMessages( 'PagedTiffHandler' );
 		return new MediaTransformError( 'thumbnail_error',
 			$width, $height, wfMsg( $msg ) );
 	}
@@ -515,7 +514,6 @@ class PagedTiffHandler extends ImageHandler {
 
 		$metadata = $this->getMetaArray( $image );
 		if ( $metadata ) {
-			wfLoadExtensionMessages( 'PagedTiffHandler' );
 			return wfMsgExt(
 				'tiff-file-info-size',
 				'parseinline',
