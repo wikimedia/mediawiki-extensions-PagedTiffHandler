@@ -368,6 +368,7 @@ $messages['ia'] = array(
 
 /** Indonesian (Bahasa Indonesia)
  * @author Farras
+ * @author IvanLanin
  */
 $messages['id'] = array(
 	'tiff-desc' => 'Pengatur untuk melihat berkas TIFF dalam mode gambar',
@@ -382,7 +383,7 @@ Miniatur tidak akan dibuat.',
 	'tiff_out_of_service' => 'Berkas unggahan tidak dapat diproses.
 ImageMagick tidak tersedia.',
 	'tiff_too_much_meta' => 'Metadata memakan banyak ruang.',
-	'tiff_error_cached' => 'Berkas hanya dapat ditampilkan ulang setelah jeda penembolokan.',
+	'tiff_error_cached' => 'Berkas hanya dapat ditampilkan ulang setelah jeda penyinggahan.',
 	'tiff_size_error' => 'Ukuran berkas yang dilaporkan tidak sama dengan ukuran berkas aslinya.',
 	'tiff_script_detected' => 'Berkas unggahan berisi skrip.',
 	'tiff_bad_file' => 'Berkas unggahan berisi kesalahan: $1',
