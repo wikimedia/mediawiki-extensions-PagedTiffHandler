@@ -32,7 +32,7 @@ class PagedTiffHandlerTest extends PHPUnit_Framework_TestCase {
 		$image = wfLocalFile( $title );
 		$archive = $image->publish( $path );
 		$image->recordUpload( $archive->value, "Test file used for PagedTiffHandler unit test", "No license" );
-		if( WikiError::isError( $archive ) || !$archive->isGood() )
+		if( !$archive->isGood() )
 		{
 			echo "Something went wrong. Please manually upload $path\n";
 			return false;
