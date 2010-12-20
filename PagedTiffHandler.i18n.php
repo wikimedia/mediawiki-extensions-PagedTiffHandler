@@ -241,7 +241,7 @@ $messages['fi'] = array(
 	'tiff_out_of_service' => 'Palvelimelle kopioitua tiedostoa ei voitu käsitellä. ImageMagick ei ollut käytettävissä.',
 	'tiff_too_much_meta' => 'Metatiedot vievät liikaa tilaa.',
 	'tiff_script_detected' => 'Palvelimelle kopioitu tiedosto sisältää skriptejä.',
-	'tiff_bad_file' => 'Palvelimelle kopioitu tiedosto sisältää virheitä: $1',
+	'tiff_bad_file' => 'Ladattu tiedosto sisältää virheitä: $1',
 );
 
 /** French (Français)
