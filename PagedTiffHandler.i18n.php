@@ -91,6 +91,28 @@ $messages['af'] = array(
 	'tiff-file-info-size' => '(bladsy $5, $1 × $2 spikkels, lêergrootte: $3, MIME-tipe: $4)',
 );
 
+/** Bashkir (Башҡорт)
+ * @author Assele
+ */
+$messages['ba'] = array(
+	'tiff-desc' => 'TIFF файлдарҙы рәсемдәр рәүешендә ҡарау өсөн эшкәртеүсе ҡорал',
+	'tiff_no_metadata' => 'TIFF-тан мета-мәғлүмәтте алыу мөмкин түгел',
+	'tiff_page_error' => 'Бит һаны биттәр һанынан ашҡан',
+	'tiff_too_many_embed_files' => 'Рәсемдең индерелгән файлдары бигерәк күп.',
+	'tiff_sourcefile_too_large' => 'Сығанаҡ файлдың асыҡлығы бигерәк ҙур.
+Бәләкәй рәсемдәр булдырылмаясаҡ.',
+	'tiff_targetfile_too_large' => 'Кәрәкле файлдың асыҡлығы бигерәк ҙур.
+Бәләкәй рәсемдәр булдырылмаясаҡ.',
+	'tiff_file_too_large' => 'Тейәлгән файл бигерәк ҙур һәм ул кире ҡағылған.',
+	'tiff_out_of_service' => 'Тейәлгән файл эшкәртелә алмай. ImageMagick-ты ҡулланыу мөмкин түгел.',
+	'tiff_too_much_meta' => 'Мета-мәғлүмәт бигерәк күп урын ала.',
+	'tiff_error_cached' => 'Был файл кэшлау арауығы үткәндән һуң ғына яңынан төшөрөлә ала.',
+	'tiff_size_error' => 'Күрһәтелгән файл күләме уның ғәмәлдәге күләме менән тап килмәй.',
+	'tiff_script_detected' => 'Тейәлгән файлдың скриптары бар.',
+	'tiff_bad_file' => 'Тейәлгән файлдың хаталары бар: $1',
+	'tiff-file-info-size' => '($5 бите, $1 × $2 нөктә, файлдың дәүмәле: $3, MIME төрө: $4)',
+);
+
 /** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
  * @author EugeneZelenko
  * @author Jim-by
@@ -233,6 +255,7 @@ $messages['es'] = array(
 /** Finnish (Suomi)
  * @author Centerlink
  * @author Crt
+ * @author Nike
  */
 $messages['fi'] = array(
 	'tiff_no_metadata' => 'Metatietojen hakeminen TIFF-tiedostosta epäonnistui',
@@ -241,7 +264,7 @@ $messages['fi'] = array(
 	'tiff_out_of_service' => 'Palvelimelle kopioitua tiedostoa ei voitu käsitellä. ImageMagick ei ollut käytettävissä.',
 	'tiff_too_much_meta' => 'Metatiedot vievät liikaa tilaa.',
 	'tiff_script_detected' => 'Palvelimelle kopioitu tiedosto sisältää skriptejä.',
-	'tiff_bad_file' => 'Ladattu tiedosto sisältää virheitä: $1',
+	'tiff_bad_file' => 'Tallennenttu tiedosto sisältää virheitä: $1',
 );
 
 /** French (Français)
