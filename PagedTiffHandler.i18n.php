@@ -440,6 +440,7 @@ $messages['ja'] = array(
  * @author Robby
  */
 $messages['lb'] = array(
+	'tiff-desc' => 'Programm deen et erméiglech TIFF-Fichieren als Bild ze kucken',
 	'tiff_page_error' => "D'Nummer vun der Säit ass net am Beräich",
 	'tiff_file_too_large' => 'Den eropgeluedene Fichier ass ze grouss a gouf net akzeptéiert.',
 	'tiff_out_of_service' => 'Den eropgeluedene Fichier konnt net verschafft ginn. ImageMagick ass net disponibel.',
