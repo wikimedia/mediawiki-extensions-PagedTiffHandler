@@ -88,6 +88,7 @@ class PagedTiffImage {
 	public function retrieveMetaData() {
 		global $wgImageMagickIdentifyCommand, $wgTiffExivCommand, $wgTiffUseExiv;
 		global $wgTiffUseTiffinfo, $wgTiffTiffinfoCommand;
+		global $wgShowEXIF;
 
 		if ( $this->_meta === null ) {
 			wfProfileIn( 'PagedTiffImage::retrieveMetaData' );
@@ -164,7 +165,7 @@ class PagedTiffImage {
 				$data = $this->parseExiv2Output( $dump );
 
 				$this->_meta['exif'] = $data;
-			} else {
+			} else if ( $wgShowEXIF ) {
 				wfDebug( __METHOD__ . ": using internal Exif( {$this->mFilename} )\n" );
 				$exif = new Exif( $this->mFilename );
 				$data = $exif->getFilteredData();
