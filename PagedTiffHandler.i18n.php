@@ -701,3 +701,14 @@ $messages['yi'] = array(
 	'tiff-file-info-size' => 'בלטַט $5, $1 × $2 פיקסעל, טעקע גרייס: $3, טיפ MIME: $4',
 );
 
+/** Traditional Chinese (‪中文(繁體)‬)
+ * @author Mark85296341
+ */
+$messages['zh-hant'] = array(
+	'tiff_too_many_embed_files' => '該圖像包含太多嵌入檔案。',
+	'tiff_file_too_large' => '上傳的檔案過大而被拒絕。',
+	'tiff_too_much_meta' => '元數據佔用太多的空間。',
+	'tiff_bad_file' => '上傳的檔案有錯誤：$1',
+	'tiff-file-info-size' => '$5 頁面，$1 × $2 像素，檔案大小：$3，MIME類型：$4',
+);
+
