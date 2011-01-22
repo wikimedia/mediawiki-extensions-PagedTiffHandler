@@ -630,7 +630,7 @@ $messages['ru'] = array(
 	'tiff-file-info-size' => 'страница $5, $1 × $2 пикселов, размер файла: $3, MIME-тип: $4',
 );
 
-/** Serbian Cyrillic ekavian (Српски (ћирилица))
+/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
  * @author Михајло Анђелковић
  */
 $messages['sr-ec'] = array(
@@ -646,7 +646,7 @@ $messages['sr-ec'] = array(
 	'tiff_bad_file' => 'Послати фајл садржи грешке: $1',
 );
 
-/** Serbian Latin ekavian (Srpski (latinica)) */
+/** Serbian Latin ekavian (‪Srpski (latinica)‬) */
 $messages['sr-el'] = array(
 	'tiff_no_metadata' => 'Ne mogu se preuzeti metapodaci iz TIFF-a',
 	'tiff_page_error' => 'Broj strane nije u opsegu',
