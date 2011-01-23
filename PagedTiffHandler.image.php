@@ -105,6 +105,7 @@ class PagedTiffImage {
 
 				wfProfileIn( 'tiffinfo' );
 				wfDebug( __METHOD__ . ": $cmd\n" );
+				$retval = '';
 				$dump = wfShellExec( $cmd, $retval );
 				wfProfileOut( 'tiffinfo' );
 
@@ -122,6 +123,7 @@ class PagedTiffImage {
 
 				wfProfileIn( 'identify' );
 				wfDebug( __METHOD__ . ": $cmd\n" );
+				$retval = '';
 				$dump = wfShellExec( $cmd, $retval );
 				wfProfileOut( 'identify' );
 
@@ -153,6 +155,7 @@ class PagedTiffImage {
 
 				wfProfileIn( 'exiv2' );
 				wfDebug( __METHOD__ . ": $cmd\n" );
+				$retval = '';
 				$dump = wfShellExec( $cmd, $retval );
 				wfProfileOut( 'exiv2' );
 
@@ -224,6 +227,8 @@ class PagedTiffImage {
 			}
 
 			if ( $error ) continue;
+
+			$m = array();
 
 			if ( preg_match('/^TIFF Directory at offset 0x[a-f0-9]+ \((\d+)\)/', $row, $m) ) {
 				# new IFD starting, flush previous page
