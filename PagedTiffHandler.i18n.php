@@ -331,6 +331,29 @@ $messages['gsw'] = array(
 	'tiff-file-info-size' => 'Syte $5, $1 × $2 Pixel, Dateigreßi: $3, MIME-Typ: $4',
 );
 
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'tiff-desc' => 'טיפול בהצגת קובצי TIFF במצב תמונה',
+	'tiff_no_metadata' => 'לא ניתן לקבל מטא־נתונים מ־TIFF',
+	'tiff_page_error' => 'מספר הדף אינו בטווח',
+	'tiff_too_many_embed_files' => 'יש יותר מדי קבצים בתמונה',
+	'tiff_sourcefile_too_large' => 'הרזולוציה של קובץ המקור גדולה מדי.
+לא תיווצר תמונה ממוזערת.',
+	'tiff_targetfile_too_large' => 'הרזולוציה של קובץ היעד גדולה מדי.
+לא תיווצר תמונה ממוזערת.',
+	'tiff_file_too_large' => 'הקובץ שהועלה היה גדול מדי ונדחה.',
+	'tiff_out_of_service' => 'לא ניתן לעבד את הקובץ שהועלה.
+חבילת ImageMagick אינה זמינה.',
+	'tiff_too_much_meta' => 'מטא־נתונים צורכים יותר מדי נפח.',
+	'tiff_error_cached' => 'ניתן לעבד את הקובץ הזה רק אחרי מרווח ההטמנה.',
+	'tiff_size_error' => 'גודל הקובץ שדווח אינו תואם לגדול הקובץ האמתי.',
+	'tiff_script_detected' => 'הקובץ שהועלה מכיל סקריפטים.',
+	'tiff_bad_file' => 'הקובץ שהועלה מכיל שגיאות: $1',
+	'tiff-file-info-size' => 'דף $5&rlm;, $1 × $2 פיקסלים, גודל הקובץ: $3, סוג MIME&rlm;: $4',
+);
+
 /** Upper Sorbian (Hornjoserbsce)
  * @author Michawiki
  */
