@@ -460,6 +460,13 @@ $messages['ja'] = array(
 	'tiff-file-info-size' => 'ページ $5、$1 × $2ピクセル、ファイルサイズ:$3、MIME:$4',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'tiff-desc' => 'Määt et müjjelesch, <i lang="en">TIFF</i>-Dateie als Bellder ze beloore.',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
