@@ -183,6 +183,7 @@ ImageMagick nije dostupan.',
 /** German (Deutsch)
  * @author Als-Holder
  * @author Hallo Welt! - Medienwerkstatt GmbH
+ * @author Purodha
  */
 $messages['de'] = array(
 	'tiff-desc' => 'Schnittstelle für die Ansicht von TIFF-Dateien im Bilder-Modus',
@@ -195,7 +196,7 @@ $messages['de'] = array(
 	'tiff_out_of_service' => 'Die hochgeladene Datei konnte nicht verarbeitet werden. ImageMagick ist nicht verfügbar.',
 	'tiff_too_much_meta' => 'Die Metadaten benötigen zu viel Speicherplatz.',
 	'tiff_error_cached' => 'Diese Datei kann erst nach Ablauf der Caching-Periode neu gerendert werden.',
-	'tiff_size_error' => 'Die errechnete Größe der Datei stimmt nicht mit der tatsächlichen überein.',
+	'tiff_size_error' => 'Die übergebene Größe der Datei stimmt nicht mit der tatsächlichen überein.',
 	'tiff_script_detected' => 'Die hochgeladene Datei enthält Skripte.',
 	'tiff_bad_file' => 'Die hochgeladene Datei ist fehlerhaft: $1',
 	'tiff-file-info-size' => 'Seite $5, $1 × $2 Pixel, Dateigröße: $3, MIME-Typ: $4',
@@ -465,6 +466,22 @@ $messages['ja'] = array(
  */
 $messages['ksh'] = array(
 	'tiff-desc' => 'Määt et müjjelesch, <i lang="en">TIFF</i>-Dateie als Bellder ze beloore.',
+	'tiff_no_metadata' => 'Mer künne kein Metta_Daate uß dä TIFF-Dattei krijje',
+	'tiff_page_error' => 'En Sigge-Nommer es ußerhallef',
+	'tiff_too_many_embed_files' => 'En dämm Beld sin zoh vill Datteije dren enthallde.',
+	'tiff_sourcefile_too_large' => 'De Oplühsong vun dää Enjangs_Dattei es esu jruuß,
+dat mer kein Breefmarkebelldsche druß ußrääschne künne.',
+	'tiff_targetfile_too_large' => 'De Oplühsong vun dää Ußjangs_Dattei es esu jruuß,
+dat mer kein Breefmarkebelldsche ußrääschne künne.',
+	'tiff_file_too_large' => 'De huhjelaade Dattei es zoh jruuß un wood zeröckjewiise.',
+	'tiff_out_of_service' => 'De huhjelaade Dattei kunnte mer nit beärbeide.
+<i lang="en">ImageMagick</i> shteiht nit paraat.',
+	'tiff_too_much_meta' => 'De Mettadaate bruche zoh vill Plaz.',
+	'tiff_error_cached' => 'Di Dattei kann eez neu aanjezeisch wääde, wan de Zick för der Zwescheschpeischer (<i lang="en">cache</i>) afjeloufe es.',
+	'tiff_size_error' => 'Der aanjejovve Ömfang vun dä Dattei es nit der verhaftijje Ömfang.',
+	'tiff_script_detected' => 'En dä huhjelaade Dattei sen Skrepte dren.',
+	'tiff_bad_file' => 'De huhjelaade Dattei hät Fähler: $1',
+	'tiff-file-info-size' => 'De $5-te&nbsp;Sigg hät $1&nbsp;×&nbsp;$2&nbsp;Pixelle, Ömfang:&nbsp;$3, de&nbsp;<i lang="en">MIME</i>–Zoot&nbsp;es: $4',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
