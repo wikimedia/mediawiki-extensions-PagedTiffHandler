@@ -737,7 +737,7 @@ $messages['vi'] = array(
 	'tiff_too_much_meta' => 'Siêu dữ liệu tốn nhiều không gian quá.',
 	'tiff_script_detected' => 'Tập tin được tải lên chứa script.',
 	'tiff_bad_file' => 'Tập tin được tải lên có lỗi: $1',
-	'tiff-file-info-size' => 'trang $5, $1×$2 điểm ảnh, kích thước: $3, định dạng MIME: $4',
+	'tiff-file-info-size' => 'trang $5, $1 × $2 điểm ảnh, kích thước tập tin: $3, kiểu MIME: $4',
 );
 
 /** Yiddish (ייִדיש)
