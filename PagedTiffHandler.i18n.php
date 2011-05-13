@@ -411,7 +411,7 @@ $messages['ia'] = array(
 	'tiff_size_error' => 'Le grandor reportate del file non corresponde al grandor real del file.',
 	'tiff_script_detected' => 'Le file incargate contine scripts.',
 	'tiff_bad_file' => 'Le file incargate contine errores: $1',
-	'tiff-file-info-size' => 'pagina $5, $1 × $2 pixel, grandor del file: $3, typo MIME: $4',
+	'tiff-file-info-size' => '$1 × $2 pixels, dimension del file: $3, typo MIME: $4, $5 {{PLURAL:$5|pagina|paginas}}',
 );
 
 /** Indonesian (Bahasa Indonesia)
