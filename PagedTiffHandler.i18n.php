@@ -28,7 +28,7 @@ ImageMagick is not available.',
 	'tiff_size_error' => 'The reported file size does not match the actual file size.',
 	'tiff_script_detected' => 'The uploaded file contains scripts.',
 	'tiff_bad_file' => 'The uploaded file contains errors: $1',
-	'tiff-file-info-size' => '$1 × $2 pixels, file size: $3, MIME type: $4, pages: $5',
+	'tiff-file-info-size' => '$1 × $2 pixels, file size: $3, MIME type: $4, $5 {{PLURAL:$5|page|pages}}',
  );
 
 /** Message documentation (Message documentation)
