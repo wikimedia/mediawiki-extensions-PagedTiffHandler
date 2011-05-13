@@ -28,7 +28,7 @@ ImageMagick is not available.',
 	'tiff_size_error' => 'The reported file size does not match the actual file size.',
 	'tiff_script_detected' => 'The uploaded file contains scripts.',
 	'tiff_bad_file' => 'The uploaded file contains errors: $1',
-	'tiff-file-info-size' => 'page $5, $1 × $2 pixels, file size: $3, MIME type: $4',
+	'tiff-file-info-size' => '$1 × $2 pixels, file size: $3, MIME type: $4, pages: $5',
  );
 
 /** Message documentation (Message documentation)
@@ -199,7 +199,7 @@ $messages['de'] = array(
 	'tiff_size_error' => 'Die übergebene Größe der Datei stimmt nicht mit der tatsächlichen überein.',
 	'tiff_script_detected' => 'Die hochgeladene Datei enthält Skripte.',
 	'tiff_bad_file' => 'Die hochgeladene Datei ist fehlerhaft: $1',
-	'tiff-file-info-size' => 'Seite $5, $1 × $2 Pixel, Dateigröße: $3, MIME-Typ: $4',
+	'tiff-file-info-size' => '$1 × $2 Pixel, Dateigröße: $3, MIME-Typ: $4, Seiten: $5',
 );
 
 /** Lower Sorbian (Dolnoserbski)

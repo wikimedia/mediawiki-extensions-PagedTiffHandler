@@ -523,7 +523,7 @@ class PagedTiffHandler extends ImageHandler {
 				$wgLang->formatNum( $metadata['page_data'][$page]['height'] ),
 				$wgLang->formatSize( $image->getSize() ),
 				$image->getMimeType(),
-				$page
+				$wgLang->formatNum( $metadata['page_count'] )
 			);
 		}
 		return true;
