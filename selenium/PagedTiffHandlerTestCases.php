@@ -174,7 +174,7 @@ class SeleniumDisplayInCategoryTest extends SeleniumTiffPageTest {
 
 		// Ergebnis chekcen
 		$source = $this->getAttribute(
-			"//div[@class='gallerybox']//a[@class='image']//img@src" );
+			"//li[@class='gallerybox']//a[@class='image']//img@src" );
 		$correct = strstr( $source, "-page1-" );
 		$this->assertEquals( $correct, true );
 	}
@@ -193,7 +193,7 @@ class SeleniumDisplayInGalleryTest extends SeleniumEmbedTiffTest {
 		//$source = $this->getAttribute(
 			//"//div[@class='gallerybox']//a[@title='Multipage.tiff']//img@src" );
 		$source = $this->getAttribute(
-			"//div[@class='gallerybox']//a[@class='image']//img@src" );
+			"//li[@class='gallerybox']//a[@class='image']//img@src" );
 		$correct = strstr( $source, "-page1-" );
 		$this->assertEquals( $correct, true );
 
