@@ -399,6 +399,13 @@ class PagedTiffHandler extends ImageHandler {
 	 * @return array thumbnail extension and MIME type
 	 */
 	function getThumbType( $ext, $mime, $params=null ) {
+		// Make sure the file is actually a tiff image
+		$tiffImageThumbType = parent::getThumbType( $ext, $mime, $params );
+		if ( $tiffImageThumbType[1] !== 'image/tiff' ) {
+			// We have some other file pretending to be a tiff image.
+			return $tiffImageThumbType;
+		}
+		
 		if ( $params[ 'lossy' ] == 'lossy' ) {
 			return array( 'jpg', 'image/jpeg' );
 		} else {
