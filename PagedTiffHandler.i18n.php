@@ -269,6 +269,7 @@ $messages['fi'] = array(
 );
 
 /** French (Français)
+ * @author Crochet.david
  * @author IAlex
  * @author Jagwar
  * @author Jean-Frédéric
@@ -289,7 +290,7 @@ $messages['fr'] = array(
 	'tiff_size_error' => 'La taille de fichier indiquée ne correspond pas à la taille réelle du fichier.',
 	'tiff_script_detected' => 'Le fichier téléchargé contient des scripts.',
 	'tiff_bad_file' => 'Le fichier importé contient des erreurs : $1',
-	'tiff-file-info-size' => 'page $5, $1 × $2 pixels, taille du fichier : $3, Type MIME : $4',
+	'tiff-file-info-size' => '$1 × $2 pixels, taille du fichier : $3, type MIME: $4, $5 page{{PLURAL:$5||s}}',
 );
 
 /** Galician (Galego)
@@ -309,7 +310,7 @@ $messages['gl'] = array(
 	'tiff_size_error' => 'O tamaño do ficheiro do que se informou non se corresponde co tamaño real do ficheiro.',
 	'tiff_script_detected' => 'O ficheiro cargado contén escrituras.',
 	'tiff_bad_file' => 'O ficheiro cargado contén erros: $1',
-	'tiff-file-info-size' => 'páxina $5, $1 × $2 píxeles, tamaño do ficheiro: $3, tipo MIME: $4',
+	'tiff-file-info-size' => '$1 × $2 píxeles, tamaño do ficheiro: $3, tipo MIME: $4, $5 {{PLURAL:$5|páxina|páxinas}}',
 );
 
 /** Swiss German (Alemannisch)
@@ -496,7 +497,7 @@ $messages['lb'] = array(
 	'tiff_size_error' => "Déi berechent Gréisst vum Fichier ass net d'selwëscht wéi déi wierklech Gréisst vum Fichier.",
 	'tiff_script_detected' => 'Am eropgeluedene Fichier si Skripten dran.',
 	'tiff_bad_file' => 'Am eropgeluedene Fichier si Feeler: $1',
-	'tiff-file-info-size' => 'Säit $5, $1 × $2 Pixel, Gréisst vum Fichier: $3, MIME-Typ: $4',
+	'tiff-file-info-size' => '$1 × $2 Pixelen, Gréisst vum Fichier: $3, MIME Typ: $4, $5 {{PLURAL:$5|Säit|Säiten}}',
 );
 
 /** Macedonian (Македонски)
@@ -516,7 +517,7 @@ $messages['mk'] = array(
 	'tiff_size_error' => 'Пријавената големина на податотеката не се совпаѓа со фактичката.',
 	'tiff_script_detected' => 'Подигнатата податотека содржи скрипти.',
 	'tiff_bad_file' => 'Подигнатата податотека содржи грешки: $1',
-	'tiff-file-info-size' => 'страница $5, $1 × $2 пиксели, големина на податотеката: $3, MIME-тип: $4',
+	'tiff-file-info-size' => '$1 × $2 пиксели, големина: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страници}}',
 );
 
 /** Malayalam (മലയാളം)
@@ -546,7 +547,7 @@ ImageMagick is niet beschikbaar.',
 	'tiff_size_error' => 'De gerapporteerde bestandsgrootte komt niet overeen met de werkelijke bestandsgrootte.',
 	'tiff_script_detected' => 'Het geüploade bestand bevat scripts.',
 	'tiff_bad_file' => 'Het geüploade bestand bevat fouten: $1',
-	'tiff-file-info-size' => 'pagina $5, $1 × $2 pixels, bestandsgrootte: $3, MIME-type: $4',
+	'tiff-file-info-size' => "$1 × $2 pixels, bestandsgrootte: $3, MIME-type: $4, $5 {{PLURAL:$5|pagina|pagina's}}",
 );
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
@@ -629,7 +630,7 @@ $messages['pt'] = array(
 	'tiff_size_error' => 'O tamanho reportado do ficheiro não corresponde ao tamanho real.',
 	'tiff_script_detected' => "O ficheiro transferido tem ''scripts''.",
 	'tiff_bad_file' => 'O ficheiro enviado contém erros: $1',
-	'tiff-file-info-size' => 'página $5, $1 × $2 pixels, tamanho do ficheiro: $3, tipo MIME: $4',
+	'tiff-file-info-size' => '$1 × $2 pixels, tamanho do ficheiro: $3, tipo MIME: $4, $5 {{PLURAL:$5|página|páginas}}',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
