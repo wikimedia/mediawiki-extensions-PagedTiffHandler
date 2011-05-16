@@ -183,10 +183,11 @@ ImageMagick nije dostupan.',
 /** German (Deutsch)
  * @author Als-Holder
  * @author Hallo Welt! - Medienwerkstatt GmbH
+ * @author Kghbln
  * @author Purodha
  */
 $messages['de'] = array(
-	'tiff-desc' => 'Schnittstelle für die Ansicht von TIFF-Dateien im Bilder-Modus',
+	'tiff-desc' => 'Stellt eine Schnittstelle zur Ansicht von TIFF-Dateien im Bildermodus bereit',
 	'tiff_no_metadata' => 'Keine Metadaten im TIFF vorhanden.',
 	'tiff_page_error' => 'Seitenzahl außerhalb des Dokumentes.',
 	'tiff_too_many_embed_files' => 'Die Datei enthält zu viele eingebettete Dateien.',
