@@ -354,7 +354,7 @@ $messages['he'] = array(
 	'tiff_size_error' => 'גודל הקובץ שדווח אינו תואם לגדול הקובץ האמתי.',
 	'tiff_script_detected' => 'הקובץ שהועלה מכיל סקריפטים.',
 	'tiff_bad_file' => 'הקובץ שהועלה מכיל שגיאות: $1',
-	'tiff-file-info-size' => 'דף $5&rlm;, $1 × $2 פיקסלים, גודל הקובץ: $3, סוג MIME&rlm;: $4',
+	'tiff-file-info-size' => '$1 × $2 פיקסלים, גודל הקובץ: $3, סוג MIME‏: $4, {{PLURAL:$5|דף אחד|$5 דפים}}',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -437,7 +437,7 @@ ImageMagick tidak tersedia.',
 	'tiff_size_error' => 'Ukuran berkas yang dilaporkan tidak sama dengan ukuran berkas aslinya.',
 	'tiff_script_detected' => 'Berkas unggahan berisi skrip.',
 	'tiff_bad_file' => 'Berkas unggahan berisi kesalahan: $1',
-	'tiff-file-info-size' => 'halaman $5, $1 × $2 piksel, ukuran berkas: $3, tipe MIME: $4',
+	'tiff-file-info-size' => '$1 × $2 piksel, ukuran berkas: $3, tipe MIME: $4, $5 {{PLURAL:$5|halaman|halaman}}',
 );
 
 /** Japanese (日本語)
