@@ -294,6 +294,13 @@ $messages['fr'] = array(
 	'tiff-file-info-size' => '$1 × $2 pixels, taille du fichier : $3, type MIME: $4, $5 page{{PLURAL:$5||s}}',
 );
 
+/** Franco-Provençal (Arpetan)
+ * @author ChrisPtDe
+ */
+$messages['frp'] = array(
+	'tiff_page_error' => 'Lo numerô de pâge est en defôr de la plage.',
+);
+
 /** Galician (Galego)
  * @author Toliño
  */
