@@ -663,7 +663,7 @@ ImageMagick não está disponível.',
 	'tiff_size_error' => 'O tamanho reportado do arquivo não confere com o tamanho real.',
 	'tiff_script_detected' => 'O arquivo enviado contém scripts.',
 	'tiff_bad_file' => 'O arquivo enviado contém erros: $1',
-	'tiff-file-info-size' => 'página $5, $1 × $2 pixeis, tamanho do arquivo: $3, tipo MIME: $4',
+	'tiff-file-info-size' => '$1 × $2 pixels, tamanho do arquivo: $3, tipo MIME: $4, $5 {{PLURAL:$5|página|páginas}}',
 );
 
 /** Russian (Русский)
