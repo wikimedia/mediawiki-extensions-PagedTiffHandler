@@ -177,7 +177,7 @@ ImageMagick nije dostupan.',
 	'tiff_size_error' => 'Prijavljena veličina datoteke ne odgovara njenoj stvarnoj veličini.',
 	'tiff_script_detected' => 'Poslana datoteka sadrži skripte.',
 	'tiff_bad_file' => 'Poslana datoteka sadrži greške: $1',
-	'tiff-file-info-size' => 'stranica $5, $1 × $2 piksela, veličina datoteke: $3, MIME tip: $4',
+	'tiff-file-info-size' => '$1 × $2 piksela, veličina datoteka: $3, MIME vrsta: $4, $5 {{PLURAL:$5|stranica|stranice|stranica}}',
 );
 
 /** German (Deutsch)
