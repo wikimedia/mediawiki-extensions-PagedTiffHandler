@@ -740,13 +740,22 @@ $messages['tl'] = array(
  * @author Minh Nguyen
  */
 $messages['vi'] = array(
+	'tiff-desc' => 'Bộ xử lý để xem tập tin TIFF ở dạng hình ảnh',
 	'tiff_no_metadata' => 'Không thể lấy siêu dữ liệu từ TIFF',
 	'tiff_page_error' => 'Số trang không nằm trong giới hạn',
+	'tiff_too_many_embed_files' => 'Hình này có nhúng quá nhiều tập tin.',
+	'tiff_sourcefile_too_large' => 'Tập tin nguồn có độ phân giải quá cao.
+Không thể tạo hình thu nhỏ.',
+	'tiff_targetfile_too_large' => 'Tập tin đích có độ phân giải quá cao.
+Không thể tạo hình thu nhỏ.',
+	'tiff_file_too_large' => 'Tập tin được tải lên bị bác bỏ vì quá lớn.',
 	'tiff_out_of_service' => 'Không thể xử lý tập tin được tải lên vì ImageMagick không có sẵn.',
 	'tiff_too_much_meta' => 'Siêu dữ liệu tốn nhiều không gian quá.',
+	'tiff_error_cached' => 'Chỉ có thể kết xuất lại tập tin sau khi bộ nhớ đệm hết hạn.',
+	'tiff_size_error' => 'Kích thước được ghi vào tập tin không đúng với kích thước thực sự của tập tin.',
 	'tiff_script_detected' => 'Tập tin được tải lên chứa script.',
 	'tiff_bad_file' => 'Tập tin được tải lên có lỗi: $1',
-	'tiff-file-info-size' => 'trang $5, $1 × $2 điểm ảnh, kích thước tập tin: $3, kiểu MIME: $4',
+	'tiff-file-info-size' => '$1×$2 điểm ảnh, kích thước tập tin: $3, kiểu MIME: $4, $5 trang',
 );
 
 /** Yiddish (ייִדיש)
