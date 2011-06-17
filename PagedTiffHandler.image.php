@@ -97,8 +97,8 @@ class PagedTiffImage {
 			//run hooks first, then optionally tiffinfo or, per default, ImageMagic's identify command
 			if ( !wfRunHooks( 'PagedTiffHandlerTiffData', array( $this->mFilename, &$this->_meta ) ) ) {
 				wfDebug( __METHOD__ . ": hook PagedTiffHandlerTiffData overrides TIFF data extraction\n" );
-			} else if ( $wgTiffUseTiffinfo ) {
-				// read TIFF directories using libtiff's tiffinfo, see 
+			} elseif ( $wgTiffUseTiffinfo ) {
+				// read TIFF directories using libtiff's tiffinfo, see
 				// http://www.libtiff.org/man/tiffinfo.1.html
 				$cmd = wfEscapeShellArg( $wgTiffTiffinfoCommand ) .
 					' ' . wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
@@ -134,7 +134,7 @@ class PagedTiffImage {
 				}
 
 				$this->_meta = $this->parseIdentifyOutput( $dump );
-			} 
+			}
 
 			$this->_meta['exif'] = array();
 
@@ -142,13 +142,13 @@ class PagedTiffImage {
 			//run hooks first, then optionally Exiv2 or, per default, the internal EXIF class
 			if ( !empty( $this->_meta['errors'] ) ) {
 				wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
-			} else if ( !wfRunHooks( 'PagedTiffHandlerExifData', array( $this->mFilename, &$this->_meta['exif'] ) ) ) {
+			} elseif ( !wfRunHooks( 'PagedTiffHandlerExifData', array( $this->mFilename, &$this->_meta['exif'] ) ) ) {
 				wfDebug( __METHOD__ . ": hook PagedTiffHandlerExifData overrides EXIF extraction\n" );
-			} else if ( $wgTiffUseExiv ) {
-				// read EXIF, XMP, IPTC as name-tag => interpreted data 
+			} elseif ( $wgTiffUseExiv ) {
+				// read EXIF, XMP, IPTC as name-tag => interpreted data
 				// -ignore unknown fields
 				// see exiv2-doc @link http://www.exiv2.org/sample.html
-				// NOTE: the linux version of exiv2 has a bug: it can only 
+				// NOTE: the linux version of exiv2 has a bug: it can only
 				// read one type of meta-data at a time, not all at once.
 				$cmd = wfEscapeShellArg( $wgTiffExivCommand ) .
 					' -u -psix -Pnt ' . wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
@@ -168,14 +168,14 @@ class PagedTiffImage {
 				$data = $this->parseExiv2Output( $dump );
 
 				$this->_meta['exif'] = $data;
-			} else if ( $wgShowEXIF ) {
+			} elseif ( $wgShowEXIF ) {
 				wfDebug( __METHOD__ . ": using internal Exif( {$this->mFilename} )\n" );
 				$exif = new Exif( $this->mFilename );
 				$data = $exif->getFilteredData();
 				if ( $data ) {
 					$data['MEDIAWIKI_EXIF_VERSION'] = Exif::version();
 					$this->_meta['exif'] = $data;
-				} 
+				}
 			}
 
 			unset( $this->_meta['exif']['Image'] );
@@ -183,12 +183,12 @@ class PagedTiffImage {
 			unset( $this->_meta['exif']['Base filename'] );
 			unset( $this->_meta['exif']['XMLPacket'] );
 			unset( $this->_meta['exif']['ImageResources'] );
-			
+
 			$this->_meta['TIFF_METADATA_VERSION'] = TIFF_METADATA_VERSION;
 
 			wfProfileOut( 'PagedTiffImage::retrieveMetaData' );
 		}
-		
+
 		return $this->_meta;
 	}
 
@@ -211,7 +211,7 @@ class PagedTiffImage {
 			$row = trim( $row );
 
 			# ignore XML rows
-			if ( preg_match('/^<|^$/', $row) ) { 
+			if ( preg_match('/^<|^$/', $row) ) {
 				continue;
 			}
 
@@ -247,10 +247,10 @@ class PagedTiffImage {
 				# check if the next IFD is to be ignored
 				$offset = (int)$m[1];
 				$ignore = !empty( $ignoreIFDs[ $offset ] );
-			} else if ( preg_match('#^(TIFF.*?Directory): (.*?/.*?): (.*)#i', $row, $m) ) {
+			} elseif ( preg_match('#^(TIFF.*?Directory): (.*?/.*?): (.*)#i', $row, $m) ) {
 				# handle warnings
 
-				$bypass = false; 
+				$bypass = false;
 				$msg = $m[3];
 
 				foreach ( $wgTiffTiffinfoBypassMessages as $pattern ) {
@@ -263,7 +263,7 @@ class PagedTiffImage {
 				if ( !$bypass ) {
 					$state->addWarning( $msg );
 				}
-			} else if ( preg_match('/^\s*(.*?)\s*:\s*(.*?)\s*$/', $row, $m) ) {
+			} elseif ( preg_match('/^\s*(.*?)\s*:\s*(.*?)\s*$/', $row, $m) ) {
 				# handle key/value pair
 
 				$key = $m[1];
@@ -271,15 +271,15 @@ class PagedTiffImage {
 
 				if ( $key == 'Page Number' && preg_match('/(\d+)-(\d+)/', $value, $m) ) {
 					$state->setPageProperty('page', (int)$m[1] +1);
-				} else if ( $key == 'Samples/Pixel' ) {
+				} elseif ( $key == 'Samples/Pixel' ) {
 					if ($value == '4') $state->setPageProperty('alpha', 'true');
-				} else if ( $key == 'Extra samples' ) {
+				} elseif ( $key == 'Extra samples' ) {
 					if (preg_match('.*alpha.*', $value)) $state->setPageProperty('alpha', 'true');
-				} else if ( $key == 'Image Width' || $key == 'PixelXDimension' ) {
+				} elseif ( $key == 'Image Width' || $key == 'PixelXDimension' ) {
 					$state->setPageProperty('width', (int)$value);
-				} else if ( $key == 'Image Length' || $key == 'PixelYDimension' ) {
+				} elseif ( $key == 'Image Length' || $key == 'PixelYDimension' ) {
 					$state->setPageProperty('height', (int)$value);
-				} else if ( preg_match('/.*IFDOffset/', $key) ) {
+				} elseif ( preg_match('/.*IFDOffset/', $key) ) {
 					# ignore extra IFDs, see <http://www.awaresystems.be/imaging/tiff/tifftags/exififd.html>
 					# Note: we assume that we will always see the reference before the actual IFD, so we know which IFDs to ignore
 					$offset = (int)$value;
@@ -358,7 +358,7 @@ class PagedTiffImage {
 			$state->finishPage();
 		}
 
-		
+
 		$dump = preg_replace( '/\[BEGIN\](.+?)\[END\]/si', '', $dump );
 		if ( strlen( $dump ) ) {
 			$errors = explode( "\n", $dump );
@@ -444,7 +444,7 @@ class PagedTiffInfoParserState {
 			if ( $this->prevPage >= $this->page['page'] ) {
 				$this->metadata['errors'][] = "inconsistent page numbering in TIFF directory";
 				return false;
-			} 
+			}
 		}
 
 		if ( isset( $this->page['width'] ) && isset( $this->page['height'] ) ) {
