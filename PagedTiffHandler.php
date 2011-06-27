@@ -32,7 +32,7 @@ require_once("$IP/extensions/PagedTiffHandler/PagedTiffHandler.php");
 $wgUseImageMagick = true;
 $wgImageMagickConvertCommand = "C:\Program Files\ImageMagick-6.5.6-Q8\convert";
 $wgImageMagickIdentifyCommand = "C:\Program Files\ImageMagick-6.5.6-Q8\identify";
-$wgTiffExivCommand = "C:\Program Files\Exiv2\exiv2";
+$wgExiv2Command = "C:\Program Files\Exiv2\exiv2";
 $wgMaxUploadSize = 1073741824;
 $wgShowEXIF = true;
 */
@@ -89,8 +89,6 @@ $wgTiffReaderCheckEofForJS = 4; // check the last 4MB for JS
 
 // Path to identify
 $wgImageMagickIdentifyCommand = '/usr/bin/identify';
-// Path to exiv2
-$wgTiffExivCommand = '/usr/bin/exiv2';
 // Use exiv2? if false, MediaWiki's internal EXIF parser will be used
 $wgTiffUseExiv = false;
 //path to tiffinfo

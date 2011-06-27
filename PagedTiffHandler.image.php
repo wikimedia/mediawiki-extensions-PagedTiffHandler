@@ -86,7 +86,7 @@ class PagedTiffImage {
 	 * meta['warnings'] = identify-warnings
 	 */
 	public function retrieveMetaData() {
-		global $wgImageMagickIdentifyCommand, $wgTiffExivCommand, $wgTiffUseExiv;
+		global $wgImageMagickIdentifyCommand, $wgExiv2Command, $wgTiffUseExiv;
 		global $wgTiffUseTiffinfo, $wgTiffTiffinfoCommand;
 		global $wgShowEXIF;
 
@@ -150,7 +150,7 @@ class PagedTiffImage {
 				// see exiv2-doc @link http://www.exiv2.org/sample.html
 				// NOTE: the linux version of exiv2 has a bug: it can only
 				// read one type of meta-data at a time, not all at once.
-				$cmd = wfEscapeShellArg( $wgTiffExivCommand ) .
+				$cmd = wfEscapeShellArg( $wgExiv2Command ) .
 					' -u -psix -Pnt ' . wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
 
 				wfProfileIn( 'exiv2' );
