@@ -597,7 +597,7 @@ ImageMagick nie jest dostępny.',
 	'tiff_size_error' => 'Zgłoszony rozmiar pliku nie przystaje do jego rzeczywistego rozmiaru.',
 	'tiff_script_detected' => 'Przesłany plik zawiera skrypty.',
 	'tiff_bad_file' => 'Przesłany plik zawiera błędy – $1',
-	'tiff-file-info-size' => 'strona $5, $1 × $2 pikseli, rozmiar pliku – $3, typ MIME – $4',
+	'tiff-file-info-size' => '$1 × $2 pikseli, rozmiar pliku – $3, typ MIME – $4, $5 {{PLURAL:$5|strona|strony|stron}}',
 );
 
 /** Piedmontese (Piemontèis)
