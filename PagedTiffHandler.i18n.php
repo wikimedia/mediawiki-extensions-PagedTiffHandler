@@ -532,7 +532,7 @@ $messages['mk'] = array(
  * @author Praveenp
  */
 $messages['ml'] = array(
-	'tiff-desc' => 'ചിത്ര രൂപത്തിൽ ടിഫ് (TIFF) പ്രമാണങ്ങൾ കാണുന്നതിനുള്ള കൈകാര്യോപകരണം',
+	'tiff-desc' => 'ടിഫ് (TIFF) പ്രമാണങ്ങൾ ചിത്രരൂപത്തിൽ കാണുന്നതിനുള്ള കൈകാര്യോപകരണം',
 );
 
 /** Dutch (Nederlands)
