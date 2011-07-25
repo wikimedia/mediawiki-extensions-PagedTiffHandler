@@ -332,7 +332,7 @@ class PagedTiffHandler extends ImageHandler {
 				$height, $dstPath, $page );
 		}
 
-		if ( !wfMkdirParents( dirname( $dstPath ) ) )
+		if ( !wfMkdirParents( dirname( $dstPath ), null, __METHOD__ ) )
 			return $this->doThumbError( $params, 'thumbnail_dest_directory' );
 
 		if ( $wgTiffUseVips ) {
