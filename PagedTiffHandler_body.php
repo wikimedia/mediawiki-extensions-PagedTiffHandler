@@ -610,9 +610,15 @@ class PagedTiffHandler extends ImageHandler {
 			return false;
 		}
 		unset( $exif['MEDIAWIKI_EXIF_VERSION'] );
-		$format = new FormatExif( $exif );
+		if ( class_exists( 'FormatMetadata' ) ) {
+			// 1.18+
+			$formatted = FormatMetadata::getFormattedData( $exif );
+		} else {
+			// 1.17 and earlier.
+			$format = new FormatExif( $exif );
 
-		$formatted = $format->getFormattedData();
+			$formatted = $format->getFormattedData();
+		}
 		// Sort fields into visible and collapsed
 		$visibleFields = $this->visibleMetadataFields();
 		foreach ( $formatted as $name => $value ) {
@@ -621,7 +627,7 @@ class PagedTiffHandler extends ImageHandler {
 				in_array( $tag, $visibleFields ) ? 'visible' : 'collapsed',
 				'exif',
 				$tag,
-				htmlspecialchars( $value )
+				$value
 			);
 		}
 		$meta = unserialize( $metadata );
