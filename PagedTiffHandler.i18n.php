@@ -763,7 +763,7 @@ Không thể tạo hình thu nhỏ.',
  */
 $messages['yi'] = array(
 	'tiff_too_much_meta' => 'מעטאַדאַטן באַניצן צו פֿיל פלאַץ.',
-	'tiff-file-info-size' => 'בלטַט $5, $1 × $2 פיקסעל, טעקע גרייס: $3, טיפ MIME: $4',
+	'tiff-file-info-size' => '$1 × $2 פיקסעלן, טעקע גרייס: $3, MIME טיפ: $4,  $5 {{PLURAL:$5|בלאט|בלעטער}}',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
