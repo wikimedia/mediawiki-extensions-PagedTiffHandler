@@ -619,7 +619,7 @@ $messages['pms'] = array(
 	'tiff_size_error' => "La dimension diciairà dl'archivi a l'é pa l'istessa ëd soa dimension vera.",
 	'tiff_script_detected' => "L'archivi carià a conten ëd senari.",
 	'tiff_bad_file' => "L'archivi carià a conten d'eror: $1",
-	'tiff-file-info-size' => "pàgina $5, $1 x $2 pontin, dimension dl'archivi: $3, sòrt MIME: $4",
+	'tiff-file-info-size' => "$1 x $2 pontin, dimension dl'archivi: $3, sòrt MIME: $4, $5 {{PLURAL:$5|pagina|pagine}}",
 );
 
 /** Portuguese (Português)
