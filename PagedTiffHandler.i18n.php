@@ -180,6 +180,13 @@ ImageMagick nije dostupan.',
 	'tiff-file-info-size' => '$1 × $2 piksela, veličina datoteka: $3, MIME vrsta: $4, $5 {{PLURAL:$5|stranica|stranice|stranica}}',
 );
 
+/** Danish (Dansk)
+ * @author Peter Alberti
+ */
+$messages['da'] = array(
+	'tiff-file-info-size' => '$1 × $2 punkter, filstørrelse: $3, MIME-type: $4, $5 {{PLURAL:$5|side|sider}}',
+);
+
 /** German (Deutsch)
  * @author Als-Holder
  * @author Hallo Welt! - Medienwerkstatt GmbH
@@ -619,7 +626,7 @@ $messages['pms'] = array(
 	'tiff_size_error' => "La dimension diciairà dl'archivi a l'é pa l'istessa ëd soa dimension vera.",
 	'tiff_script_detected' => "L'archivi carià a conten ëd senari.",
 	'tiff_bad_file' => "L'archivi carià a conten d'eror: $1",
-	'tiff-file-info-size' => "$1 x $2 pontin, dimension dl'archivi: $3, sòrt MIME: $4, $5 {{PLURAL:$5|pagina|pagine}}",
+	'tiff-file-info-size' => "$1 x $2 pontin, dimension dl'archivi: $3, sòrt MIME: $4, $5 {{PLURAL:$5|pàgina|pàgine}}",
 );
 
 /** Portuguese (Português)
