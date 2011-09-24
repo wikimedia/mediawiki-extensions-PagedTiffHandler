@@ -42,12 +42,11 @@ class PagedTiffHandler extends ImageHandler {
 		return true;
 	}
 
+	/**
+	 * Does the file format support multi-page documents?
+	 */
 	function isMultiPage( $img ) {
-		if ( !$img ) {
-			return true;
-		}
-		$meta = unserialize( $img->metadata );
-		return $meta['page_count'] > 1;
+		return true;
 	}
 
 	/**

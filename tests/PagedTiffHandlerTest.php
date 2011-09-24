@@ -283,7 +283,7 @@ class PagedTiffHandlerTest extends PHPUnit_Framework_TestCase {
 
 		// isMultiPage
 		$this->assertTrue( $this->handler->isMultiPage( $this->multipage_image ) );
-		$this->assertFalse( $this->handler->isMultiPage( $this->mhz_image ) );
+		$this->assertTrue( $this->handler->isMultiPage( $this->mhz_image ) );
 
 		// formatMetadata
 		$formattedMetadata = $this->handler->formatMetadata( $this->multipage_image );
