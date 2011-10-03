@@ -184,6 +184,22 @@ ImageMagick nije dostupan.',
  * @author Peter Alberti
  */
 $messages['da'] = array(
+	'tiff-desc' => 'Håndtering af TIFF-visning i billedtilstand',
+	'tiff_no_metadata' => 'Kan ikke hente metadata fra TIFF',
+	'tiff_page_error' => 'Sidetallet er større end antallet af sider i dokumentet',
+	'tiff_too_many_embed_files' => 'Billedet indeholder for mange indlejrede filer.',
+	'tiff_sourcefile_too_large' => 'Opløsningen af kildefilen er for stor.
+Der vil ikke blive dannet miniaturebilleder.',
+	'tiff_targetfile_too_large' => 'Opløsningen af destinationsfilen er for stor.
+Der vil ikke blive dannet miniaturebilleder.',
+	'tiff_file_too_large' => 'Den overførte fil er for stor og blev afvist.',
+	'tiff_out_of_service' => 'Den overførte fil kunne ikke behandles.
+ImageMagick er ikke tilgængelig.',
+	'tiff_too_much_meta' => 'Metadata bruger for meget plads.',
+	'tiff_error_cached' => 'Denne fil kan kun gengives påny efter mellemlagringen udløber.',
+	'tiff_size_error' => 'Den rapporterede filstørrelse svarer ikke til den aktuelle filstørrelse.',
+	'tiff_script_detected' => 'Den overførte fil indeholder scripts.',
+	'tiff_bad_file' => 'Den overførte fil indeholder fejl: $1',
 	'tiff-file-info-size' => '$1 × $2 punkter, filstørrelse: $3, MIME-type: $4, $5 {{PLURAL:$5|side|sider}}',
 );
 
