@@ -514,7 +514,7 @@ dat mer kein Breefmarkebelldsche ußrääschne künne.',
 	'tiff_size_error' => 'Der aanjejovve Ömfang vun dä Dattei es nit der verhaftijje Ömfang.',
 	'tiff_script_detected' => 'En dä huhjelaade Dattei sen Skrepte dren.',
 	'tiff_bad_file' => 'De huhjelaade Dattei hät Fähler: $1',
-	'tiff-file-info-size' => 'De $5-te&nbsp;Sigg hät $1&nbsp;×&nbsp;$2&nbsp;Pixelle, Ömfang:&nbsp;$3, de&nbsp;<i lang="en">MIME</i>–Zoot&nbsp;es: $4',
+	'tiff-file-info-size' => '$1&nbsp;×&nbsp;$2&nbsp;Pixelle, Ömfang:&nbsp;$3, de&nbsp;<i lang="en">MIME</i>–Zoot&nbsp;es: $4, {{PLURAL:$5|ein&nbsp;Sigg|$5&nbsp; Sigge|kein&nbsp;Sigg}}',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
