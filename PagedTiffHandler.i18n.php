@@ -710,20 +710,21 @@ $messages['ru'] = array(
 	'tiff-file-info-size' => '$1 × $2 пикселей, размер файла: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страницы|страниц}}',
 );
 
-/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
+ * @author Rancher
  * @author Михајло Анђелковић
  */
 $messages['sr-ec'] = array(
-	'tiff_no_metadata' => 'Не могу се преузети метаподаци из TIFF-а',
-	'tiff_page_error' => 'Број стране није у опсегу',
+	'tiff_no_metadata' => 'Не могу да преузмем метаподатке из TIFF-а',
+	'tiff_page_error' => 'Број страница ван опсега',
 	'tiff_too_many_embed_files' => 'Слика садржи превише уметнутих фајлова.',
 	'tiff_file_too_large' => 'Послати фајл је превелик и одбачен је.',
 	'tiff_out_of_service' => 'Послати фајл није могао бити обраћен. ImageMagick није доступан.',
 	'tiff_too_much_meta' => 'Метаподаци користе превише простора.',
 	'tiff_error_cached' => 'Овај фајл може бити рендерован само након кеширања.',
 	'tiff_size_error' => 'Пријављена величина фајла не одговара његовој стварној величини.',
-	'tiff_script_detected' => 'Послати фајл садржи скрипте.',
-	'tiff_bad_file' => 'Послати фајл садржи грешке: $1',
+	'tiff_script_detected' => 'Послата датотека садржи скриптове.',
+	'tiff_bad_file' => 'Послата датотека садржи грешке: $1',
 );
 
 /** Serbian Latin ekavian (‪Srpski (latinica)‬) */
