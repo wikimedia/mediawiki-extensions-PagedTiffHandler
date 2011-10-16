@@ -345,6 +345,7 @@ $messages['gl'] = array(
 );
 
 /** Swiss German (Alemannisch)
+ * @author Als-Chlämens
  * @author Als-Holder
  */
 $messages['gsw'] = array(
@@ -361,7 +362,7 @@ $messages['gsw'] = array(
 	'tiff_size_error' => 'Di brichtet Greßi vu dr Datei stimmt nit zue dr tatsächlige.',
 	'tiff_script_detected' => 'In dr Datei, wu uffeglade woren isch, het s Skript din.',
 	'tiff_bad_file' => 'D Datei, wu uffeglade woren isch, isch fählerhaft: $1',
-	'tiff-file-info-size' => 'Syte $5, $1 × $2 Pixel, Dateigreßi: $3, MIME-Typ: $4',
+	'tiff-file-info-size' => '$1 × $2 Pixel, Dateigrössi: $3, MIME type: $4, $5 {{PLURAL:$5|Syte|Syte}}',
 );
 
 /** Hebrew (עברית)
