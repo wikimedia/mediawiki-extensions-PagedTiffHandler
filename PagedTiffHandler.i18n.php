@@ -405,7 +405,7 @@ $messages['hsb'] = array(
 	'tiff_size_error' => 'Zdźělena wulkosć dataje njewotpowěduje woprawdźitej wulkosći dataje.',
 	'tiff_script_detected' => 'Nahrata dataja wobsahuje skripty.',
 	'tiff_bad_file' => 'Nahrata dataja wobsahuje zmylki: $1',
-	'tiff-file-info-size' => 'strona $5, $1 × $2 pikselow, wulkosć dataje: $3, MIME-typ: $4',
+	'tiff-file-info-size' => '$1 × $2 pikselow, wulkosć dataje: $3, MIME-typ: $4, $5 {{PLURAL:$5|strona|stronje|strony|stronow}}',
 );
 
 /** Hungarian (Magyar)
