@@ -243,7 +243,7 @@ $messages['dsb'] = array(
 	'tiff_size_error' => 'K wěsći dana datajowa wjelikosć njewótpowědujo wopšawdnej datajowej wjelikosći.',
 	'tiff_script_detected' => 'Nagrata dataja wopśimujo skripty.',
 	'tiff_bad_file' => 'Nagrata dataja wopśimujo zmólki: $1',
-	'tiff-file-info-size' => 'bok $5, $1 × $2 pikselow, datajowa wjelikosć: $3, typ MIME: $4',
+	'tiff-file-info-size' => '$1 × $2 pikselow, datajowa wjelikosć: $3, typ MIME: $4, $5 {{PLURAL:$5|bok|boka|boki|bokow}}',
 );
 
 /** Greek (Ελληνικά)
