@@ -729,7 +729,7 @@ $messages['sr-ec'] = array(
 	'tiff_bad_file' => 'Послата датотека садржи грешке: $1',
 );
 
-/** Serbian Latin ekavian (‪Srpski (latinica)‬) */
+/** Serbian (Latin script) (‪Srpski (latinica)‬) */
 $messages['sr-el'] = array(
 	'tiff_no_metadata' => 'Ne mogu se preuzeti metapodaci iz TIFF-a',
 	'tiff_page_error' => 'Broj strane nije u opsegu',
