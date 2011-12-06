@@ -350,15 +350,14 @@ class PagedTiffHandler extends ImageHandler {
 			if ( ( $pagesize['width'] > $width ) && ( $pagesize['height'] > $height ) ) {
 				$xfac = $pagesize['width'] / $width;
 				$yfac = $pagesize['height'] / $height;
-				// tested in Linux and Windows
 				$cmd = wfEscapeShellArg( $wgTiffVipsCommand );
-				$cmd .= ' im_shrink "' . wfEscapeShellArg( $srcPath ) . ':' . ( $page - 1 ) . '" ';
+				$cmd .= ' im_shrink ' . wfEscapeShellArg( $srcPath . ':' . ( $page - 1 ) ) . ' ';
 				$cmd .= wfEscapeShellArg( $dstPath );
 				$cmd .= " {$xfac} {$yfac} 2>&1";
 			} else {
-				// tested in Linux and Windows
 				$cmd = wfEscapeShellArg( $wgTiffVipsCommand );
-				$cmd .= ' im_resize_linear "' . wfEscapeShellArg( $srcPath ) . ':' . ( $page - 1 ) . '" ';
+				$cmd .= ' im_resize_linear ' . wfEscapeShellArg( $srcPath . ':' . 
+					( $page - 1 ) ) . ' ';
 				$cmd .= wfEscapeShellArg( $dstPath );
 				$cmd .= " {$width} {$height} 2>&1";
 			}
