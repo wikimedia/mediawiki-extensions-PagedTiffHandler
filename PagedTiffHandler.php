@@ -48,7 +48,7 @@ $wgExtensionCredits['media'][] = array(
 		'Markus Glaser for Wikimedia Deutschland'
 	),
 	'descriptionmsg' => 'tiff-desc',
-	'url' => 'http://www.mediawiki.org/wiki/Extension:PagedTiffHandler',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:PagedTiffHandler',
 );
 
 $wgTiffIdentifyRejectMessages = array(
