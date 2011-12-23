@@ -740,7 +740,7 @@ $messages['sr-el'] = array(
 	'tiff_error_cached' => 'Ovaj fajl može biti renderovan samo nakon keširanja.',
 	'tiff_size_error' => 'Prijavljena veličina fajla ne odgovara njegovoj stvarnoj veličini.',
 	'tiff_script_detected' => 'Poslati fajl sadrži skripte.',
-	'tiff_bad_file' => 'Poslati fajl sadrži greške: $1',
+	'tiff_bad_file' => 'Poslata datoteka sadrži greške: $1',
 );
 
 /** Tagalog (Tagalog)
@@ -791,6 +791,14 @@ Không thể tạo hình thu nhỏ.',
 $messages['yi'] = array(
 	'tiff_too_much_meta' => 'מעטאַדאַטן באַניצן צו פֿיל פלאַץ.',
 	'tiff-file-info-size' => '$1 × $2 פיקסעלן, טעקע גרייס: $3, MIME טיפ: $4,  $5 {{PLURAL:$5|בלאט|בלעטער}}',
+);
+
+/** Simplified Chinese (‪中文(简体)‬) */
+$messages['zh-hans'] = array(
+	'tiff_too_many_embed_files' => '该图像包含太多嵌入档案。',
+	'tiff_file_too_large' => '上传的档案过大而被拒绝。',
+	'tiff_too_much_meta' => '元数据占用太多的空间。',
+	'tiff_bad_file' => '上传的档案有错误：$1',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
