@@ -586,7 +586,7 @@ ImageMagick is niet beschikbaar.',
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Nghtwlkr
  */
-$messages['no'] = array(
+$messages['nb'] = array(
 	'tiff-desc' => 'Håndterer for visning av TIFF-filer i bildemodus',
 	'tiff_no_metadata' => 'Kan ikke hente metadata fra TIFF',
 	'tiff_page_error' => 'Sidenummer er utenfor sideintervallet',
