@@ -495,6 +495,20 @@ $messages['ja'] = array(
 	'tiff-file-info-size' => '$1 × $2 ピクセル、ファイルサイズ : $3 、MIMEタイプ : $4 、 $5 {{PLURAL:$5|ページ|ページ}}',
 );
 
+/** Korean (한국어)
+ * @author Kwj2772
+ */
+$messages['ko'] = array(
+	'tiff-desc' => 'TIFF 파일을 이미지 모드에서 볼 수 있도록 하는 핸들러',
+	'tiff_no_metadata' => 'TIFF 파일에서 메타데이터를 가져올 수 없습니다.',
+	'tiff_page_error' => '쪽수가 범위 바깥에 있습니다.',
+	'tiff_too_many_embed_files' => '이 이미지가 너무 많은 임베드 파일을 포함하고 있습니다.',
+	'tiff_sourcefile_too_large' => '원본 파일의 해상도가 너무 큽니다.
+섬네일이 생성되지 않을 것입니다.',
+	'tiff_too_much_meta' => '메타데이터가 너무 많은 공간을 차지합니다.',
+	'tiff-file-info-size' => '$1 × $2 픽셀, 파일 크기: $3, MIME 종류: $4, $5{{PLURAL:$5|페이지}}',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
