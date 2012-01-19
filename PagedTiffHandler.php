@@ -113,13 +113,13 @@ $wgFileExtensions[] = 'tif';
 
 $dir = dirname( __FILE__ ) . '/';
 $wgExtensionMessagesFiles['PagedTiffHandler'] = $dir . 'PagedTiffHandler.i18n.php';
+$wgExtensionMessagesFiles['PagedTiffHandlerMagic'] = $dir . 'PagedTiffHandler.i18n.magic.php';
 $wgAutoloadClasses['PagedTiffImage'] = $dir . 'PagedTiffHandler.image.php';
 $wgAutoloadClasses['PagedTiffHandler'] = $dir . 'PagedTiffHandler_body.php';
 $wgAutoloadClasses['TiffReader'] = $dir . 'TiffReader.php';
 $wgAutoloadClasses['PagedTiffHandlerSeleniumTestSuite'] = $dir . 'selenium/PagedTiffHandlerTestSuite.php';
 
 $wgMediaHandlers['image/tiff'] = 'PagedTiffHandler';
-$wgHooks['LanguageGetMagic'][] = 'PagedTiffHandler::addTiffLossyMagicWordLang';
 
 define('TIFF_METADATA_VERSION', '1.4');
 # 1.0: initial

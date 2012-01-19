@@ -21,19 +21,6 @@
  */
 
 class PagedTiffHandler extends ImageHandler {
-	/**
-	 * Add the "lossy"-parameter to image link.
-	 * Usage:
-	 *  lossy=true|false
-	 *  lossy=1|0
-	 *  lossy=lossy|lossless
-	 * E.g. [[Image:Test.tif|lossy=1]]
-	 */
-	static function addTiffLossyMagicWordLang( &$magicWords, $langCode ) {
-		$magicWords['img_lossy'] = array( 0, "lossy=$1" );
-		return true;
-	}
-
 	function isEnabled() {
 		return true;
 	}
