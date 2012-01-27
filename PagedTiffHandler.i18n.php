@@ -778,6 +778,7 @@ $messages['tl'] = array(
 );
 
 /** Vietnamese (Tiếng Việt)
+ * @author Kaganer
  * @author Minh Nguyen
  */
 $messages['vi'] = array(
@@ -796,7 +797,7 @@ Không thể tạo hình thu nhỏ.',
 	'tiff_size_error' => 'Kích thước được ghi vào tập tin không đúng với kích thước thực sự của tập tin.',
 	'tiff_script_detected' => 'Tập tin được tải lên chứa script.',
 	'tiff_bad_file' => 'Tập tin được tải lên có lỗi: $1',
-	'tiff-file-info-size' => '$1×$2 điểm ảnh, kích thước tập tin: $3, kiểu MIME: $4, $5 trang',
+	'tiff-file-info-size' => '$1 × $2 điểm ảnh, kích thước tập tin: $3, kiểu MIME: $4, $5 trang',
 );
 
 /** Yiddish (ייִדיש)
