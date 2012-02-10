@@ -697,4 +697,25 @@ class PagedTiffHandler extends ImageHandler {
 		$data = $this->getMetaArray( $image );
 		return PagedTiffImage::getPageSize( $data, $page );
 	}
+
+	/**
+	 * Handler for the ExtractThumbParameters hook
+	 * 
+	 * @param $thumbname string URL-decoded basename of URI
+	 * @param &$params Array Currently parsed thumbnail params
+	 */
+	public static function onExtractThumbParameters( $thumbname, array &$params ) {
+		if ( !preg_match( '/\.(?:tiff|tif)$/i', $params['f'] ) ) {
+			return true; // not an tiff file
+		}
+		// Check if the parameters can be extracted from the thumbnail name...
+		if ( preg_match( '!^(lossy|lossless)-page(\d+)-(\d+)px-[^/]*$!', $thumbname, $m ) ) {
+			list( /* all */, $lossy, $pagenum, $size ) = $matches;
+			$params['lossy'] = $lossy;
+			$params['width'] = $size;
+			$params['page'] = $pagenum;
+			return false; // valid thumbnail URL
+		}
+		return true; // pass through to next handler
+	}
 }

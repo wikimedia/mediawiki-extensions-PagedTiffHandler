@@ -130,3 +130,5 @@ define('TIFF_METADATA_VERSION', '1.4');
 //$wgHooks['PagedTiffHandlerRenderCommand'][] = 'PagedTiffHandler::renderCommand';
 //$wgHooks['PagedTiffHandlerTiffData'][] = 'PagedTiffImage::tiffData';
 //$wgHooks['PagedTiffHandlerExifData'][] = 'PagedTiffImage::exifData';
+
+$wgHooks['ExtractThumbParameters'][] = 'PagedTiffHandler::onExtractThumbParameters';
