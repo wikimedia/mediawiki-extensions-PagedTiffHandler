@@ -710,7 +710,7 @@ class PagedTiffHandler extends ImageHandler {
 		}
 		// Check if the parameters can be extracted from the thumbnail name...
 		if ( preg_match( '!^(lossy|lossless)-page(\d+)-(\d+)px-[^/]*$!', $thumbname, $m ) ) {
-			list( /* all */, $lossy, $pagenum, $size ) = $matches;
+			list( /* all */, $lossy, $pagenum, $size ) = $m;
 			$params['lossy'] = $lossy;
 			$params['width'] = $size;
 			$params['page'] = $pagenum;
