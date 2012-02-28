@@ -300,7 +300,6 @@ class PagedTiffHandler extends ImageHandler {
 		// Get params and force width, height and page to be integers
 		$width = intval( $params['width'] );
 		$height = intval( $params['height'] );
-		$srcPath = $image->getPath();
 		$page = intval( $params['page'] );
 		$page = $this->adjustPage( $image, $page );
 
@@ -332,6 +331,9 @@ class PagedTiffHandler extends ImageHandler {
 
 			if ( ( $width * $height ) > $wgMaxImageAreaForVips )
 				return $this->doThumbError( $params, 'tiff_targetfile_too_large' );
+
+			// Get local copy source for shell scripts
+			$srcPath = $image->getLocalRefPath();
 
 			// Shrink factors must be > 1.
 			if ( ( $pagesize['width'] > $width ) && ( $pagesize['height'] > $height ) ) {
