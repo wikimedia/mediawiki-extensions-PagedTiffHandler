@@ -312,13 +312,11 @@ class PagedTiffHandler extends ImageHandler {
 			return $this->doThumbError( $params, $error );
 		}
 
-		if ( is_file( $dstPath ) ) {
-			return new ThumbnailImage( $image, $dstUrl, $width,
-				$height, $dstPath, $page );
-		}
-
 		if ( !wfMkdirParents( dirname( $dstPath ), null, __METHOD__ ) )
 			return $this->doThumbError( $params, 'thumbnail_dest_directory' );
+
+		// Get local copy source for shell scripts
+		$srcPath = $image->getLocalRefPath();
 
 		if ( $wgTiffUseVips ) {
 			$pagesize = PagedTiffImage::getPageSize($meta, $page);
@@ -331,9 +329,6 @@ class PagedTiffHandler extends ImageHandler {
 
 			if ( ( $width * $height ) > $wgMaxImageAreaForVips )
 				return $this->doThumbError( $params, 'tiff_targetfile_too_large' );
-
-			// Get local copy source for shell scripts
-			$srcPath = $image->getLocalRefPath();
 
 			// Shrink factors must be > 1.
 			if ( ( $pagesize['width'] > $width ) && ( $pagesize['height'] > $height ) ) {
