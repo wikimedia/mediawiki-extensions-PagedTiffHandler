@@ -256,6 +256,7 @@ $messages['el'] = array(
 );
 
 /** Spanish (Español)
+ * @author Armando-Martin
  * @author Pertile
  * @author Sanbec
  * @author Translationista
@@ -274,7 +275,7 @@ $messages['es'] = array(
 	'tiff_size_error' => 'El tamaño del archivo reportado no coincide con el tamaño real del archivo.',
 	'tiff_script_detected' => 'El archivo cargado contiene scripts.',
 	'tiff_bad_file' => 'El archivo cargado contiene errores: $1',
-	'tiff-file-info-size' => 'Página $5, $1 × $2 píxeles, tamaño de archivo: $3, tipo de MIME: $4',
+	'tiff-file-info-size' => '$1 × $2 píxeles, tamaño de archivo: $3, tipo de MIME: $4,  $5 {{PLURAL:$5|página|páginas}}',
 );
 
 /** Finnish (Suomi)
