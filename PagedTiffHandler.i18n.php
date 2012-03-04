@@ -154,7 +154,7 @@ $messages['br'] = array(
 	'tiff_size_error' => 'Ne glot ket ment ar restr meneget gant ment gwir ar restr.',
 	'tiff_script_detected' => 'Skriptoù zo er restr karget.',
 	'tiff_bad_file' => 'Fazioù zo er restr enporzhiet : $1',
-	'tiff-file-info-size' => 'pajenn $5, $1 × $2 piksel, ment ar restr : $3, seurt MIME : $4',
+	'tiff-file-info-size' => '$1 × $2 piksel, ment ar restr : $3, seurt MIME : $4, $5 {{PLURAL:$5|pajenn|pajenn}}',
 );
 
 /** Bosnian (Bosanski)
