@@ -472,6 +472,27 @@ ImageMagick tidak tersedia.',
 	'tiff-file-info-size' => '$1 × $2 piksel, ukuran berkas: $3, tipe MIME: $4, $5 {{PLURAL:$5|halaman|halaman}}',
 );
 
+/** Italian (Italiano)
+ * @author Beta16
+ */
+$messages['it'] = array(
+	'tiff-desc' => 'Gestore per la visualizzazione di file TIFF in modalità immagine',
+	'tiff_no_metadata' => 'Impossibile ottenere i metadati da TIFF',
+	'tiff_page_error' => "Numero di pagina non compreso nell'intervallo",
+	'tiff_too_many_embed_files' => "L'immagine contiene troppi file incorporati.",
+	'tiff_sourcefile_too_large' => 'La risoluzione del file di origine è troppo grande.
+Nessuna anteprima verrà generata.',
+	'tiff_targetfile_too_large' => 'La risoluzione del file di destinazione è troppo grande.
+Nessuna anteprima verrà generata.',
+	'tiff_file_too_large' => 'Il file caricato è troppo grande ed è stato respinto.',
+	'tiff_out_of_service' => 'Il file caricato non può essere elaborato.
+ImageMagick non è disponibile.',
+	'tiff_too_much_meta' => 'I metadati usano troppo spazio.',
+	'tiff_script_detected' => 'Il file caricato contiene degli script.',
+	'tiff_bad_file' => 'Il file caricato contiene degli errori: $1',
+	'tiff-file-info-size' => '$1 × $2 pixel, dimensione del file: $3, tipo MIME: $4, $5 {{PLURAL:$5|pagina|pagine}}',
+);
+
 /** Japanese (日本語)
  * @author Aotake
  * @author Naohiro19
