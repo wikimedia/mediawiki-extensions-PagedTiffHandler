@@ -472,7 +472,7 @@ ImageMagick tidak tersedia.',
 	'tiff-file-info-size' => '$1 × $2 piksel, ukuran berkas: $3, tipe MIME: $4, $5 {{PLURAL:$5|halaman|halaman}}',
 );
 
-/** Italian (Italiano)
+/** Italian (italiano)
  * @author Beta16
  */
 $messages['it'] = array(
@@ -488,6 +488,8 @@ Nessuna anteprima verrà generata.',
 	'tiff_out_of_service' => 'Il file caricato non può essere elaborato.
 ImageMagick non è disponibile.',
 	'tiff_too_much_meta' => 'I metadati usano troppo spazio.',
+	'tiff_error_cached' => "Questo file può essere renderizzato solo dopo essere trascorso l'intervallo di caching.",
+	'tiff_size_error' => 'Le dimensioni del file segnalate non corrispondano alla dimensioni effettive del file.',
 	'tiff_script_detected' => 'Il file caricato contiene degli script.',
 	'tiff_bad_file' => 'Il file caricato contiene degli errori: $1',
 	'tiff-file-info-size' => '$1 × $2 pixel, dimensione del file: $3, tipo MIME: $4, $5 {{PLURAL:$5|pagina|pagine}}',
