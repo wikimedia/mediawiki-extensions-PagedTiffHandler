@@ -523,6 +523,7 @@ ImageMagick を利用できません。',
 
 /** Korean (한국어)
  * @author Kwj2772
+ * @author 아라
  */
 $messages['ko'] = array(
 	'tiff-desc' => 'TIFF 파일을 이미지 모드에서 볼 수 있도록 하는 핸들러',
@@ -531,7 +532,16 @@ $messages['ko'] = array(
 	'tiff_too_many_embed_files' => '이 이미지가 너무 많은 임베드 파일을 포함하고 있습니다.',
 	'tiff_sourcefile_too_large' => '원본 파일의 해상도가 너무 큽니다.
 섬네일이 생성되지 않을 것입니다.',
+	'tiff_targetfile_too_large' => '지정한 파일의 해상도가 너무 큽니다.
+섬네일이 생성되지 않을 것입니다.',
+	'tiff_file_too_large' => '올린 파일이 너무 커서 거부했습니다.',
+	'tiff_out_of_service' => '올린 파일을 처리하지 못했습니다.
+ImageMagick를 사용할 수 없습니다.',
 	'tiff_too_much_meta' => '메타데이터가 너무 많은 공간을 차지합니다.',
+	'tiff_error_cached' => '이 파일은 캐싱 간격 후에 다시 렌더링할 수 있습니다.',
+	'tiff_size_error' => '보고된 파일 크기는 실제 파일 크기와 일치하지 않습니다.',
+	'tiff_script_detected' => '올린 파일에 스크립트가 포함되어 있습니다.',
+	'tiff_bad_file' => '올린 파일에 오류가 포함되어 있습니다: $1',
 	'tiff-file-info-size' => '$1 × $2 픽셀, 파일 크기: $3, MIME 종류: $4, $5{{PLURAL:$5|페이지}}',
 );
 
