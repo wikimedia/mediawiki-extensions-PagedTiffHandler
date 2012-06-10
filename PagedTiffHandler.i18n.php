@@ -510,7 +510,7 @@ $messages['ja'] = array(
 	'tiff_too_many_embed_files' => 'この画像には埋め込みファイルが多すぎます。',
 	'tiff_sourcefile_too_large' => 'ソースファイルの解像度が大きすぎます。サムネイルは生成されません。',
 	'tiff_targetfile_too_large' => 'ターゲットファイルの解像度が大きすぎます。サムネイルは生成されません。',
-	'tiff_file_too_large' => 'アップロードされたファイルは容量が大きすぎるために拒否されました。',
+	'tiff_file_too_large' => 'サイズが大きすぎるため、アップロードされたファイルを却下しました。',
 	'tiff_out_of_service' => 'アップロードされたファイルを処理できませんでした。
 ImageMagick を利用できません。',
 	'tiff_too_much_meta' => 'メタデータが使用する容量が大きすぎます。',
