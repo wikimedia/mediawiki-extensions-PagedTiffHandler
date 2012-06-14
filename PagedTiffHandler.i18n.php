@@ -135,7 +135,7 @@ $messages['be-tarask'] = array(
 	'tiff-file-info-size' => '$1 × $2 піксэляў, памер файла: $3, тып MIME: $4, $5 {{PLURAL:$5|старонка|старонкі|старонак}}',
 );
 
-/** Breton (Brezhoneg)
+/** Breton (brezhoneg)
  * @author Fohanno
  * @author Fulup
  * @author Y-M D
@@ -157,7 +157,7 @@ $messages['br'] = array(
 	'tiff-file-info-size' => '$1 × $2 piksel, ment ar restr : $3, seurt MIME : $4, $5 {{PLURAL:$5|pajenn|pajenn}}',
 );
 
-/** Bosnian (Bosanski)
+/** Bosnian (bosanski)
  * @author CERminator
  */
 $messages['bs'] = array(
@@ -180,7 +180,7 @@ ImageMagick nije dostupan.',
 	'tiff-file-info-size' => '$1 × $2 piksela, veličina datoteka: $3, MIME vrsta: $4, $5 {{PLURAL:$5|stranica|stranice|stranica}}',
 );
 
-/** Danish (Dansk)
+/** Danish (dansk)
  * @author Peter Alberti
  */
 $messages['da'] = array(
@@ -255,7 +255,7 @@ $messages['el'] = array(
 	'tiff_file_too_large' => 'Το μεταφορτωμένο αρχείο είναι πολύ μεγάλο και απορρίφθηκε.',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Armando-Martin
  * @author Pertile
  * @author Sanbec
@@ -278,7 +278,7 @@ $messages['es'] = array(
 	'tiff-file-info-size' => '$1 × $2 píxeles, tamaño de archivo: $3, tipo de MIME: $4,  $5 {{PLURAL:$5|página|páginas}}',
 );
 
-/** Finnish (Suomi)
+/** Finnish (suomi)
  * @author Centerlink
  * @author Crt
  * @author Nike
@@ -293,7 +293,7 @@ $messages['fi'] = array(
 	'tiff_bad_file' => 'Tallennenttu tiedosto sisältää virheitä: $1',
 );
 
-/** French (Français)
+/** French (français)
  * @author Crochet.david
  * @author IAlex
  * @author Jagwar
@@ -318,7 +318,7 @@ $messages['fr'] = array(
 	'tiff-file-info-size' => '$1 × $2 pixels, taille du fichier : $3, type MIME: $4, $5 page{{PLURAL:$5||s}}',
 );
 
-/** Franco-Provençal (Arpetan)
+/** Franco-Provençal (arpetan)
  * @author ChrisPtDe
  */
 $messages['frp'] = array(
@@ -409,7 +409,7 @@ $messages['hsb'] = array(
 	'tiff-file-info-size' => '$1 × $2 pikselow, wulkosć dataje: $3, MIME-typ: $4, $5 {{PLURAL:$5|strona|stronje|strony|stronow}}',
 );
 
-/** Hungarian (Magyar)
+/** Hungarian (magyar)
  * @author BáthoryPéter
  * @author Dani
  * @author Glanthor Reviol
@@ -428,7 +428,7 @@ Az ImageMagick nem érhető el.',
 	'tiff-file-info-size' => '$5 oldal, $1 × $2 képpont, fájlméret: $3, MIME-típus: $4',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author McDutchie
  */
 $messages['ia'] = array(
@@ -584,7 +584,7 @@ $messages['lb'] = array(
 	'tiff-file-info-size' => '$1 × $2 Pixelen, Gréisst vum Fichier: $3, MIME Typ: $4, $5 {{PLURAL:$5|Säit|Säiten}}',
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
@@ -654,7 +654,7 @@ ImageMagick is niet beschikbaar.',
 	'tiff-file-info-size' => "$1 × $2 pixels, bestandsgrootte: $3, MIME-type: $4, $5 {{PLURAL:$5|pagina|pagina's}}",
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author Sp5uhe
  */
 $messages['pl'] = array(
@@ -697,7 +697,7 @@ $messages['pms'] = array(
 	'tiff-file-info-size' => "$1 x $2 pontin, dimension dl'archivi: $3, sòrt MIME: $4, $5 {{PLURAL:$5|pàgina|pàgine}}",
 );
 
-/** Portuguese (Português)
+/** Portuguese (português)
  * @author Hamilton Abreu
  */
 $messages['pt'] = array(
@@ -717,7 +717,7 @@ $messages['pt'] = array(
 	'tiff-file-info-size' => '$1 × $2 pixels, tamanho do ficheiro: $3, tipo MIME: $4, $5 {{PLURAL:$5|página|páginas}}',
 );
 
-/** Brazilian Portuguese (Português do Brasil)
+/** Brazilian Portuguese (português do Brasil)
  * @author 555
  * @author Giro720
  * @author Luckas Blade
@@ -742,7 +742,7 @@ ImageMagick não está disponível.',
 	'tiff-file-info-size' => '$1 × $2 pixels, tamanho do arquivo: $3, tipo MIME: $4, $5 {{PLURAL:$5|página|páginas}}',
 );
 
-/** Russian (Русский)
+/** Russian (русский)
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
@@ -762,7 +762,7 @@ $messages['ru'] = array(
 	'tiff-file-info-size' => '$1 × $2 пикселей, размер файла: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страницы|страниц}}',
 );
 
-/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
  * @author Rancher
  * @author Михајло Анђелковић
  */
@@ -780,7 +780,7 @@ $messages['sr-ec'] = array(
 	'tiff_bad_file' => 'Послата датотека садржи грешке: $1',
 );
 
-/** Serbian (Latin script) (‪Srpski (latinica)‬) */
+/** Serbian (Latin script) (‪srpski (latinica)‬) */
 $messages['sr-el'] = array(
 	'tiff_no_metadata' => 'Ne mogu se preuzeti metapodaci iz TIFF-a',
 	'tiff_page_error' => 'Broj strane nije u opsegu',
@@ -845,7 +845,7 @@ $messages['yi'] = array(
 	'tiff-file-info-size' => '$1 × $2 פיקסעלן, טעקע גרייס: $3, MIME טיפ: $4,  $5 {{PLURAL:$5|בלאט|בלעטער}}',
 );
 
-/** Simplified Chinese (‪中文(简体)‬) */
+/** Simplified Chinese (‪中文（简体）‬) */
 $messages['zh-hans'] = array(
 	'tiff_too_many_embed_files' => '该图像包含太多嵌入档案。',
 	'tiff_file_too_large' => '上传的档案过大而被拒绝。',
@@ -853,7 +853,7 @@ $messages['zh-hans'] = array(
 	'tiff_bad_file' => '上传的档案有错误：$1',
 );
 
-/** Traditional Chinese (‪中文(繁體)‬)
+/** Traditional Chinese (‪中文（繁體）‬)
  * @author Mark85296341
  */
 $messages['zh-hant'] = array(
