@@ -113,7 +113,7 @@ $messages['ba'] = array(
 	'tiff-file-info-size' => '$5 бите, $1 × $2 нөктә, файлдың дәүмәле: $3, MIME төрө: $4',
 );
 
-/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Wizardist
@@ -226,7 +226,7 @@ $messages['de'] = array(
 	'tiff-file-info-size' => '$1 × $2 Pixel, Dateigröße: $3, MIME-Typ: $4, Seiten: $5',
 );
 
-/** Lower Sorbian (Dolnoserbski)
+/** Lower Sorbian (dolnoserbski)
  * @author Michawiki
  */
 $messages['dsb'] = array(
@@ -325,7 +325,7 @@ $messages['frp'] = array(
 	'tiff_page_error' => 'Lo numerô de pâge est en defôr de la plage.',
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Toliño
  */
 $messages['gl'] = array(
@@ -389,7 +389,7 @@ $messages['he'] = array(
 	'tiff-file-info-size' => '$1 × $2 פיקסלים, גודל הקובץ: $3, סוג MIME‏: $4, {{PLURAL:$5|דף אחד|$5 דפים}}',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
