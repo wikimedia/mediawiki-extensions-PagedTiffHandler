@@ -301,6 +301,13 @@ $messages['es'] = array(
 	'tiff-file-info-size' => '$1 × $2 píxeles, tamaño de archivo: $3, tipo de MIME: $4,  $5 {{PLURAL:$5|página|páginas}}',
 );
 
+/** Estonian (eesti)
+ * @author Pikne
+ */
+$messages['et'] = array(
+	'tiff-desc' => 'Töötleja TIFF-failide vaatamiseks pildirežiimis',
+);
+
 /** Finnish (suomi)
  * @author Centerlink
  * @author Crt
@@ -834,7 +841,7 @@ $messages['tl'] = array(
 	'tiff_size_error' => 'Hindi tumutugma ang inulat na sukat ng talaksan sa talagang sukat ng talaksan.',
 	'tiff_script_detected' => 'Naglalaman ng mga baybayin ang ikinargang talaksan.',
 	'tiff_bad_file' => 'Naglalaman ng mga kamalian ang ikinargang talaksan: $1',
-	'tiff-file-info-size' => 'pahina $5, $1 × $2 piksel, sukat ng talaksan: $3, uri ng MIME: $4',
+	'tiff-file-info-size' => '$1 × $2 mga piksel, sukat ng talaksan: $3, uri ng MIME: $4, $5 {{PLURAL:$5|pahina|mga pahina}}',
 );
 
 /** Vietnamese (Tiếng Việt)
