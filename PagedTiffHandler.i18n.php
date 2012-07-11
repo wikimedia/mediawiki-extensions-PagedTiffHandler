@@ -91,7 +91,7 @@ $messages['af'] = array(
 	'tiff-file-info-size' => 'bladsy $5, $1 × $2 spikkels, lêergrootte: $3, MIME-tipe: $4',
 );
 
-/** Bashkir (Башҡортса)
+/** Bashkir (башҡортса)
  * @author Assele
  */
 $messages['ba'] = array(
@@ -641,7 +641,7 @@ $messages['ml'] = array(
 	'tiff-desc' => 'ടിഫ് (TIFF) പ്രമാണങ്ങൾ ചിത്രരൂപത്തിൽ കാണുന്നതിനുള്ള കൈകാര്യോപകരണം',
 );
 
-/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+/** Norwegian Bokmål (‪norsk (bokmål)‬)
  * @author Nghtwlkr
  */
 $messages['nb'] = array(
