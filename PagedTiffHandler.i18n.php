@@ -772,6 +772,13 @@ ImageMagick não está disponível.',
 	'tiff-file-info-size' => '$1 × $2 pixels, tamanho do arquivo: $3, tipo MIME: $4, $5 {{PLURAL:$5|página|páginas}}',
 );
 
+/** Romanian (română)
+ * @author Stelistcristi
+ */
+$messages['ro'] = array(
+	'tiff_too_much_meta' => 'Metadatele utilizează prea mult spațiu.',
+);
+
 /** Russian (русский)
  * @author Александр Сигачёв
  */
