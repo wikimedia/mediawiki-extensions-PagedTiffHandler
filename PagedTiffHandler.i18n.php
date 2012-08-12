@@ -551,6 +551,13 @@ ImageMagick を利用できません。',
 	'tiff-file-info-size' => '$1 × $2 ピクセル、ファイルサイズ : $3 、MIMEタイプ : $4 、 $5 {{PLURAL:$5|ページ|ページ}}',
 );
 
+/** Georgian (ქართული)
+ * @author David1010
+ */
+$messages['ka'] = array(
+	'tiff_page_error' => 'გვერდის ნომერი არ არის დიაპაზონში',
+);
+
 /** Korean (한국어)
  * @author Kwj2772
  * @author 아라
