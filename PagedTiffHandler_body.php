@@ -472,7 +472,7 @@ class PagedTiffHandler extends ImageHandler {
 
 
 		return new MediaTransformError( 'thumbnail_error',
-			$width, $height, wfMsg( $msg ) );
+			$width, $height, wfMessage( $msg )->text() );
 	}
 
 	/**
@@ -505,15 +505,15 @@ class PagedTiffHandler extends ImageHandler {
 		$metadata = $this->getMetaArray( $image );
 		if ( $metadata ) {
 
-			return wfMsgExt(
-				'tiff-file-info-size',
-				'parseinline',
-				$wgLang->formatNum( $metadata['page_data'][$page]['width'] ),
-				$wgLang->formatNum( $metadata['page_data'][$page]['height'] ),
+			return wfMessage( 'tiff-file-info-size' )
+			->numParams(
+				$metadata['page_data'][$page]['width'],
+				$metadata['page_data'][$page]['height']
+			)->params(
 				$wgLang->formatSize( $image->getSize() ),
-				$image->getMimeType(),
-				$wgLang->formatNum( $metadata['page_count'] )
-			);
+				$image->getMimeType()
+			)->numParams( $metadata['page_count']
+			)->parse();
 		}
 		return true;
 	}
@@ -547,7 +547,7 @@ class PagedTiffHandler extends ImageHandler {
 	 */
 	function visibleMetadataFields() {
 		$fields = array();
-		$lines = explode( "\n", wfMsg( 'metadata-fields' ) );
+		$lines = explode( "\n", wfMessage( 'metadata-fields' )->text() );
 		foreach ( $lines as $line ) {
 			$matches = array();
 			if ( preg_match( '/^\\*\s*(.*?)\s*$/', $line, $matches ) ) {
@@ -641,6 +641,7 @@ class PagedTiffHandler extends ImageHandler {
 	 * Returns a PagedTiffImage or creates a new one if it doesn't exist.
 	 * @param $image Image: The image object, or false if there isn't one
 	 * @param $path String: path to the image?
+	 * @return PagedTiffImage
 	 */
 	static function getTiffImage( $image, $path ) {
 		// If no Image object is passed, a TiffImage is created based on $path .
@@ -700,6 +701,7 @@ class PagedTiffHandler extends ImageHandler {
 	 * 
 	 * @param $thumbname string URL-decoded basename of URI
 	 * @param &$params Array Currently parsed thumbnail params
+	 * @return bool
 	 */
 	public static function onExtractThumbParameters( $thumbname, array &$params ) {
 		if ( !preg_match( '/\.(?:tiff|tif)$/i', $params['f'] ) ) {

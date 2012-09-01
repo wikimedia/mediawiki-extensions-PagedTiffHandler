@@ -241,7 +241,7 @@ class PagedTiffHandlerTest extends PHPUnit_Framework_TestCase {
 		// doTransform
 		$this->handler->doTransform( $this->multipage_image, $this->test_path, 'Test.tif', array( 'width' => 100, 'height' => 100 ) ); 
 		$error = $this->handler->doTransform( wfFindFile( Title::newFromText( 'Image:Truncated.tiff' ) ), $this->truncated_path, 'Truncated.tiff', array( 'width' => 100, 'height' => 100 ) );
-		$this->assertEquals( $error->textMsg, wfMsg( 'thumbnail_error', wfMsg( 'tiff_bad_file' ) ) );
+		$this->assertEquals( $error->textMsg, wfMessage( 'thumbnail_error', wfMessage( 'tiff_bad_file' )->text() )->text() );
 
 		// ---- Image information
 		// getThumbType
@@ -255,10 +255,10 @@ class PagedTiffHandlerTest extends PHPUnit_Framework_TestCase {
 
 		// getLongDesc
 		if ( $wgLanguageCode == 'de' ) {
-			$this->assertEquals( $this->handler->getLongDesc( $this->multipage_image ), wfMsg( 'tiff-file-info-size', '1.024', '768', '2,64 MB', 'image/tiff', '7' ) );
+			$this->assertEquals( $this->handler->getLongDesc( $this->multipage_image ), wfMessage( 'tiff-file-info-size', '1.024', '768', '2,64 MB', 'image/tiff', '7' )->text() );
 		} else {
 			// English
-			$this->assertEquals( $this->handler->getLongDesc( $this->multipage_image ), wfMsg( 'tiff-file-info-size', '1,024', '768', '2.64 MB', 'image/tiff', '7' ) );
+			$this->assertEquals( $this->handler->getLongDesc( $this->multipage_image ), wfMessage( 'tiff-file-info-size', '1,024', '768', '2.64 MB', 'image/tiff', '7' )->text() );
 		}
 		
 		// pageCount
