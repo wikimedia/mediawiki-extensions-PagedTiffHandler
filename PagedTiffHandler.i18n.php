@@ -873,6 +873,13 @@ $messages['tl'] = array(
 	'tiff-file-info-size' => '$1 × $2 mga piksel, sukat ng talaksan: $3, uri ng MIME: $4, $5 {{PLURAL:$5|pahina|mga pahina}}',
 );
 
+/** Ukrainian (українська)
+ * @author Base
+ */
+$messages['uk'] = array(
+	'tiff-file-info-size' => '$1 × $2 пікселів, розмір файлу: $3, MIME-тип: $4, $5 {{PLURAL:$5|сторінка|сторінки|сторінок}}',
+);
+
 /** Vietnamese (Tiếng Việt)
  * @author Kaganer
  * @author Minh Nguyen
