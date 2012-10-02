@@ -113,7 +113,7 @@ $messages['ba'] = array(
 	'tiff-file-info-size' => '$5 бите, $1 × $2 нөктә, файлдың дәүмәле: $3, MIME төрө: $4',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Wizardist
@@ -663,7 +663,7 @@ $messages['ml'] = array(
 	'tiff-desc' => 'ടിഫ് (TIFF) പ്രമാണങ്ങൾ ചിത്രരൂപത്തിൽ കാണുന്നതിനുള്ള കൈകാര്യോപകരണം',
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬)
+/** Norwegian Bokmål (norsk (bokmål)‎)
  * @author Nghtwlkr
  */
 $messages['nb'] = array(
@@ -821,7 +821,7 @@ $messages['ru'] = array(
 	'tiff-file-info-size' => '$1 × $2 пикселей, размер файла: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страницы|страниц}}',
 );
 
-/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (српски (ћирилица)‎)
  * @author Rancher
  * @author Михајло Анђелковић
  */
@@ -839,7 +839,7 @@ $messages['sr-ec'] = array(
 	'tiff_bad_file' => 'Послата датотека садржи грешке: $1',
 );
 
-/** Serbian (Latin script) (‪srpski (latinica)‬) */
+/** Serbian (Latin script) (srpski (latinica)‎) */
 $messages['sr-el'] = array(
 	'tiff_no_metadata' => 'Ne mogu se preuzeti metapodaci iz TIFF-a',
 	'tiff_page_error' => 'Broj strane nije u opsegu',
@@ -911,7 +911,7 @@ $messages['yi'] = array(
 	'tiff-file-info-size' => '$1 × $2 פיקסעלן, טעקע גרייס: $3, MIME טיפ: $4,  $5 {{PLURAL:$5|בלאט|בלעטער}}',
 );
 
-/** Simplified Chinese (‪中文（简体）‬) */
+/** Simplified Chinese (中文（简体）‎) */
 $messages['zh-hans'] = array(
 	'tiff_too_many_embed_files' => '该图像包含太多嵌入档案。',
 	'tiff_file_too_large' => '上传的档案过大而被拒绝。',
@@ -919,7 +919,7 @@ $messages['zh-hans'] = array(
 	'tiff_bad_file' => '上传的档案有错误：$1',
 );
 
-/** Traditional Chinese (‪中文（繁體）‬)
+/** Traditional Chinese (中文（繁體）‎)
  * @author Mark85296341
  */
 $messages['zh-hant'] = array(
