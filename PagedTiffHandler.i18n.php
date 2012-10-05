@@ -535,8 +535,8 @@ ImageMagick non è disponibile.',
  */
 $messages['ja'] = array(
 	'tiff-desc' => 'TIFFファイルの画像モードを表示するためのハンドラ',
-	'tiff_no_metadata' => 'TIFFからメタデータを取得できません',
-	'tiff_page_error' => '範囲にないページ番号',
+	'tiff_no_metadata' => 'TIFF ファイルからメタデータを取得できません',
+	'tiff_page_error' => 'ページ番号が正しい範囲内にありません',
 	'tiff_too_many_embed_files' => 'この画像には埋め込みファイルが多すぎます。',
 	'tiff_sourcefile_too_large' => 'ソースファイルの解像度が大きすぎます。サムネイルは生成されません。',
 	'tiff_targetfile_too_large' => 'ターゲットファイルの解像度が大きすぎます。サムネイルは生成されません。',
