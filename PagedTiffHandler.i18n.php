@@ -534,7 +534,7 @@ ImageMagick non è disponibile.',
  * @author 青子守歌
  */
 $messages['ja'] = array(
-	'tiff-desc' => 'TIFFファイルの画像モードを表示するためのハンドラ',
+	'tiff-desc' => '画像モードで TIFF ファイルを表示するためのハンドラー',
 	'tiff_no_metadata' => 'TIFF ファイルからメタデータを取得できません',
 	'tiff_page_error' => 'ページ番号が正しい範囲内にありません',
 	'tiff_too_many_embed_files' => 'この画像には埋め込みファイルが多すぎます。',
