@@ -530,11 +530,11 @@ class PagedTiffHandler extends ImageHandler {
 
 		if ( $metadata ) {
 			$params = array(
-				'width' => $metadata['page_data'][$page]['width'],
-				'height' => $metadata['page_data'][$page]['height'],
+				'width' => intval( $metadata['page_data'][$page]['width'] ),
+				'height' => intval( $metadata['page_data'][$page]['height'] ),
 				'size' => intval( $wgLang->formatSize( $image->getSize() ) ), // could be 'false' otherwise
 				'mime' => $image->getMimeType(),
-				'page_count' => $metadata['page_count'],
+				'page_count' => intval( $metadata['page_count'] )
 			);
 
 			foreach( $params as $key => $value ) {
