@@ -232,7 +232,9 @@ class PagedTiffImage {
 				}
 			}
 
-			if ( $error ) continue;
+			if ( $error ) {
+				continue;
+			}
 
 			$m = array();
 
@@ -409,11 +411,11 @@ class PagedTiffInfoParserState {
 	var $prevPage;
 
 	function __construct() {
-	    $this->metadata = array();
-	    $this->page = array();
-	    $this->prevPage = 0;
+		$this->metadata = array();
+		$this->page = array();
+		$this->prevPage = 0;
 
-	    $this->metadata['page_data'] = array();
+		$this->metadata['page_data'] = array();
 	}
 
 	function finish( $finishPage = true ) {

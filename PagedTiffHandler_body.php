@@ -21,10 +21,17 @@
  */
 
 class PagedTiffHandler extends ImageHandler {
+
+	/**
+	 * @return bool
+	 */
 	function isEnabled() {
 		return true;
 	}
 
+	/**
+	 * @return bool
+	 */
 	function mustRender( $img ) {
 		return true;
 	}
@@ -82,6 +89,11 @@ class PagedTiffHandler extends ImageHandler {
 		return $status;
 	}
 
+	/**
+	 * @param $meta array
+	 * @param $error array
+	 * @return bool
+	 */
 	static function verifyMetaData( $meta, &$error ) {
 		global $wgTiffMaxEmbedFiles, $wgTiffMaxMetaSize;
 
@@ -226,6 +238,10 @@ class PagedTiffHandler extends ImageHandler {
 		return true;
 	}
 
+	/**
+	 * @param $metadata array
+	 * @return bool
+	 */
 	static function getMetadataErrors( $metadata ) {
 		if ( is_string( $metadata ) ) {
 			$metadata = unserialize( $metadata );
@@ -240,6 +256,11 @@ class PagedTiffHandler extends ImageHandler {
 		}
 	}
 
+	/**
+	 * @param $errors_raw array
+	 * @param $to_html bool
+	 * @return bool|string
+	 */
 	static function joinMessages( $errors_raw, $to_html = true ) {
 		if ( is_array( $errors_raw ) ) {
 			if ( !$errors_raw ) {
@@ -378,9 +399,12 @@ class PagedTiffHandler extends ImageHandler {
 
 	/**
 	 * Get the thumbnail extension and MIME type for a given source MIME type
+	 * @param $ext
+	 * @param $mime
+	 * @param $params array
 	 * @return array thumbnail extension and MIME type
 	 */
-	function getThumbType( $ext, $mime, $params=null ) {
+	function getThumbType( $ext, $mime, $params = null ) {
 		// Make sure the file is actually a tiff image
 		$tiffImageThumbType = parent::getThumbType( $ext, $mime, $params );
 		if ( $tiffImageThumbType[1] !== 'image/tiff' ) {
@@ -388,7 +412,7 @@ class PagedTiffHandler extends ImageHandler {
 			return $tiffImageThumbType;
 		}
 
-		if ( $params[ 'lossy' ] == 'lossy' ) {
+		if ( $params['lossy'] == 'lossy' ) {
 			return array( 'jpg', 'image/jpeg' );
 		} else {
 			return array( 'png', 'image/png' );
@@ -478,7 +502,7 @@ class PagedTiffHandler extends ImageHandler {
 	/**
 	 * Get handler-specific metadata which will be saved in the img_metadata field.
 	 *
-	 * @param $image Image: the image object, or false if there isn't one
+	 * @param $image File|bool: the image object, or false if there isn't one
 	 * @param $path String: path to the image?
 	 * @return string
 	 */
@@ -587,8 +611,10 @@ class PagedTiffHandler extends ImageHandler {
 	 * visible, and the collapsed fields are optionally visible.
 	 *
 	 * The function should return false if there is no metadata to display.
+	 *
+	 * @param $image File
+	 * @return array|bool
 	 */
-
 	function formatMetadata( $image ) {
 		$result = array(
 			'visible' => array(),
@@ -651,7 +677,7 @@ class PagedTiffHandler extends ImageHandler {
 
 	/**
 	 * Returns a PagedTiffImage or creates a new one if it doesn't exist.
-	 * @param $image Image: The image object, or false if there isn't one
+	 * @param $image File|bool: The image object, or false if there isn't one
 	 * @param $path String: path to the image?
 	 * @return PagedTiffImage
 	 */
@@ -672,6 +698,9 @@ class PagedTiffHandler extends ImageHandler {
 
 	/**
 	 * Returns an Array with the Image metadata.
+	 *
+	 * @param $image File
+	 * @return bool|null|array
 	 */
 	function getMetaArray( $image ) {
 		if ( isset( $image->tiffMetaArray ) ) {
