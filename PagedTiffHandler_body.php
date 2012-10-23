@@ -499,22 +499,34 @@ class PagedTiffHandler extends ImageHandler {
 	 */
 	function getLongDesc( $image ) {
 		global $wgLang, $wgRequest;
+
 		$page = $wgRequest->getText( 'page', 1 );
 		$page = $this->adjustPage( $image, $page );
-
 		$metadata = $this->getMetaArray( $image );
-		if ( $metadata ) {
 
+		if ( $metadata ) {
+			$params = array(
+				'width' => $metadata['page_data'][$page]['width'],
+				'height' => $metadata['page_data'][$page]['height'],
+				'size' => intval( $wgLang->formatSize( $image->getSize() ) ), // could be 'false' otherwise
+				'mime' => $image->getMimeType(),
+				'page_count' => $metadata['page_count'],
+			);
+
+			foreach( $params as $key => $value ) {
+				if( is_array( $value ) ) {
+					throw new MWException( "Parameter {$key} is array" );
+				}
+			}
+
+			// $1 × $2 pixels, file size: $3, MIME type: $4, $5 pages
 			return wfMessage( 'tiff-file-info-size' )
-			->numParams(
-				$metadata['page_data'][$page]['width'],
-				$metadata['page_data'][$page]['height']
-			)->params(
-				$wgLang->formatSize( $image->getSize() ),
-				$image->getMimeType()
-			)->numParams( $metadata['page_count']
-			)->parse();
+				->numParams( $params['width'], $params['height'] )
+				->params( $params['size'], $params['mime'] )
+				->numParams( $params['page_count'] )
+				->parse();
 		}
+
 		return true;
 	}
 
