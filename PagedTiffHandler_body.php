@@ -532,16 +532,10 @@ class PagedTiffHandler extends ImageHandler {
 			$params = array(
 				'width' => intval( $metadata['page_data'][$page]['width'] ),
 				'height' => intval( $metadata['page_data'][$page]['height'] ),
-				'size' => intval( $wgLang->formatSize( $image->getSize() ) ), // could be 'false' otherwise
+				'size' => $wgLang->formatSize( $image->getSize() ),
 				'mime' => $image->getMimeType(),
 				'page_count' => intval( $metadata['page_count'] )
 			);
-
-			foreach( $params as $key => $value ) {
-				if( is_array( $value ) ) {
-					throw new MWException( "Parameter {$key} is array" );
-				}
-			}
 
 			// $1 × $2 pixels, file size: $3, MIME type: $4, $5 pages
 			return wfMessage( 'tiff-file-info-size' )
