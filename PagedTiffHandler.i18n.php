@@ -893,12 +893,25 @@ $messages['yi'] = array(
 );
 
 /** Simplified Chinese (中文（简体）‎)
+ * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
+	'tiff-desc' => '在图像模式中查看TIFF文件的处理程序',
+	'tiff_no_metadata' => '无法从TIFF获取元数据',
+	'tiff_page_error' => '页码不在范围内',
 	'tiff_too_many_embed_files' => '该图像包含太多嵌入档案。',
+	'tiff_sourcefile_too_large' => '源文件的分辨率太大。
+将不生成缩略图。',
+	'tiff_targetfile_too_large' => '目标文件的分辨率太大。
+将不生成缩略图。',
 	'tiff_file_too_large' => '上传的档案过大而被拒绝。',
+	'tiff_out_of_service' => '上传的文件无法被处理。
+ImageMagick 不可用。',
 	'tiff_too_much_meta' => '元数据占用太多的空间。',
+	'tiff_size_error' => '报告的文件大小与实际文件大小不匹配。',
+	'tiff_script_detected' => '上传的文件包含脚本。',
 	'tiff_bad_file' => '上传的档案有错误：$1',
+	'tiff-file-info-size' => '$1 × $2 像素，文件大小: $3，MIME类型: $4, $5 个页面',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
