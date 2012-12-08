@@ -338,6 +338,11 @@ class PagedTiffImage {
 
 		$infos = null;
 		preg_match_all( '/\[BEGIN\](.+?)\[END\]/si', $dump, $infos, PREG_SET_ORDER );
+		// ImageMagick < 6.6.8-10 starts page numbering at 1; >= 6.6.8-10 starts at zero. Handle both
+		// and map to one-based page numbers (which are assumed in various other parts of the support
+		// for displaying multi-page files).
+		$pageSeen = false;
+		$pageOffset = 0;
 		foreach ( $infos as $info ) {
 			$state->resetPage();
 			$lines = explode( "\n", $info[1] );
@@ -346,11 +351,13 @@ class PagedTiffImage {
 					continue;
 				}
 				$parts = explode( '=', $line );
-				if ( trim( $parts[0] ) == 'alpha' && trim( $parts[1] ) == '%A' ) {
+				$key = trim( $parts[0] );
+				$value = trim( $parts[1] );
+				if ( $key === 'alpha' && $value === '%A' ) {
 					continue;
 				}
-				if ( trim( $parts[0] ) == 'alpha2' && !$state->hasPageProperty( 'alpha' ) ) {
-					switch( trim( $parts[1] ) ) {
+				if ( $key === 'alpha2' && !$state->hasPageProperty( 'alpha' ) ) {
+					switch( $value ) {
 						case 'DirectClassRGBMatte':
 						case 'DirectClassRGBA':
 							$state->setPageProperty('alpha', 'true');
@@ -361,7 +368,16 @@ class PagedTiffImage {
 					}
 					continue;
 				}
-				$state->setPageProperty( trim( $parts[0] ), trim( $parts[1] ) );
+				if ( $key === 'page' ) {
+					if ( !$pageSeen ) {
+						$pageSeen = true;
+						$pageOffset = 1 - intval( $value );
+					}
+					if ( $pageOffset !== 0 ) {
+						$value = intval( $value ) + $pageOffset;
+					}
+				}
+				$state->setPageProperty( $key, $value );
 			}
 			$state->finishPage();
 		}
