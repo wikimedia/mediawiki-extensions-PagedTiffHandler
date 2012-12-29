@@ -801,6 +801,13 @@ $messages['ru'] = array(
 	'tiff-file-info-size' => '$1 × $2 пикселей, размер файла: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страницы|страниц}}',
 );
 
+/** Sinhala (සිංහල)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['si'] = array(
+	'tiff_page_error' => 'පිටු අංකය පරාසයේ නොමැත',
+);
+
 /** Serbian (Cyrillic script) (српски (ћирилица)‎)
  * @author Rancher
  * @author Михајло Анђелковић
@@ -856,8 +863,11 @@ $messages['tl'] = array(
 
 /** Ukrainian (українська)
  * @author Base
+ * @author Steve.rusyn
  */
 $messages['uk'] = array(
+	'tiff_script_detected' => 'Завантажений файл містить скрипти.',
+	'tiff_bad_file' => 'Завантажений файл містить помилки: $1',
 	'tiff-file-info-size' => '$1 × $2 пікселів, розмір файлу: $3, MIME-тип: $4, $5 {{PLURAL:$5|сторінка|сторінки|сторінок}}',
 );
 
