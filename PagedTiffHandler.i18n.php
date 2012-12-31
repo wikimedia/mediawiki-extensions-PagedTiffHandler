@@ -806,6 +806,7 @@ $messages['ru'] = array(
  */
 $messages['si'] = array(
 	'tiff_page_error' => 'පිටු අංකය පරාසයේ නොමැත',
+	'tiff_too_much_meta' => 'පාරදත්ත ගොඩක් ඉඩකඩ භාවිතා කරයි.',
 );
 
 /** Serbian (Cyrillic script) (српски (ћирилица)‎)
