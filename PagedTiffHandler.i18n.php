@@ -32,11 +32,12 @@ ImageMagick is not available.',
 );
 
 /** Message documentation (Message documentation)
+ * @author Shirayuki
  * @author Siebrand
  * @author The Evil IP address
  */
 $messages['qqq'] = array(
-	'tiff-desc' => '{{desc}}',
+	'tiff-desc' => '{{desc|name=Paged Tiff Handler|url=http://www.mediawiki.org/wiki/Extension:PagedTiffHandler}}',
 	'tiff_no_metadata' => 'Error message shown when no metadata extraction is not possible',
 	'tiff_page_error' => 'Error message shown when page number is out of range',
 	'tiff_too_many_embed_files' => 'Error message shown when the uploaded image contains too many embedded files.',
