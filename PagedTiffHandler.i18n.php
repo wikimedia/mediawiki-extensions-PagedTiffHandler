@@ -783,6 +783,13 @@ $messages['ro'] = array(
 	'tiff_too_much_meta' => 'Metadatele utilizează prea mult spațiu.',
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'tiff_page_error' => "Numere de pàgene non ge ste jndr'à l'indervalle",
+);
+
 /** Russian (русский)
  * @author Александр Сигачёв
  */
