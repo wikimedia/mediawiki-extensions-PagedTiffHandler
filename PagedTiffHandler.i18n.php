@@ -72,6 +72,26 @@ $messages['af'] = array(
 	'tiff-file-info-size' => 'bladsy $5, $1 × $2 spikkels, lêergrootte: $3, MIME-tipe: $4', # Fuzzy
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'tiff-desc' => "Xestor pa ver los ficheros TIFF en mou d'imaxe",
+	'tiff_no_metadata' => 'Nun se pudieron sacar los metadatos del TIFF',
+	'tiff_page_error' => 'El númberu de la páxina nun ta nel rangu',
+	'tiff_too_many_embed_files' => 'La imaxe contien demasiaos ficheros incrustaos.',
+	'tiff_sourcefile_too_large' => 'La resolución del ficheru orixinal ye enforma grande. Nun se xenerarán miniatures.',
+	'tiff_targetfile_too_large' => 'La resolución del ficheru destín ye enforma grande. Nun se xenerarán miniatures.',
+	'tiff_file_too_large' => 'El ficheru cargáu ye mui grande y refugóse.',
+	'tiff_out_of_service' => 'El ficheru cargáu nun pudo procesase. ImageMagick nun ta disponible.',
+	'tiff_too_much_meta' => 'Los metadatos usan demasiáu espaciu.',
+	'tiff_error_cached' => 'Esti ficheru sólo pue volver a renderizase dempués del intervalu de la caché.',
+	'tiff_size_error' => 'El tamañu del ficheru espublizáu nun casa col tamañu real del ficheru.',
+	'tiff_script_detected' => 'El ficheru cargáu contien scripts.',
+	'tiff_bad_file' => 'El ficheru cargáu contien errores: $1',
+	'tiff-file-info-size' => '$1 × $2 pixels, tamañu del ficheru: $3, tipu MIME: $4, $5 {{PLURAL:$5|páxina|páxines}}',
+);
+
 /** Bashkir (башҡортса)
  * @author Assele
  */
@@ -935,9 +955,11 @@ ImageMagick 不可用。',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
+ * @author Justincheng12345
  * @author Mark85296341
  */
 $messages['zh-hant'] = array(
+	'tiff-desc' => '於圖片模式中查看TIFF檔案的處理器',
 	'tiff_too_many_embed_files' => '該圖像包含太多嵌入檔案。',
 	'tiff_file_too_large' => '上傳的檔案過大而被拒絕。',
 	'tiff_too_much_meta' => '元數據佔用太多的空間。',
