@@ -807,7 +807,9 @@ $messages['ro'] = array(
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
+	'tiff_no_metadata' => 'Non ge pozze pigghià metadate da TIFF',
 	'tiff_page_error' => "Numere de pàgene non ge ste jndr'à l'indervalle",
+	'tiff_too_many_embed_files' => "L'immaggine tène troppe file 'ngapsulate.",
 );
 
 /** Russian (русский)
