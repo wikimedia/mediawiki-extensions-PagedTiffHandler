@@ -962,9 +962,18 @@ ImageMagick 不可用。',
  */
 $messages['zh-hant'] = array(
 	'tiff-desc' => '於圖片模式中查看TIFF檔案的處理器',
+	'tiff_no_metadata' => '無法從TIFF中擷取元數據',
+	'tiff_page_error' => '頁碼不在範圍內',
 	'tiff_too_many_embed_files' => '該圖像包含太多嵌入檔案。',
+	'tiff_sourcefile_too_large' => '源檔案分辨率過高。無法生成縮略圖。',
+	'tiff_targetfile_too_large' => '目標檔案分辨率過高。無法生成縮略圖。',
 	'tiff_file_too_large' => '上傳的檔案過大而被拒絕。',
+	'tiff_out_of_service' => '上傳檔案無法處理。
+ImageMagick不可用。',
 	'tiff_too_much_meta' => '元數據佔用太多的空間。',
+	'tiff_error_cached' => '此檔案只有於緩存間隔後少會重新呈現。',
+	'tiff_size_error' => '報告檔案大小與實際檔案大小不匹配。',
+	'tiff_script_detected' => '上載的檔案包含程式碼。',
 	'tiff_bad_file' => '上傳的檔案有錯誤：$1',
-	'tiff-file-info-size' => '$5 頁面，$1 × $2 像素，檔案大小：$3，MIME類型：$4', # Fuzzy
+	'tiff-file-info-size' => '$1×$2像素，檔案大小：$3，MIME類型：$4，$5頁',
 );
