@@ -181,6 +181,13 @@ ImageMagick nije dostupan.',
 	'tiff-file-info-size' => '$1 × $2 piksela, veličina datoteka: $3, MIME vrsta: $4, $5 {{PLURAL:$5|stranica|stranice|stranica}}',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'tiff-file-info-size' => '$1 × $2 пикселш, файлан барам: $3, MIME-тайп: $4, $5 {{PLURAL:$5|агӀо|агӀонаш}}',
+);
+
 /** Czech (česky)
  * @author Mormegil
  */
@@ -807,9 +814,11 @@ $messages['ro'] = array(
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
+	'tiff-desc' => "Gestore pe vedè le file TIFF cumme 'n'immaggine",
 	'tiff_no_metadata' => 'Non ge pozze pigghià metadate da TIFF',
 	'tiff_page_error' => "Numere de pàgene non ge ste jndr'à l'indervalle",
 	'tiff_too_many_embed_files' => "L'immaggine tène troppe file 'ngapsulate.",
+	'tiff_too_much_meta' => "'U metadate ause troppe spazie.",
 );
 
 /** Russian (русский)
