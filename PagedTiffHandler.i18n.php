@@ -568,7 +568,7 @@ ImageMagick を利用できません。',
 	'tiff_size_error' => '報告されたファイルサイズが実際のサイズと一致しません。',
 	'tiff_script_detected' => 'アップロードされたファイルはスクリプトを含んでいます。',
 	'tiff_bad_file' => 'アップロードされたファイルにエラーがあります: $1',
-	'tiff-file-info-size' => '$1 × $2 ピクセル、ファイルサイズ: $3 、MIME タイプ: $4、 $5 {{PLURAL:$5|ページ|ページ}}',
+	'tiff-file-info-size' => '$1 × $2 ピクセル、ファイルサイズ: $3 、MIME タイプ: $4、 $5 {{PLURAL:$5|ページ}}',
 );
 
 /** Georgian (ქართული)
