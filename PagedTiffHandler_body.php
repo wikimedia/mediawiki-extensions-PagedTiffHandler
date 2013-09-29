@@ -20,7 +20,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-class PagedTiffHandler extends ImageHandler {
+class PagedTiffHandler extends TransformationalImageHandler {
 	const EXPENSIVE_SIZE_LIMIT = 10485760; // TIFF files over 10M are considered expensive to thumbnail
 
 	/**
@@ -217,14 +217,10 @@ class PagedTiffHandler extends ImageHandler {
 	 * Adds normalisation for parameter "lossy".
 	 */
 	function normaliseParams( $image, &$params ) {
-		global $wgMaxImageArea, $wgTiffUseVips;
-		if ( !parent::normaliseParams( $image, $params ) ) {
-			return false;
-		}
-
-		$data = $this->getMetaArray( $image );
-		if ( !$data ) {
-			return false;
+		if ( isset( $params['page'] ) ) {
+			$params['page'] = $this->adjustPage( $image, $params['page'] );
+		} else {
+			$params['page'] = $this->firstPage( $image );
 		}
 
 		if ( isset( $params['lossy'] ) ) {
@@ -234,23 +230,20 @@ class PagedTiffHandler extends ImageHandler {
 				$params['lossy'] = 'lossless';
 			}
 		} else {
-			$page = $this->adjustPage( $image, $params['page'] );
+			$page = $params['page'];
+			$data = $this->getMetaArray( $image );
 
-			if ( ( strtolower( $data['page_data'][$page]['alpha'] ) == 'true' ) ) {
+			if ( !$this->isMetadataError( $data )
+				&& strtolower( $data['page_data'][$page]['alpha'] ) == 'true'
+			) {
+				// If there is an alpha channel, use png.
 				$params['lossy'] = 'lossless';
 			} else {
 				$params['lossy'] = 'lossy';
 			}
 		}
 
-		if ( !$wgTiffUseVips ) {
-			$originalArea = $image->getWidth( $params['page'] ) * $image->getHeight( $params['page'] );
-			if ( $originalArea > $wgMaxImageArea ) {
-				return false;
-			}
-		}
-
-		return true;
+		return parent::normaliseParams( $image, $params );
 	}
 
 	/**
@@ -268,6 +261,20 @@ class PagedTiffHandler extends ImageHandler {
 			return $metadata[ 'errors' ];
 		} else {
 			return false;
+		}
+	}
+
+	/**
+	 * Is metadata an error condition?
+	 * @param Array|string|boolean Metadata to test
+	 * @return boolean True if metadata is an error, false if it has normal info
+	 */
+	private function isMetadataError( $metadata ) {
+		$errors = self::getMetadataErrors( $metadata );
+		if ( is_array( $errors ) ) {
+			return true;
+		} else {
+			$errors;
 		}
 	}
 
@@ -309,124 +316,89 @@ class PagedTiffHandler extends ImageHandler {
 	}
 
 	/**
-	 * Checks whether a thumbnail with the requested file type and resolution exists,
-	 * creates it if necessary, unless self::TRANSFORM_LATER is set in $flags.
-	 * Supports extra parameters for multipage files and thumbnail type (lossless vs. lossy)
+	 * What method to use to scale this file
+	 *
+	 * @see TransformationalImageHandler::getScalerType
+	 * @param $dstPath string Path to store thumbnail
+	 * @param $checkDstPath boolean Whether to verify destination path exists
+	 * @return Callable Transform function to call.
 	 */
-	function doTransform( $image, $dstPath, $dstUrl, $params, $flags = 0 ) {
-		global $wgImageMagickConvertCommand, $wgMaxImageAreaForVips,
-			$wgTiffUseVips, $wgTiffVipsCommand, $wgMaxImageArea;
+	protected function getScalerType( $dstPath, $checkDstPath = true ) {
+		if ( !$dstPath && $checkDstPath ) {
+			// We don't have the option of doing client side scaling for this filetype.
+			throw new MWException( "Cannot create thumbnail, no destination path" );
+		}
 
-		$meta = $this->getMetaArray( $image );
+		return array( $this, 'transformIM' );
+	}
+
+	/**
+	 * Actually scale the file (using ImageMagick).
+	 *
+	 * @param File $file File object
+	 * @param Array $scalerParams Scaling options (see TransformationalImageHandler::doTransform)
+	 * @return Boolean|MediaTransformError False on success, an instance of MediaTransformError otherwise.
+	 * @note Success is noted by $scalerParams['dstPath'] no longer being a 0 byte file.
+	 */
+	protected function transformIM( $file, $scalerParams ) {
+		global $wgImageMagickConvertCommand, $wgMaxImageArea;
+
+		$meta = $this->getMetaArray( $file );
+
 		$errors = PagedTiffHandler::getMetadataErrors( $meta );
 
 		if ( $errors ) {
 			$errors = PagedTiffHandler::joinMessages( $errors );
 			if ( is_string( $errors ) ) {
 				// TODO: original error as param // TESTME
-				return $this->doThumbError( $params, 'tiff_bad_file' );
+				return $this->doThumbError( $scalerParams, 'tiff_bad_file' );
 			} else {
-				return $this->doThumbError( $params, 'tiff_no_metadata' );
+				return $this->doThumbError( $scalerParams, 'tiff_no_metadata' );
 			}
 		}
 
-		if ( !$this->normaliseParams( $image, $params ) )
-			return new TransformParameterError( $params );
+		if ( !self::verifyMetaData( $meta, $error, $scalerParams['dstPath'] ) ) {
+			return $this->doThumbError( $scalerParams, $error );
+		}
+		if ( !wfMkdirParents( dirname( $scalerParams['dstPath'] ), null, __METHOD__ ) ) {
+			return $this->doThumbError( $scalerParams, 'thumbnail_dest_directory' );
+		}
 
 		// Get params and force width, height and page to be integers
-		$width = intval( $params['width'] );
-		$height = intval( $params['height'] );
-		$page = intval( $params['page'] );
-		$page = $this->adjustPage( $image, $page );
+		$width = intval( $scalerParams['physicalWidth'] );
+		$height = intval( $scalerParams['physicalHeight'] );
+		$page = intval( $scalerParams['page'] );
+		$srcPath = $this->escapeMagickInput( $scalerParams['srcPath'], $page - 1 );
+		$dstPath = $this->escapeMagickOutput( $scalerParams['dstPath'] );
 
-		if ( $flags & self::TRANSFORM_LATER ) {
-			// pretend the thumbnail exists, let it be created by a 404-handler
-			return new ThumbnailImage( $image, $dstUrl, $width, $height, $dstPath, $page );
+
+		if ( isset( $meta['page_data'][$page]['pixels'] )
+			&& $meta['page_data'][$page]['pixels'] > $wgMaxImageArea
+		) {
+			return $this->doThumbError( $scalerParams, 'tiff_sourcefile_too_large' );
 		}
 
-		if ( !self::verifyMetaData( $meta, $error, $dstPath ) ) {
-			return $this->doThumbError( $params, $error );
-		}
+		$cmd = wfEscapeShellArg( $wgImageMagickConvertCommand );
+		$cmd .= " " . wfEscapeShellArg( $srcPath );
+		$cmd .= " -depth 8 -resize {$width} ";
+		$cmd .= wfEscapeShellArg( $dstPath );
 
-		if ( !wfMkdirParents( dirname( $dstPath ), null, __METHOD__ ) ) {
-			return $this->doThumbError( $params, 'thumbnail_dest_directory' );
-		}
+		wfRunHooks( 'PagedTiffHandlerRenderCommand',
+			array( &$cmd, $srcPath, $dstPath, $page, $width, $height, $scalerParams )
+		);
 
-		// Get local copy source for shell scripts
-		// Thumbnail extraction is very inefficient for large files.
-		// Provide a way to pool count limit the number of downloaders.
-		if ( $image->getSize() >= 1e7 ) { // 10MB
-			$work = new PoolCounterWorkViaCallback( 'GetLocalFileCopy', sha1( $image->getName() ),
-				array(
-					'doWork' => function() use ( $image ) {
-						return $image->getLocalRefPath();
-					}
-				)
-			);
-			$srcPath = $work->execute();
-		} else {
-			$srcPath = $image->getLocalRefPath();
-		}
-
-		if ( $srcPath === false ) { // could not download original
-			return $this->doThumbError( $params, 'filemissing' );
-		}
-
-		if ( $wgTiffUseVips ) {
-			$pagesize = PagedTiffImage::getPageSize($meta, $page);
-			if ( !$pagesize ) {
-				return $this->doThumbError( $params, 'tiff_no_metadata' );
-			}
-			if ( isset( $meta['page_data'][$page]['pixels'] )
-					&& $meta['page_data'][$page]['pixels'] > $wgMaxImageAreaForVips )
-				return $this->doThumbError( $params, 'tiff_sourcefile_too_large' );
-
-			if ( ( $width * $height ) > $wgMaxImageAreaForVips )
-				return $this->doThumbError( $params, 'tiff_targetfile_too_large' );
-
-			// Shrink factors must be > 1.
-			if ( ( $pagesize['width'] > $width ) && ( $pagesize['height'] > $height ) ) {
-				$xfac = $pagesize['width'] / $width;
-				$yfac = $pagesize['height'] / $height;
-				$cmd = wfEscapeShellArg( $wgTiffVipsCommand );
-				$cmd .= ' im_shrink ' . wfEscapeShellArg( $srcPath . ':' . ( $page - 1 ) ) . ' ';
-				$cmd .= wfEscapeShellArg( $dstPath );
-				$cmd .= " {$xfac} {$yfac} 2>&1";
-			} else {
-				$cmd = wfEscapeShellArg( $wgTiffVipsCommand );
-				$cmd .= ' im_resize_linear ' . wfEscapeShellArg( $srcPath . ':' .
-					( $page - 1 ) ) . ' ';
-				$cmd .= wfEscapeShellArg( $dstPath );
-				$cmd .= " {$width} {$height} 2>&1";
-			}
-		} else {
-			if ( ( $width * $height ) > $wgMaxImageArea )
-				return $this->doThumbError( $params, 'tiff_targetfile_too_large' );
-			if ( isset( $meta['page_data'][$page]['pixels'] )
-					&& $meta['page_data'][$page]['pixels'] > $wgMaxImageArea )
-				return $this->doThumbError( $params, 'tiff_sourcefile_too_large' );
-			$cmd = wfEscapeShellArg( $wgImageMagickConvertCommand );
-			$cmd .= " " . wfEscapeShellArg( $srcPath . "[" . ( $page - 1 ) . "]" );
-			$cmd .= " -depth 8 -resize {$width} ";
-			$cmd .= wfEscapeShellArg( $dstPath );
-		}
-
-		wfRunHooks( 'PagedTiffHandlerRenderCommand', array( &$cmd, $srcPath, $dstPath, $page, $width, $height ) );
-
-		wfProfileIn( 'PagedTiffHandler' );
 		wfDebug( __METHOD__ . ": $cmd\n" );
 		$retval = null;
-		$err = wfShellExec( $cmd, $retval );
+		wfProfileIn( 'PagedTiffHandler' );
+		$err = wfShellExecWithStderr( $cmd, $retval );
 		wfProfileOut( 'PagedTiffHandler' );
 
-		$removed = $this->removeBadFile( $dstPath, $retval );
-
-		if ( $retval != 0 || $removed ) {
+		if ( $retval !== 0 ) {
 			wfDebugLog( 'thumbnail', "thumbnail failed on " . wfHostname() .
 				"; error $retval \"$err\" from \"$cmd\"" );
-			return new MediaTransformError( 'thumbnail_error', $width, $height, $err );
+			return $this->getMediaTransformError( $scalerParams, $err );
 		} else {
-			return new ThumbnailImage( $image, $dstUrl, $width, $height, $dstPath, $page );
+			return false; /* no error */
 		}
 	}
 
@@ -457,9 +429,10 @@ class PagedTiffHandler extends ImageHandler {
 	 */
 	function pageCount( $image ) {
 		$data = $this->getMetaArray( $image );
-		if ( !$data ) {
-			return false;
+		if ( $this->isMetadataError( $data ) ) {
+			return 1;
 		}
+		if ( !isset( $data['page_count'] ) ) var_dump( $data, $this->isMetadataError( $data ) );
 		return intval( $data['page_count'] );
 	}
 
@@ -468,8 +441,8 @@ class PagedTiffHandler extends ImageHandler {
 	 */
 	function firstPage( $image ) {
 		$data = $this->getMetaArray( $image );
-		if ( !$data ) {
-			return false;
+		if ( $this->isMetadataError( $data ) ) {
+			return 1;
 		}
 		return intval( $data['first_page'] );
 	}
@@ -479,8 +452,8 @@ class PagedTiffHandler extends ImageHandler {
 	 */
 	function lastPage( $image ) {
 		$data = $this->getMetaArray( $image );
-		if ( !$data ) {
-			return false;
+		if ( $this->isMetadataError( $data ) ) {
+			return 1;
 		}
 		return intval( $data['last_page'] );
 	}
@@ -508,6 +481,7 @@ class PagedTiffHandler extends ImageHandler {
 	protected function doThumbError( $params, $msg ) {
 		global $wgUser, $wgThumbLimits;
 
+		$errorParams = array();
 		if ( empty( $params['width'] ) ) {
 			// no usable width/height in the parameter array
 			// only happens if we don't have image meta-data, and no
@@ -515,21 +489,19 @@ class PagedTiffHandler extends ImageHandler {
 			// we need to pick *some* size, and the preferred
 			// thumbnail size seems sane.
 			$sz = $wgUser->getOption( 'thumbsize' );
-			$width = $wgThumbLimits[ $sz ];
-			$height = $width; // we don't have a height or aspect ratio. make it square.
+			$errorParams['clientWidth'] = $wgThumbLimits[ $sz ];
+			$errorParams['clientHeight'] = $wgThumbLimits[ $sz ]; // we don't have a height or aspect ratio. make it square.
 		} else {
-			$width = intval( $params['width'] );
+			$errorParams['clientWidth'] = intval( $params['width'] );
 
 			if ( !empty( $params['height'] ) ) {
-				$height = intval( $params['height'] );
+				$errorParams['clientHeight'] = intval( $params['height'] );
 			} else {
-				$height = $width; // we don't have a height or aspect ratio. make it square.
+				$errorParams['clientWidth'] = $errorParams['clientHeight']; // we don't have a height or aspect ratio. make it square.
 			}
 		}
 
-
-		return new MediaTransformError( 'thumbnail_error',
-			$width, $height, wfMessage( $msg )->text() );
+		return $this->getMediaTransformError( $errorParams, wfMessage( $msg )->text() );
 	}
 
 	/**
@@ -561,7 +533,7 @@ class PagedTiffHandler extends ImageHandler {
 		$page = $this->adjustPage( $image, $page );
 		$metadata = $this->getMetaArray( $image );
 
-		if ( $metadata ) {
+		if ( $this->isMetadataError( $metadata ) ) {
 			$params = array(
 				'width' => intval( $metadata['page_data'][$page]['width'] ),
 				'height' => intval( $metadata['page_data'][$page]['height'] ),
@@ -789,6 +761,4 @@ class PagedTiffHandler extends ImageHandler {
 	public function isExpensiveToThumbnail( $file ) {
 		return $file->getSize() > static::EXPENSIVE_SIZE_LIMIT;
 	}
-
-
 }

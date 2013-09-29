@@ -32,7 +32,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->mhz_image = $this->dataFile( '380mhz.tiff', 'image/tiff' );
 		$this->test_image = $this->dataFile( 'test.tiff', 'image/tiff' );
 
-		$this->setMwGlobals( 'wgTiffUseVips', false );
 		// Max 50 Megapixels like on WMF
 		$this->setMwGlobals( 'wgMaxImageArea', 5e7 );
 	}
@@ -163,11 +162,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$truncatedThumbFile = $this->getNewTempFile();
 		$error = $this->handler->doTransform( $this->truncated_image, $truncatedThumbFile, 'Truncated.tiff', array( 'width' => 100, 'height' => 100 ) );
 		$this->assertTrue( $error->isError() );
-		// Note: Originally this was testing for 'tiff_bad_file' with missing parameter,
-		// but that's not the behaviour observed. 'tiff_no_metadata' was what it was actually
-		// doing, which seems to make more sense than a message without all parameters replaced, so
-		// I changed the test.
-		$this->assertEquals(  wfMessage( 'thumbnail_error', wfMessage( 'tiff_no_metadata' )->text() )->text(), $error->toText() );
 	}
 	function testGetThumbType() {
 		// ---- Image information

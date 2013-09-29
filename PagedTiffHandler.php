@@ -95,14 +95,8 @@ $wgTiffUseExiv = false;
 $wgTiffTiffinfoCommand = '/usr/bin/tiffinfo';
 // Use tiffinfo? if false, ImageMagick's identify command will be used
 $wgTiffUseTiffinfo = false;
-// Path to vips
-$wgTiffVipsCommand = '/usr/bin/vips';
-// Use vips? if false, ImageMagick's convert command will be used
-$wgTiffUseVips = false;
 // Maximum number of embedded files in tiff image
 $wgTiffMaxEmbedFiles = 10000;
-// Maximum resolution of embedded images (product of width x height pixels)
-$wgMaxImageAreaForVips = 1600*1600; // max. Resolution 1600 x 1600 pixels
 // Maximum size of metadata
 $wgTiffMaxMetaSize = 64*1024;
 // TTL of cache entries for errors
