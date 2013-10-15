@@ -328,6 +328,13 @@ $messages['et'] = array(
 	'tiff-desc' => 'Töötleja TIFF-failide vaatamiseks pildirežiimis',
 );
 
+/** Persian (فارسی)
+ * @author Ebraminio
+ */
+$messages['fa'] = array(
+	'tiff-desc' => 'گرداننده‌ای برای مشاهدهٔ پرونده‌های TIFF در حالت تصویر',
+);
+
 /** Finnish (suomi)
  * @author Centerlink
  * @author Crt
