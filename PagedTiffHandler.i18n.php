@@ -938,6 +938,13 @@ $messages['sr-el'] = array(
 	'tiff_bad_file' => 'Poslata datoteka sadrži greške: $1',
 );
 
+/** Swedish (svenska)
+ * @author Jopparn
+ */
+$messages['sv'] = array(
+	'tiff_too_much_meta' => 'Metadata använder alltför mycket utrymme.',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  */
