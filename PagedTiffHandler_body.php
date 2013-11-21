@@ -557,6 +557,12 @@ class PagedTiffHandler extends ImageHandler {
 			$metadata = unserialize( $metadata );
 		}
 
+		if ( isset( $metadata['errors'] ) ) {
+			// In the case of a broken file, we do not want to reload the
+			// metadata on every request.
+			return true;
+		}
+
 		if ( !isset( $metadata['TIFF_METADATA_VERSION'] ) ) {
 			return false;
 		}
@@ -619,10 +625,10 @@ class PagedTiffHandler extends ImageHandler {
 			return false;
 		}
 		$exif = unserialize( $metadata );
-		$exif = $exif['exif'];
-		if ( !$exif ) {
+		if ( !isset( $exif['exif'] ) || !$exif['exif'] ) {
 			return false;
 		}
+		$exif = $exif['exif'];
 		unset( $exif['MEDIAWIKI_EXIF_VERSION'] );
 		if ( class_exists( 'FormatMetadata' ) ) {
 			// 1.18+
@@ -703,8 +709,8 @@ class PagedTiffHandler extends ImageHandler {
 
 		$metadata = $image->getMetadata();
 
-		if ( !$this->isMetadataValid( $image, $metadata ) ) {
-			wfDebug( "Tiff metadata is invalid or missing, should have been fixed in upgradeRow\n" );
+		if ( !$this->isMetadataValid( $image, $metadata ) || PagedTiffHandler::getMetadataErrors( $metadata ) ) {
+			wfDebug( "Tiff metadata is invalid, missing or has errors.\n" );
 			return false;
 		}
 
