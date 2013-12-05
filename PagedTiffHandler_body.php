@@ -579,9 +579,8 @@ class PagedTiffHandler extends ImageHandler {
 	 * the metadata table is collapsed.
 	 *
 	 * @return array of strings
-	 * @access private
 	 */
-	function visibleMetadataFields() {
+	protected function visibleMetadataFields() {
 		$fields = array();
 		$lines = explode( "\n", wfMessage( 'metadata-fields' )->text() );
 		foreach ( $lines as $line ) {
