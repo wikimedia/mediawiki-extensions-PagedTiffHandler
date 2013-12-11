@@ -1038,6 +1038,7 @@ $messages['zh-hans'] = array(
 	'tiff_out_of_service' => '上传的文件无法被处理。
 ImageMagick 不可用。',
 	'tiff_too_much_meta' => '元数据占用太多的空间。',
+	'tiff_error_cached' => '此文件在缓存间隔过后才能重新呈现。',
 	'tiff_size_error' => '报告的文件大小与实际文件大小不匹配。',
 	'tiff_script_detected' => '上传的文件包含脚本。',
 	'tiff_bad_file' => '上传的档案有错误：$1',
