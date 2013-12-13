@@ -197,7 +197,7 @@ ImageMagick nije dostupan.',
  * @author Умар
  */
 $messages['ce'] = array(
-	'tiff-file-info-size' => '$1 × $2 пикселш, файлан барам: $3, MIME-тайп: $4, $5 {{PLURAL:$5|агӀо|агӀонаш}}',
+	'tiff-file-info-size' => '$1 × $2 пиксель, файлан барам: $3, MIME-тайп: $4, $5 {{PLURAL:$5|агӀо|агӀонаш}}',
 );
 
 /** Czech (čeština)
