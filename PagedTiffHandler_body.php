@@ -543,9 +543,11 @@ class PagedTiffHandler extends ImageHandler {
 				->params( $params['size'], $params['mime'] )
 				->numParams( $params['page_count'] )
 				->parse();
+		} else {
+			// If we have no metadata, we have no idea how many pages we
+			// have, so just fallback to the parent class.
+			return parent::getLongDesc( $image );
 		}
-
-		return true;
 	}
 
 	/**
