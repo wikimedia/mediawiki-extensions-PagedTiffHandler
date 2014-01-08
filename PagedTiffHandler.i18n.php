@@ -878,6 +878,7 @@ $messages['roa-tara'] = array(
 );
 
 /** Russian (русский)
+ * @author Kaganer
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
@@ -894,7 +895,7 @@ $messages['ru'] = array(
 	'tiff_size_error' => 'Указанный размер файла не совпадает с фактическим размером файла.',
 	'tiff_script_detected' => 'Загруженный файл содержит сценарии.',
 	'tiff_bad_file' => 'Загруженный файл содержит ошибки: $1',
-	'tiff-file-info-size' => '$1 × $2 пикселей, размер файла: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страниц|страницы}}', # Fuzzy
+	'tiff-file-info-size' => '$1 × $2 пикселей, размер файла: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страниц|страницы}}',
 );
 
 /** Sinhala (සිංහල)
