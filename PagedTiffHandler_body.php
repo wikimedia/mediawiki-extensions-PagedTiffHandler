@@ -61,7 +61,7 @@ class PagedTiffHandler extends ImageHandler {
 			$tr->check();
 			if ( !$tr->isValidTiff() ) {
 				wfDebug( __METHOD__ . ": bad file\n" );
-				$status->fatal( 'tiff_bad_file' );
+				$status->fatal( 'tiff_invalid_file' );
 			} else {
 				if ( $tr->checkScriptAtEnd( $wgTiffReaderCheckEofForJS ) ) {
 					wfDebug( __METHOD__ . ": script detected\n" );
