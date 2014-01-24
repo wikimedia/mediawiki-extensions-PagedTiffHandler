@@ -330,10 +330,15 @@ $messages['et'] = array(
 );
 
 /** Persian (فارسی)
+ * @author Armin1392
  * @author Ebraminio
  */
 $messages['fa'] = array(
 	'tiff-desc' => 'گرداننده‌ای برای مشاهدهٔ پرونده‌های TIFF در حالت تصویر',
+	'tiff_no_metadata' => 'نمی‌توان فراداده را از تی‌آی‌اف‌اف گرفت',
+	'tiff_page_error' => 'تعداد صفحات در محدوده نیست',
+	'tiff_too_many_embed_files' => 'تصویر شامل پوشه‌های ضمیمه شدهٔ بسیار زیادی است.',
+	'tiff_too_much_meta' => 'فراداده از فضای بسیار زیادی استفاده می‌کند.',
 );
 
 /** Finnish (suomi)
