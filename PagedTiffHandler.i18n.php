@@ -28,6 +28,7 @@ ImageMagick is not available.',
 	'tiff_size_error' => 'The reported file size does not match the actual file size.',
 	'tiff_script_detected' => 'The uploaded file contains scripts.',
 	'tiff_bad_file' => 'The uploaded file contains errors: $1',
+	'tiff_invalid_file' => 'The uploaded file is not a valid TIFF',
 	'tiff-file-info-size' => '$1 × $2 pixels, file size: $3, MIME type: $4, $5 {{PLURAL:$5|page|pages}}',
 );
 
@@ -49,6 +50,7 @@ $messages['qqq'] = array(
 	'tiff_error_cached' => 'Error message shown when an error occurres and it is cached.',
 	'tiff_size_error' => 'Error message shown when the reported file size does not match the actual file size.',
 	'tiff_script_detected' => 'Error message shown when the uploaded file contains scripts.',
+	'tiff_invalid_file' => 'Error message shown when the uploaded file is not a valid TIFF file.',
 	'tiff_bad_file' => 'Error message shown when the uploaded file contains errors. First parameter contains error messages.
 
 Parameters:
