@@ -253,6 +253,7 @@ ImageMagick er ikke tilgængelig.',
  * @author Als-Holder
  * @author Hallo Welt! - Medienwerkstatt GmbH
  * @author Kghbln
+ * @author Metalhead64
  * @author Purodha
  */
 $messages['de'] = array(
@@ -269,6 +270,7 @@ $messages['de'] = array(
 	'tiff_size_error' => 'Die übergebene Größe der Datei stimmt nicht mit der tatsächlichen überein.',
 	'tiff_script_detected' => 'Die hochgeladene Datei enthält Skripte.',
 	'tiff_bad_file' => 'Die hochgeladene Datei ist fehlerhaft: $1',
+	'tiff_invalid_file' => 'Die hochgeladene Datei ist keine gültige TIFF-Datei',
 	'tiff-file-info-size' => '$1 × $2 Pixel, Dateigröße: $3, MIME-Typ: $4, Seiten: $5',
 );
 
@@ -360,6 +362,7 @@ $messages['fi'] = array(
 
 /** French (français)
  * @author Crochet.david
+ * @author Gomoko
  * @author IAlex
  * @author Jagwar
  * @author Jean-Frédéric
@@ -380,6 +383,7 @@ $messages['fr'] = array(
 	'tiff_size_error' => 'La taille de fichier indiquée ne correspond pas à la taille réelle du fichier.',
 	'tiff_script_detected' => 'Le fichier téléchargé contient des scripts.',
 	'tiff_bad_file' => 'Le fichier importé contient des erreurs : $1',
+	'tiff_invalid_file' => 'Le fichier importé n’est pas un TIFF valide',
 	'tiff-file-info-size' => '$1 × $2 pixels, taille du fichier : $3, type MIME: $4, $5 page{{PLURAL:$5||s}}',
 );
 
@@ -407,6 +411,7 @@ $messages['gl'] = array(
 	'tiff_size_error' => 'O tamaño do ficheiro do que se informou non se corresponde co tamaño real do ficheiro.',
 	'tiff_script_detected' => 'O ficheiro cargado contén escrituras.',
 	'tiff_bad_file' => 'O ficheiro cargado contén erros: $1',
+	'tiff_invalid_file' => 'O ficheiro cargado non é un TIFF válido',
 	'tiff-file-info-size' => '$1 × $2 píxeles, tamaño do ficheiro: $3, tipo MIME: $4, $5 {{PLURAL:$5|páxina|páxinas}}',
 );
 
@@ -583,6 +588,7 @@ ImageMagick を利用できません。',
 	'tiff_size_error' => '報告されたファイルサイズが実際のサイズと一致しません。',
 	'tiff_script_detected' => 'アップロードされたファイルはスクリプトを含んでいます。',
 	'tiff_bad_file' => 'アップロードされたファイルにエラーがあります: $1',
+	'tiff_invalid_file' => 'アップロードされたファイルは有効な TIFF ではありません',
 	'tiff-file-info-size' => '$1 × $2 ピクセル、ファイルサイズ: $3 、MIME タイプ: $4、 $5 {{PLURAL:$5|ページ}}',
 );
 
@@ -611,6 +617,7 @@ ImageMagick არ არის ხელმისაწვდომი.',
 
 /** Korean (한국어)
  * @author Kwj2772
+ * @author Priviet
  * @author 아라
  */
 $messages['ko'] = array(
@@ -630,6 +637,7 @@ ImageMagick를 사용할 수 없습니다.',
 	'tiff_size_error' => '보고된 파일 크기는 실제 파일 크기와 일치하지 않습니다.',
 	'tiff_script_detected' => '올린 파일에 스크립트가 포함되어 있습니다.',
 	'tiff_bad_file' => '올린 파일에 오류가 포함되어 있습니다: $1',
+	'tiff_invalid_file' => '업로드한 파일은 올바른 TIFF 형식이 아닙니다.',
 	'tiff-file-info-size' => '$1 × $2 픽셀, 파일 크기: $3, MIME 종류: $4, $5{{PLURAL:$5|페이지}}',
 );
 
@@ -689,6 +697,7 @@ $messages['mk'] = array(
 	'tiff_size_error' => 'Пријавената големина на податотеката не се совпаѓа со фактичката.',
 	'tiff_script_detected' => 'Подигнатата податотека содржи скрипти.',
 	'tiff_bad_file' => 'Подигнатата податотека содржи грешки: $1',
+	'tiff_invalid_file' => 'Подигнатата податотека не претставува важечки TIFF',
 	'tiff-file-info-size' => '$1 × $2 пиксели, големина: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страници}}',
 );
 
@@ -894,6 +903,7 @@ $messages['roa-tara'] = array(
 
 /** Russian (русский)
  * @author Kaganer
+ * @author Okras
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
@@ -910,6 +920,7 @@ $messages['ru'] = array(
 	'tiff_size_error' => 'Указанный размер файла не совпадает с фактическим размером файла.',
 	'tiff_script_detected' => 'Загруженный файл содержит сценарии.',
 	'tiff_bad_file' => 'Загруженный файл содержит ошибки: $1',
+	'tiff_invalid_file' => 'Загруженный файл не является допустимым TIFF-файлом',
 	'tiff-file-info-size' => '$1 × $2 пикселей, размер файла: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страниц|страницы}}',
 );
 
