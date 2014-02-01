@@ -103,6 +103,7 @@ $messages['ast'] = array(
 	'tiff_size_error' => 'El tamañu del ficheru espublizáu nun casa col tamañu real del ficheru.',
 	'tiff_script_detected' => 'El ficheru cargáu contien scripts.',
 	'tiff_bad_file' => 'El ficheru cargáu contien errores: $1',
+	'tiff_invalid_file' => 'El ficheru xubíu nun ye un TIFF válidu',
 	'tiff-file-info-size' => '$1 × $2 pixels, tamañu del ficheru: $3, tipu MIME: $4, $5 {{PLURAL:$5|páxina|páxines}}',
 );
 
@@ -223,6 +224,7 @@ Není dostupný ImageMagick.',
 	'tiff_size_error' => 'Hlášená velikost souboru nesouhlasí se skutečnou velikostí.',
 	'tiff_script_detected' => 'Načtený soubor obsahuje skripty.',
 	'tiff_bad_file' => 'Načtený soubor obsahuje chyby: $1',
+	'tiff_invalid_file' => 'Načtený soubor není platný TIFF',
 	'tiff-file-info-size' => '$1 × $2 pixelů, velikost souboru: $3, MIME typ: $4, $5 {{PLURAL:$5|stránka|stránky|stránek}}',
 );
 
@@ -1015,6 +1017,7 @@ ImageMagick недоступний.',
 	'tiff_size_error' => 'Вказаний розмір файлу не збігається з фактичним розміром файлу.',
 	'tiff_script_detected' => 'Завантажений файл містить скрипти.',
 	'tiff_bad_file' => 'Завантажений файл містить помилки: $1',
+	'tiff_invalid_file' => 'Завантажений файл не є дійсним TIFF-файлом',
 	'tiff-file-info-size' => '$1 × $2 пікселів, розмір файлу: $3, MIME-тип: $4, $5 {{PLURAL:$5|сторінка|сторінки|сторінок}}',
 );
 
@@ -1050,6 +1053,7 @@ $messages['yi'] = array(
 );
 
 /** Simplified Chinese (中文（简体）‎)
+ * @author Liuxinyu970226
  * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
@@ -1069,6 +1073,7 @@ ImageMagick 不可用。',
 	'tiff_size_error' => '报告的文件大小与实际文件大小不匹配。',
 	'tiff_script_detected' => '上传的文件包含脚本。',
 	'tiff_bad_file' => '上传的档案有错误：$1',
+	'tiff_invalid_file' => '上传的文件不是有效的TIFF',
 	'tiff-file-info-size' => '$1 × $2 像素，文件大小: $3，MIME类型: $4, $5 个页面',
 );
 
