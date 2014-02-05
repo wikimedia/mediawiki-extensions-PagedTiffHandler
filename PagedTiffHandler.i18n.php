@@ -590,7 +590,7 @@ ImageMagick を利用できません。',
 	'tiff_size_error' => '報告されたファイルサイズが実際のサイズと一致しません。',
 	'tiff_script_detected' => 'アップロードされたファイルはスクリプトを含んでいます。',
 	'tiff_bad_file' => 'アップロードされたファイルにエラーがあります: $1',
-	'tiff_invalid_file' => 'アップロードされたファイルは有効な TIFF ではありません',
+	'tiff_invalid_file' => 'アップロードされたファイルは有効な TIFF ファイルではありません。',
 	'tiff-file-info-size' => '$1 × $2 ピクセル、ファイルサイズ: $3 、MIME タイプ: $4、 $5 {{PLURAL:$5|ページ}}',
 );
 
@@ -679,7 +679,15 @@ $messages['lb'] = array(
 	'tiff_size_error' => "Déi berechent Gréisst vum Fichier ass net d'selwëscht wéi déi wierklech Gréisst vum Fichier.",
 	'tiff_script_detected' => 'Am eropgeluedene Fichier si Skripten dran.',
 	'tiff_bad_file' => 'Am eropgeluedene Fichier si Feeler: $1',
+	'tiff_invalid_file' => 'Den eropgeluedene Fichier ass kee valabelen TIFF-Fichier.',
 	'tiff-file-info-size' => '$1 × $2 Pixelen, Gréisst vum Fichier: $3, MIME Typ: $4, $5 {{PLURAL:$5|Säit|Säiten}}',
+);
+
+/** Malagasy (Malagasy)
+ * @author Jagwar
+ */
+$messages['mg'] = array(
+	'tiff_invalid_file' => 'Tsy rakitra TIFF azo ampaisaina ilay rakitra nalefanao.',
 );
 
 /** Macedonian (македонски)
