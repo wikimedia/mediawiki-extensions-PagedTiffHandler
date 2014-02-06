@@ -703,7 +703,7 @@ $messages['mk'] = array(
 	'tiff_file_too_large' => 'Подигнатата податотека е преголема и затоа беше одбиена.',
 	'tiff_out_of_service' => 'Подигнатата податотека не може да се обработи. ImageMagick не е достапен.',
 	'tiff_too_much_meta' => 'Метаподатоците заземаат премногу простор.',
-	'tiff_error_cached' => 'Оваа податотека може да се оформи само по кеширање на интервалот.',
+	'tiff_error_cached' => 'Оваа податотека може да се оформи само по меѓускладирање на интервалот.',
 	'tiff_size_error' => 'Пријавената големина на податотеката не се совпаѓа со фактичката.',
 	'tiff_script_detected' => 'Подигнатата податотека содржи скрипти.',
 	'tiff_bad_file' => 'Подигнатата податотека содржи грешки: $1',
@@ -740,6 +740,13 @@ $messages['ml'] = array(
  */
 $messages['mr'] = array(
 	'tiff_invalid_file' => 'अपभारण केलेली संचिका ही वैध TIFF नाही',
+);
+
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'tiff_invalid_file' => 'Fail yang dimuat naik itu bukan fail TIFF yang sah.',
 );
 
 /** Norwegian Bokmål (norsk bokmål)
