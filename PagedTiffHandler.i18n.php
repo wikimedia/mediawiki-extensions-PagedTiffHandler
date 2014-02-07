@@ -293,6 +293,7 @@ $messages['dsb'] = array(
 	'tiff_size_error' => 'K wěsći dana datajowa wjelikosć njewótpowědujo wopšawdnej datajowej wjelikosći.',
 	'tiff_script_detected' => 'Nagrata dataja wopśimujo skripty.',
 	'tiff_bad_file' => 'Nagrata dataja wopśimujo zmólki: $1',
+	'tiff_invalid_file' => 'Nagrata dataja njejo płaśiwa TIFF-dataja.',
 	'tiff-file-info-size' => '$1 × $2 pikselow, datajowa wjelikosć: $3, typ MIME: $4, $5 {{PLURAL:$5|bok|boka|boki|bokow}}',
 );
 
@@ -478,6 +479,7 @@ $messages['hsb'] = array(
 	'tiff_size_error' => 'Zdźělena wulkosć dataje njewotpowěduje woprawdźitej wulkosći dataje.',
 	'tiff_script_detected' => 'Nahrata dataja wobsahuje skripty.',
 	'tiff_bad_file' => 'Nahrata dataja wobsahuje zmylki: $1',
+	'tiff_invalid_file' => 'Nahrata dataja płaćiwa TIFF-dataja njeje.',
 	'tiff-file-info-size' => '$1 × $2 pikselow, wulkosć dataje: $3, MIME-typ: $4, $5 {{PLURAL:$5|strona|stronje|strony|stronow}}',
 );
 
