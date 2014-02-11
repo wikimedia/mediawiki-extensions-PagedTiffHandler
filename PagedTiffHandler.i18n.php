@@ -815,6 +815,7 @@ $messages['oc'] = array(
 );
 
 /** Polish (polski)
+ * @author Chrumps
  * @author Sp5uhe
  */
 $messages['pl'] = array(
@@ -833,6 +834,7 @@ ImageMagick nie jest dostępny.',
 	'tiff_size_error' => 'Zgłoszony rozmiar pliku nie przystaje do jego rzeczywistego rozmiaru.',
 	'tiff_script_detected' => 'Przesłany plik zawiera skrypty.',
 	'tiff_bad_file' => 'Przesłany plik zawiera błędy – $1',
+	'tiff_invalid_file' => 'Przesłany plik jest nie prawidłowym plikiem TIFF.',
 	'tiff-file-info-size' => '$1 × $2 pikseli, rozmiar pliku – $3, typ MIME – $4, $5 {{PLURAL:$5|strona|strony|stron}}',
 );
 
