@@ -988,9 +988,11 @@ $messages['sr-el'] = array(
 
 /** Swedish (svenska)
  * @author Jopparn
+ * @author WikiPhoenix
  */
 $messages['sv'] = array(
 	'tiff_too_much_meta' => 'Metadata använder alltför mycket utrymme.',
+	'tiff_invalid_file' => 'Den uppladdade filen är inte en giltig TIFF-fil.',
 );
 
 /** Tagalog (Tagalog)
