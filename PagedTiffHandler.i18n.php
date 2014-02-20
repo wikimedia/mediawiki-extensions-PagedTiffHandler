@@ -945,6 +945,13 @@ $messages['ru'] = array(
 	'tiff-file-info-size' => '$1 × $2 пикселей, размер файла: $3, MIME-тип: $4, $5 {{PLURAL:$5|страница|страниц|страницы}}',
 );
 
+/** Scots (Scots)
+ * @author John Reid
+ */
+$messages['sco'] = array(
+	'tiff_invalid_file' => 'The uploadit file isna ae valid TIFF file.',
+);
+
 /** Sinhala (සිංහල)
  * @author පසිඳු කාවින්ද
  */
