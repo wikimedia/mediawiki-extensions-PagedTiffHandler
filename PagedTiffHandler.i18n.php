@@ -561,6 +561,7 @@ ImageMagick tidak tersedia.',
 
 /** Italian (italiano)
  * @author Beta16
+ * @author Gianfranco
  */
 $messages['it'] = array(
 	'tiff-desc' => 'Gestore per la visualizzazione di file TIFF in modalità immagine',
@@ -579,6 +580,7 @@ ImageMagick non è disponibile.',
 	'tiff_size_error' => 'Le dimensioni del file segnalate non corrispondano alla dimensioni effettive del file.',
 	'tiff_script_detected' => 'Il file caricato contiene degli script.',
 	'tiff_bad_file' => 'Il file caricato contiene degli errori: $1',
+	'tiff_invalid_file' => 'Il file caricato non è un file TIFF valido.',
 	'tiff-file-info-size' => '$1 × $2 pixel, dimensione del file: $3, tipo MIME: $4, $5 {{PLURAL:$5|pagina|pagine}}',
 );
 
