@@ -806,6 +806,7 @@ ImageMagick is niet beschikbaar.',
 	'tiff_size_error' => 'De gerapporteerde bestandsgrootte komt niet overeen met de werkelijke bestandsgrootte.',
 	'tiff_script_detected' => 'Het geüploade bestand bevat scripts.',
 	'tiff_bad_file' => 'Het geüploade bestand bevat fouten: $1',
+	'tiff_invalid_file' => 'Het geüploade bestand is geen geldig TIFF-bestand.',
 	'tiff-file-info-size' => "$1 × $2 pixels, bestandsgrootte: $3, MIME-type: $4, $5 {{PLURAL:$5|pagina|pagina's}}",
 );
 
