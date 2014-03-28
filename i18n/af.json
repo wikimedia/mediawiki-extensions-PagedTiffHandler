@@ -1,0 +1,20 @@
+{
+    "@metadata": {
+        "authors": [
+            "Naudefj"
+        ]
+    },
+    "tiff-desc": "Hanteerder vir die besigtiging van TIFF-lêers in die beeld-modus",
+    "tiff_no_metadata": "Kan nie metadata vanuit TIFF kry nie",
+    "tiff_page_error": "Bladsynommer kom nie in dokument voor nie",
+    "tiff_too_many_embed_files": "Die beeld bevat te veel ingebedde lêers.",
+    "tiff_sourcefile_too_large": "Die resolusie van die bronlêer is te groot. Geen duimnael sal gegenereer word nie.",
+    "tiff_file_too_large": "Die opgelaaide lêer is te groot en is verwerp.",
+    "tiff_out_of_service": "Die opgelaaide lêer kon nie verwerk word nie. ImageMagick is nie beskikbaar is nie.",
+    "tiff_too_much_meta": "Metadata gebruik te veel spasie.",
+    "tiff_error_cached": "Hierdie lêer kan slegs na die die kas-interval gerendeer word.",
+    "tiff_size_error": "Die gerapporteerde lêergrootte stem nie met die lêer se werklike grootte ooreen nie.",
+    "tiff_script_detected": "Die opgelaaide lêer bevat skrips.",
+    "tiff_bad_file": "Die opgelaaide lêer bevat foute: $1",
+    "tiff-file-info-size": "bladsy $5, $1 × $2 spikkels, lêergrootte: $3, MIME-tipe: $4"
+}

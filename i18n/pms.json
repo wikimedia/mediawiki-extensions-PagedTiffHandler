@@ -1,0 +1,22 @@
+{
+    "@metadata": {
+        "authors": [
+            "Borichèt",
+            "Dragonòt"
+        ]
+    },
+    "tiff-desc": "Gestor për vëdde archivi TIFF an manera figure",
+    "tiff_no_metadata": "As riess nen a pijé ij metadat dal TIFF",
+    "tiff_page_error": "Nùmer ëd pàgina pa ant l'antërval",
+    "tiff_too_many_embed_files": "La figura a conten andrinta tròpi archivi.",
+    "tiff_sourcefile_too_large": "L'arzolussion dl'archivi sorgiss a l'é tròp gròssa. Gnun-e figurin-e a saran generà.",
+    "tiff_targetfile_too_large": "L'arzolussion ëd l'archivi ëd destinassion a l'é tròp gròssa. Gnun-e figurin-e a saran generà.",
+    "tiff_file_too_large": "L'archivi carià a l'é tròp gròss e a l'é stàit arfudà.",
+    "tiff_out_of_service": "L'archivi carià a l'ha pa podù esse processà. ImageMagick a l'é nen disponìbil.",
+    "tiff_too_much_meta": "Ij Metadat a deuvro tròp dë spassi.",
+    "tiff_error_cached": "Cost archivi-sì a peul mach esse rendù apress l'antërval ëd memorisassion local.",
+    "tiff_size_error": "La dimension diciairà dl'archivi a l'é pa l'istessa ëd soa dimension vera.",
+    "tiff_script_detected": "L'archivi carià a conten ëd senari.",
+    "tiff_bad_file": "L'archivi carià a conten d'eror: $1",
+    "tiff-file-info-size": "$1 x $2 pontin, dimension dl'archivi: $3, sòrt MIME: $4, $5 {{PLURAL:$5|pàgina|pàgine}}"
+}

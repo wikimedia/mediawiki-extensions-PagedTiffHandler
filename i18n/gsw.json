@@ -1,0 +1,22 @@
+{
+    "@metadata": {
+        "authors": [
+            "Als-Chlämens",
+            "Als-Holder"
+        ]
+    },
+    "tiff-desc": "Funktion zum Aaluege vu TIFF-Dateie im Bildmodus",
+    "tiff_no_metadata": "Cha d Metadate vum TIFF nit läse",
+    "tiff_page_error": "Sytenummere lyt nit im Beryych",
+    "tiff_too_many_embed_files": "Im Bild het s zvil yybundeni Dateie",
+    "tiff_sourcefile_too_large": "D Uflesig vu dr Quälldatei isch z hoch. S wird kei Vorschaubild generiert.",
+    "tiff_targetfile_too_large": "D Uflesig vu dr Ziildatei isch z hoch. S wird kei Miniaturbild generiert.",
+    "tiff_file_too_large": "D Datei, wu uffeglade woren isch, isch z groß un isch abgwise wore.",
+    "tiff_out_of_service": "D Datei, wu uffeglade woren isch, het nit chenne verarbeitet wäre. ImageMagick isch nit verfiegbar.",
+    "tiff_too_much_meta": "D Metadate bruch zvil Spycherplatz.",
+    "tiff_error_cached": "Die Datei cha erscht no Ablauf vu dr Caching-Periode nej grenderet wäre.",
+    "tiff_size_error": "Di brichtet Greßi vu dr Datei stimmt nit zue dr tatsächlige.",
+    "tiff_script_detected": "In dr Datei, wu uffeglade woren isch, het s Skript din.",
+    "tiff_bad_file": "D Datei, wu uffeglade woren isch, isch fählerhaft: $1",
+    "tiff-file-info-size": "$1 × $2 Pixel, Dateigrössi: $3, MIME type: $4, $5 {{PLURAL:$5|Syte|Syte}}"
+}
