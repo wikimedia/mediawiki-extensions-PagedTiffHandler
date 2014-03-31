@@ -333,11 +333,29 @@ class PagedTiffHandler extends ImageHandler {
 			return $this->doThumbError( $params, $error );
 		}
 
-		if ( !wfMkdirParents( dirname( $dstPath ), null, __METHOD__ ) )
+		if ( !wfMkdirParents( dirname( $dstPath ), null, __METHOD__ ) ) {
 			return $this->doThumbError( $params, 'thumbnail_dest_directory' );
+		}
 
 		// Get local copy source for shell scripts
-		$srcPath = $image->getLocalRefPath();
+		// Thumbnail extraction is very inefficient for large files.
+		// Provide a way to pool count limit the number of downloaders.
+		if ( $image->getSize() >= 1e7 ) { // 10MB
+			$work = new PoolCounterWorkViaCallback( 'downloadtiff', sha1( $image->getName() ),
+				array(
+					'doWork' => function() use ( $image ) {
+						return $image->getLocalRefPath();
+					}
+				)
+			);
+			$srcPath = $work->execute();
+		} else {
+			$srcPath = $image->getLocalRefPath();
+		}
+
+		if ( $srcPath === false ) { // could not download original
+			return $this->doThumbError( $params, 'filemissing' );
+		}
 
 		if ( $wgTiffUseVips ) {
 			$pagesize = PagedTiffImage::getPageSize($meta, $page);
@@ -361,7 +379,7 @@ class PagedTiffHandler extends ImageHandler {
 				$cmd .= " {$xfac} {$yfac} 2>&1";
 			} else {
 				$cmd = wfEscapeShellArg( $wgTiffVipsCommand );
-				$cmd .= ' im_resize_linear ' . wfEscapeShellArg( $srcPath . ':' . 
+				$cmd .= ' im_resize_linear ' . wfEscapeShellArg( $srcPath . ':' .
 					( $page - 1 ) ) . ' ';
 				$cmd .= wfEscapeShellArg( $dstPath );
 				$cmd .= " {$width} {$height} 2>&1";
@@ -740,7 +758,7 @@ class PagedTiffHandler extends ImageHandler {
 
 	/**
 	 * Handler for the ExtractThumbParameters hook
-	 * 
+	 *
 	 * @param $thumbname string URL-decoded basename of URI
 	 * @param &$params Array Currently parsed thumbnail params
 	 * @return bool
