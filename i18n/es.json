@@ -4,7 +4,8 @@
             "Armando-Martin",
             "Pertile",
             "Sanbec",
-            "Translationista"
+            "Translationista",
+            "Fitoschido"
         ]
     },
     "tiff-desc": "Controlador para ver archivos TIFF en modo de imagen",
@@ -20,5 +21,6 @@
     "tiff_size_error": "El tamaño del archivo reportado no coincide con el tamaño real del archivo.",
     "tiff_script_detected": "El archivo cargado contiene scripts.",
     "tiff_bad_file": "El archivo cargado contiene errores: $1",
+    "tiff_invalid_file": "El archivo cargado no es un TIFF válido.",
     "tiff-file-info-size": "$1 × $2 píxeles, tamaño de archivo: $3, tipo de MIME: $4,  $5 {{PLURAL:$5|página|páginas}}"
 }
