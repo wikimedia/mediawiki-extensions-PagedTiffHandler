@@ -341,7 +341,7 @@ class PagedTiffHandler extends ImageHandler {
 		// Thumbnail extraction is very inefficient for large files.
 		// Provide a way to pool count limit the number of downloaders.
 		if ( $image->getSize() >= 1e7 ) { // 10MB
-			$work = new PoolCounterWorkViaCallback( 'downloadtiff', sha1( $image->getName() ),
+			$work = new PoolCounterWorkViaCallback( 'GetLocalFileCopy', sha1( $image->getName() ),
 				array(
 					'doWork' => function() use ( $image ) {
 						return $image->getLocalRefPath();
