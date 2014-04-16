@@ -1,22 +1,22 @@
 {
-    "@metadata": {
-        "authors": [
-            "Mormegil"
-        ]
-    },
-    "tiff-desc": "Ovladač pro prohlížení TIFF souborů jako obrázků",
-    "tiff_no_metadata": "Z TIFFu se nepodařilo získat metadata",
-    "tiff_page_error": "Číslo stránky mimo rozsah",
-    "tiff_too_many_embed_files": "Obrázek obsahuje příliš mnoho vložených souborů.",
-    "tiff_sourcefile_too_large": "Rozlišení zdrojového souboru je příliš vysoké.\nNáhled nebude vytvořen.",
-    "tiff_targetfile_too_large": "Rozlišení cílového souboru je příliš vysoké.\nNáhled nebude vytvořen.",
-    "tiff_file_too_large": "Načítaný soubor je příliš velký a byl odmítnut.",
-    "tiff_out_of_service": "Načtený soubor nelze zpracovat.\nNení dostupný ImageMagick.",
-    "tiff_too_much_meta": "Metadata zabírají příliš mnoho místa.",
-    "tiff_error_cached": "Tento soubor lze znovu vykreslit až po vypršení mezipaměti.",
-    "tiff_size_error": "Hlášená velikost souboru nesouhlasí se skutečnou velikostí.",
-    "tiff_script_detected": "Načtený soubor obsahuje skripty.",
-    "tiff_bad_file": "Načtený soubor obsahuje chyby: $1",
-    "tiff_invalid_file": "Načtený soubor není platný TIFF",
-    "tiff-file-info-size": "$1 × $2 pixelů, velikost souboru: $3, MIME typ: $4, $5 {{PLURAL:$5|stránka|stránky|stránek}}"
+	"@metadata": {
+		"authors": [
+			"Mormegil"
+		]
+	},
+	"tiff-desc": "Ovladač pro prohlížení TIFF souborů jako obrázků",
+	"tiff_no_metadata": "Z TIFFu se nepodařilo získat metadata",
+	"tiff_page_error": "Číslo stránky mimo rozsah",
+	"tiff_too_many_embed_files": "Obrázek obsahuje příliš mnoho vložených souborů.",
+	"tiff_sourcefile_too_large": "Rozlišení zdrojového souboru je příliš vysoké.\nNáhled nebude vytvořen.",
+	"tiff_targetfile_too_large": "Rozlišení cílového souboru je příliš vysoké.\nNáhled nebude vytvořen.",
+	"tiff_file_too_large": "Načítaný soubor je příliš velký a byl odmítnut.",
+	"tiff_out_of_service": "Načtený soubor nelze zpracovat.\nNení dostupný ImageMagick.",
+	"tiff_too_much_meta": "Metadata zabírají příliš mnoho místa.",
+	"tiff_error_cached": "Tento soubor lze znovu vykreslit až po vypršení mezipaměti.",
+	"tiff_size_error": "Hlášená velikost souboru nesouhlasí se skutečnou velikostí.",
+	"tiff_script_detected": "Načtený soubor obsahuje skripty.",
+	"tiff_bad_file": "Načtený soubor obsahuje chyby: $1",
+	"tiff_invalid_file": "Načtený soubor není platný TIFF",
+	"tiff-file-info-size": "$1 × $2 pixelů, velikost souboru: $3, MIME typ: $4, $5 {{PLURAL:$5|stránka|stránky|stránek}}"
 }

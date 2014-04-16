@@ -1,16 +1,16 @@
 {
-    "@metadata": {
-        "authors": [
-            "Centerlink",
-            "Crt",
-            "Nike"
-        ]
-    },
-    "tiff_no_metadata": "Metatietojen hakeminen TIFF-tiedostosta epäonnistui",
-    "tiff_too_many_embed_files": "Kuvassa on liian monta upotettua tiedostoa.",
-    "tiff_file_too_large": "Palvelimelle kopioitu tiedosto on liian suuri ja torjuttiin.",
-    "tiff_out_of_service": "Palvelimelle kopioitua tiedostoa ei voitu käsitellä. ImageMagick ei ollut käytettävissä.",
-    "tiff_too_much_meta": "Metatiedot vievät liikaa tilaa.",
-    "tiff_script_detected": "Palvelimelle kopioitu tiedosto sisältää skriptejä.",
-    "tiff_bad_file": "Tallennenttu tiedosto sisältää virheitä: $1"
+	"@metadata": {
+		"authors": [
+			"Centerlink",
+			"Crt",
+			"Nike"
+		]
+	},
+	"tiff_no_metadata": "Metatietojen hakeminen TIFF-tiedostosta epäonnistui",
+	"tiff_too_many_embed_files": "Kuvassa on liian monta upotettua tiedostoa.",
+	"tiff_file_too_large": "Palvelimelle kopioitu tiedosto on liian suuri ja torjuttiin.",
+	"tiff_out_of_service": "Palvelimelle kopioitua tiedostoa ei voitu käsitellä. ImageMagick ei ollut käytettävissä.",
+	"tiff_too_much_meta": "Metatiedot vievät liikaa tilaa.",
+	"tiff_script_detected": "Palvelimelle kopioitu tiedosto sisältää skriptejä.",
+	"tiff_bad_file": "Tallennenttu tiedosto sisältää virheitä: $1"
 }

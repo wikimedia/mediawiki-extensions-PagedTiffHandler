@@ -1,27 +1,27 @@
 {
-    "@metadata": {
-        "authors": [
-            "Aotake",
-            "Naohiro19",
-            "Schu",
-            "Shirayuki",
-            "Yanajin66",
-            "青子守歌"
-        ]
-    },
-    "tiff-desc": "画像モードで TIFF ファイルを表示するためのハンドラー",
-    "tiff_no_metadata": "TIFF ファイルからメタデータを取得できません",
-    "tiff_page_error": "ページ番号が正しい範囲内にありません",
-    "tiff_too_many_embed_files": "この画像には埋め込みファイルが多すぎます。",
-    "tiff_sourcefile_too_large": "ソースファイルの解像度が大きすぎます。サムネイルは生成されません。",
-    "tiff_targetfile_too_large": "ターゲットファイルの解像度が大きすぎます。サムネイルは生成されません。",
-    "tiff_file_too_large": "サイズが大きすぎるため、アップロードされたファイルを却下しました。",
-    "tiff_out_of_service": "アップロードされたファイルを処理できませんでした。\nImageMagick を利用できません。",
-    "tiff_too_much_meta": "メタデータが使用する容量が大きすぎます。",
-    "tiff_error_cached": "キャッシュの有効期限が切れるまで、このファイルをレンダリングできません。",
-    "tiff_size_error": "報告されたファイルサイズが実際のサイズと一致しません。",
-    "tiff_script_detected": "アップロードされたファイルはスクリプトを含んでいます。",
-    "tiff_bad_file": "アップロードされたファイルにエラーがあります: $1",
-    "tiff_invalid_file": "アップロードされたファイルは有効な TIFF ファイルではありません。",
-    "tiff-file-info-size": "$1 × $2 ピクセル、ファイルサイズ: $3 、MIME タイプ: $4、 $5 {{PLURAL:$5|ページ}}"
+	"@metadata": {
+		"authors": [
+			"Aotake",
+			"Naohiro19",
+			"Schu",
+			"Shirayuki",
+			"Yanajin66",
+			"青子守歌"
+		]
+	},
+	"tiff-desc": "画像モードで TIFF ファイルを表示するためのハンドラー",
+	"tiff_no_metadata": "TIFF ファイルからメタデータを取得できません",
+	"tiff_page_error": "ページ番号が正しい範囲内にありません",
+	"tiff_too_many_embed_files": "この画像には埋め込みファイルが多すぎます。",
+	"tiff_sourcefile_too_large": "ソースファイルの解像度が大きすぎます。サムネイルは生成されません。",
+	"tiff_targetfile_too_large": "ターゲットファイルの解像度が大きすぎます。サムネイルは生成されません。",
+	"tiff_file_too_large": "サイズが大きすぎるため、アップロードされたファイルを却下しました。",
+	"tiff_out_of_service": "アップロードされたファイルを処理できませんでした。\nImageMagick を利用できません。",
+	"tiff_too_much_meta": "メタデータが使用する容量が大きすぎます。",
+	"tiff_error_cached": "キャッシュの有効期限が切れるまで、このファイルをレンダリングできません。",
+	"tiff_size_error": "報告されたファイルサイズが実際のサイズと一致しません。",
+	"tiff_script_detected": "アップロードされたファイルはスクリプトを含んでいます。",
+	"tiff_bad_file": "アップロードされたファイルにエラーがあります: $1",
+	"tiff_invalid_file": "アップロードされたファイルは有効な TIFF ファイルではありません。",
+	"tiff-file-info-size": "$1 × $2 ピクセル、ファイルサイズ: $3 、MIME タイプ: $4、 $5 {{PLURAL:$5|ページ}}"
 }

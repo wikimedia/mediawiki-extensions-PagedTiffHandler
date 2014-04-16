@@ -1,12 +1,12 @@
 {
-    "@metadata": {
-        "authors": [
-            "Joetaras"
-        ]
-    },
-    "tiff-desc": "Gestore pe vedè le file TIFF cumme 'n'immaggine",
-    "tiff_no_metadata": "Non ge pozze pigghià metadate da TIFF",
-    "tiff_page_error": "Numere de pàgene non ge ste jndr'à l'indervalle",
-    "tiff_too_many_embed_files": "L'immaggine tène troppe file 'ngapsulate.",
-    "tiff_too_much_meta": "'U metadate ause troppe spazie."
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"tiff-desc": "Gestore pe vedè le file TIFF cumme 'n'immaggine",
+	"tiff_no_metadata": "Non ge pozze pigghià metadate da TIFF",
+	"tiff_page_error": "Numere de pàgene non ge ste jndr'à l'indervalle",
+	"tiff_too_many_embed_files": "L'immaggine tène troppe file 'ngapsulate.",
+	"tiff_too_much_meta": "'U metadate ause troppe spazie."
 }

@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "V.narsikar"
-        ]
-    },
-    "tiff_invalid_file": "अपभारण केलेली संचिका ही वैध TIFF नाही"
+	"@metadata": {
+		"authors": [
+			"V.narsikar"
+		]
+	},
+	"tiff_invalid_file": "अपभारण केलेली संचिका ही वैध TIFF नाही"
 }

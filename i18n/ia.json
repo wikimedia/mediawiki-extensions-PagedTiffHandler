@@ -1,21 +1,21 @@
 {
-    "@metadata": {
-        "authors": [
-            "McDutchie"
-        ]
-    },
-    "tiff-desc": "Gestor pro visualisar files TIFF in modo de imagine",
-    "tiff_no_metadata": "Non pote obtener metadatos ab TIFF",
-    "tiff_page_error": "Numero de pagina foras del intervallo",
-    "tiff_too_many_embed_files": "Le imagine contine troppo de files incastrate.",
-    "tiff_sourcefile_too_large": "Le resolution del file de fonte es troppo alte. Nulle miniatura essera generate.",
-    "tiff_targetfile_too_large": "Le resolution del file de destination es troppo alte. Nulle miniatura essera generate.",
-    "tiff_file_too_large": "Le file incargate es troppo grande e ha essite rejectate.",
-    "tiff_out_of_service": "Le file incargate non poteva esser processate. ImageMagick non es disponibile.",
-    "tiff_too_much_meta": "Le metadatos usa troppo de spatio.",
-    "tiff_error_cached": "Iste file pote solmente esser re-rendite post le expiration de su copia in cache.",
-    "tiff_size_error": "Le grandor reportate del file non corresponde al grandor real del file.",
-    "tiff_script_detected": "Le file incargate contine scripts.",
-    "tiff_bad_file": "Le file incargate contine errores: $1",
-    "tiff-file-info-size": "$1 × $2 pixels, dimension del file: $3, typo MIME: $4, $5 {{PLURAL:$5|pagina|paginas}}"
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"tiff-desc": "Gestor pro visualisar files TIFF in modo de imagine",
+	"tiff_no_metadata": "Non pote obtener metadatos ab TIFF",
+	"tiff_page_error": "Numero de pagina foras del intervallo",
+	"tiff_too_many_embed_files": "Le imagine contine troppo de files incastrate.",
+	"tiff_sourcefile_too_large": "Le resolution del file de fonte es troppo alte. Nulle miniatura essera generate.",
+	"tiff_targetfile_too_large": "Le resolution del file de destination es troppo alte. Nulle miniatura essera generate.",
+	"tiff_file_too_large": "Le file incargate es troppo grande e ha essite rejectate.",
+	"tiff_out_of_service": "Le file incargate non poteva esser processate. ImageMagick non es disponibile.",
+	"tiff_too_much_meta": "Le metadatos usa troppo de spatio.",
+	"tiff_error_cached": "Iste file pote solmente esser re-rendite post le expiration de su copia in cache.",
+	"tiff_size_error": "Le grandor reportate del file non corresponde al grandor real del file.",
+	"tiff_script_detected": "Le file incargate contine scripts.",
+	"tiff_bad_file": "Le file incargate contine errores: $1",
+	"tiff-file-info-size": "$1 × $2 pixels, dimension del file: $3, typo MIME: $4, $5 {{PLURAL:$5|pagina|paginas}}"
 }

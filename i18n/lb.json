@@ -1,18 +1,18 @@
 {
-    "@metadata": {
-        "authors": [
-            "Robby"
-        ]
-    },
-    "tiff-desc": "Programm deen et erméiglech TIFF-Fichieren als Bild ze kucken",
-    "tiff_no_metadata": "Meta-Informatiounen aus dem TIFF kënnen net gelies ginn",
-    "tiff_page_error": "D'Nummer vun der Säit ass net am Beräich",
-    "tiff_file_too_large": "Den eropgeluedene Fichier ass ze grouss a gouf net akzeptéiert.",
-    "tiff_out_of_service": "Den eropgeluedene Fichier konnt net verschafft ginn. ImageMagick ass net disponibel.",
-    "tiff_too_much_meta": "D'Metadate benotzen zevill Späicherplaz.",
-    "tiff_size_error": "Déi berechent Gréisst vum Fichier ass net d'selwëscht wéi déi wierklech Gréisst vum Fichier.",
-    "tiff_script_detected": "Am eropgeluedene Fichier si Skripten dran.",
-    "tiff_bad_file": "Am eropgeluedene Fichier si Feeler: $1",
-    "tiff_invalid_file": "Den eropgeluedene Fichier ass kee valabelen TIFF-Fichier.",
-    "tiff-file-info-size": "$1 × $2 Pixelen, Gréisst vum Fichier: $3, MIME Typ: $4, $5 {{PLURAL:$5|Säit|Säiten}}"
+	"@metadata": {
+		"authors": [
+			"Robby"
+		]
+	},
+	"tiff-desc": "Programm deen et erméiglech TIFF-Fichieren als Bild ze kucken",
+	"tiff_no_metadata": "Meta-Informatiounen aus dem TIFF kënnen net gelies ginn",
+	"tiff_page_error": "D'Nummer vun der Säit ass net am Beräich",
+	"tiff_file_too_large": "Den eropgeluedene Fichier ass ze grouss a gouf net akzeptéiert.",
+	"tiff_out_of_service": "Den eropgeluedene Fichier konnt net verschafft ginn. ImageMagick ass net disponibel.",
+	"tiff_too_much_meta": "D'Metadate benotzen zevill Späicherplaz.",
+	"tiff_size_error": "Déi berechent Gréisst vum Fichier ass net d'selwëscht wéi déi wierklech Gréisst vum Fichier.",
+	"tiff_script_detected": "Am eropgeluedene Fichier si Skripten dran.",
+	"tiff_bad_file": "Am eropgeluedene Fichier si Feeler: $1",
+	"tiff_invalid_file": "Den eropgeluedene Fichier ass kee valabelen TIFF-Fichier.",
+	"tiff-file-info-size": "$1 × $2 Pixelen, Gréisst vum Fichier: $3, MIME Typ: $4, $5 {{PLURAL:$5|Säit|Säiten}}"
 }
