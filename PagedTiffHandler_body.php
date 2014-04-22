@@ -600,7 +600,7 @@ class PagedTiffHandler extends ImageHandler {
 	 *
 	 * @return array of strings
 	 */
-	public function visibleMetadataFields() {
+	protected function visibleMetadataFields() {
 		$fields = array();
 		$lines = explode( "\n", wfMessage( 'metadata-fields' )->text() );
 		foreach ( $lines as $line ) {
