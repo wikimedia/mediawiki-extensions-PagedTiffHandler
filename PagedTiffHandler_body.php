@@ -145,6 +145,12 @@ class PagedTiffHandler extends ImageHandler {
 	 */
 	function validateParam( $name, $value ) {
 		if ( in_array( $name, array( 'width', 'height', 'page', 'lossy' ) ) ) {
+			if ( $name === 'page' && trim( $value ) !== (string) intval( $value ) ) {
+				// Extra junk on the end of page, probably actually a caption
+				// e.g. [[File:Foo.tiff|thumb|Page 3 of the document shows foo]]
+				return false;
+			}
+
 			if ( $name == 'lossy' ) {
 				# NOTE: make sure to use === for comparison. in PHP, '' == 0 and 'foo' == 1.
 
