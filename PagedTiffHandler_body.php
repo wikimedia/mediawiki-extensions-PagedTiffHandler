@@ -216,6 +216,7 @@ class PagedTiffHandler extends ImageHandler {
 	 * Adds normalisation for parameter "lossy".
 	 */
 	function normaliseParams( $image, &$params ) {
+		global $wgMaxImageArea, $wgTiffUseVips;
 		if ( !parent::normaliseParams( $image, $params ) ) {
 			return false;
 		}
@@ -238,6 +239,13 @@ class PagedTiffHandler extends ImageHandler {
 				$params['lossy'] = 'lossless';
 			} else {
 				$params['lossy'] = 'lossy';
+			}
+		}
+
+		if ( !$wgTiffUseVips ) {
+			$originalArea = $image->getWidth( $params['page'] ) * $image->getHeight( $params['page'] );
+			if ( $originalArea > $wgMaxImageArea ) {
+				return false;
 			}
 		}
 
