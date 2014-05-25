@@ -371,7 +371,6 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$srcPath = $this->escapeMagickInput( $scalerParams['srcPath'], $page - 1 );
 		$dstPath = $this->escapeMagickOutput( $scalerParams['dstPath'] );
 
-
 		if ( isset( $meta['page_data'][$page]['pixels'] )
 			&& $meta['page_data'][$page]['pixels'] > $wgMaxImageArea
 		) {
@@ -760,5 +759,109 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	public function isExpensiveToThumbnail( $file ) {
 		return $file->getSize() > static::EXPENSIVE_SIZE_LIMIT;
+	}
+
+	/**
+	 * What source thumbnail to use.
+	 *
+	 * This does not use MW's builtin bucket system, as it tries to take
+	 * advantage of the fact that VIPS can scale integer shrink factors
+	 * much more efficiently than non-integral scaling factors.
+	 *
+	 * @param $file File
+	 * @param $params Array Parameters to transform file with.
+	 * @return Array Array with keys path, width and height
+	 */
+	protected function getThumbnailSource( $file, $params ) {
+		/** @var MediaTransformOutput */
+		$mto = $this->getIntermediaryStep( $file, $params );
+		if ( $mto && !$mto->isError() ) {
+			return array(
+				'path' => $mto->getLocalCopyPath(),
+				'width' => $mto->getWidth(),
+				'height' => $mto->getHeight(),
+				// The path to the temporary file may be deleted when last
+				// instance of the MediaTransformObject is garbage collected,
+				// so keep a reference around.
+				'mto' => $mto
+			);
+		} else {
+			return parent::getThumbnailSource( $file, $params );
+		}
+	}
+
+	/**
+	 * Get an intermediary sized thumb to do further rendering on
+	 *
+	 * Tiff files can be huge. This method gets a large thumbnail
+	 * to further scale things down. Size is chosen to be
+	 * efficient to scale in vips for those who use VipsScaler
+	 *
+	 * @param $file File
+	 * @param $params Array Scaling parameters for original thumbnail
+	 * @return MediaTransformObject|bool false if no in between step needed,
+	 *   MediaTransformError on error. False if the doTransform method returns false
+	 *   MediaTransformOutput on success.
+	 */
+	private function getIntermediaryStep( $file, $params ) {
+		global $wgTiffIntermediaryScaleStep, $wgThumbnailMinimumBucketDistance;
+
+		$page = intval( $params['page'] );
+		$page = $this->adjustPage( $file, $page );
+		$srcWidth = $file->getWidth( $page );
+		$srcHeight = $file->getHeight( $page );
+
+		if ( $srcWidth < $wgTiffIntermediaryScaleStep ) {
+			// Image is already smaller than intermediary step
+			return false;
+		}
+
+		$widthOfFinalThumb = $params['physicalWidth'];
+
+		// Try and get a width that's easy for VipsScaler to work with
+		// i.e. Is an integer shrink factor.
+		$rx = floor( $srcWidth / ( $wgTiffIntermediaryScaleStep + 0.125 ) );
+		$intermediaryWidth = intval( floor( $srcWidth / round( $rx ) ) );
+		$intermediaryHeight = intval( floor( $srcHeight / round( $rx ) ) );
+
+		// We need both the vertical and horizontal shrink factors to be
+		// integers, and at the same time make sure that both vips and mediawiki
+		// have the same height for a given width (MediaWiki makes the assumption
+		// that the height of an image functionally depends on its width)
+		for ( ; $rx >= 2; $rx-- ) {
+			$intermediaryWidth = intval( floor( $srcWidth / round( $rx ) ) );
+			$intermediaryHeight = intval( floor( $srcHeight / round( $rx ) ) );
+			if ( $intermediaryHeight == File::scaleHeight( $srcWidth, $srcHeight, $intermediaryWidth ) ) {
+				break;
+			}
+		}
+
+		if ( $intermediaryWidth <= $widthOfFinalThumb + $wgThumbnailMinimumBucketDistance || $rx < 2 ) {
+			// Need to scale the original full sized thumb
+			return false;
+		}
+
+		static $isInThisFunction;
+
+		if ( $isInThisFunction ) {
+			// Sanity check, should never be reached
+			throw new MWException( "Loop detected in " . __METHOD__ );
+		}
+		$isInThisFunction = true;
+
+		$newParams = array(
+			'width' => $intermediaryWidth,
+			'page' => $page,
+			// Render a png, to avoid loss of quality when doing multi-step
+			'lossy' => 'lossless'
+		);
+
+		// RENDER_NOW causes rendering in this process if
+		// thumb doesn't exist, but unlike RENDER_FORCE, will return
+		// a cached thumb if available.
+		$mto = $file->transform( $newParams, File::RENDER_NOW );
+
+		$isInThisFunction = false;
+		return $mto;
 	}
 }

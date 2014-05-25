@@ -18,3 +18,6 @@ caspian.tif taken from libtiff test images. Obviously they are under no license.
 380mhz.tiff was taken from Wikimedia Commons, at http://commons.wikimedia.org/wiki/File:380mhz.tiff
             It was published by Travis Bland under the Creative Commons Attribution-Share Alike 3.0 
             Unported license.
+
+large.tiff Created by Brian Wolff in the gimp. He waives all copyright and related rights to the file.
+           Additionally, the file probably does not meet the threshold of originality for copyright.

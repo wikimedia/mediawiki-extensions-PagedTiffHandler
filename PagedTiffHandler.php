@@ -101,6 +101,9 @@ $wgTiffMaxEmbedFiles = 10000;
 $wgTiffMaxMetaSize = 64*1024;
 // TTL of cache entries for errors
 $wgTiffErrorCacheTTL = 24*60*60;
+// For thumbnails smaller than this, first scale to this amount
+// Set to 0 to disable
+$wgTiffIntermediaryScaleStep = 2048;
 
 $wgFileExtensions[] = 'tiff';
 $wgFileExtensions[] = 'tif';

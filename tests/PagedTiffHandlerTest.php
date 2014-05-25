@@ -17,6 +17,13 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		return __DIR__ . '/testImages';
 	}
 
+	/**
+	 * Set up file repo for thumbnails
+	 */
+	protected function createsThumbnails() {
+		return true;
+	}
+
 	function setUp() {
 		parent::setUp();
 		$this->handler = new PagedTiffHandler();
@@ -25,15 +32,18 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->truncated_path = $this->filePath . '/truncated.tiff';
 		$this->mhz_path = $this->filePath . '/380mhz.tiff';
 		$this->test_path = $this->filePath . '/test.tif';
+		$this->large_path = $this->filePath . '/large.tiff';
 
 
 		$this->multipage_image = $this->dataFile( 'multipage.tiff', 'image/tiff' );
 		$this->truncated_image = $this->dataFile( 'truncated.tiff', 'image/tiff' );
 		$this->mhz_image = $this->dataFile( '380mhz.tiff', 'image/tiff' );
 		$this->test_image = $this->dataFile( 'test.tiff', 'image/tiff' );
+		$this->large_image = $this->dataFile( 'large.tiff', 'image/tiff' );
 
 		// Max 50 Megapixels like on WMF
 		$this->setMwGlobals( 'wgMaxImageArea', 5e7 );
+		$this->setMwGlobals( 'wgTiffIntermediaryScaleStep', 2048 );
 	}
 	
 	function testMetadata() {
@@ -163,6 +173,25 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$error = $this->handler->doTransform( $this->truncated_image, $truncatedThumbFile, 'Truncated.tiff', array( 'width' => 100, 'height' => 100 ) );
 		$this->assertTrue( $error->isError() );
 	}
+
+	function testDoTransformLarge() {
+		$params = array( 'width' => 120, 'lossy' => 'lossy' );
+		$thumb = $this->large_image->transform( $params, File::RENDER_FORCE );
+		$this->assertFalse( $thumb->isError(), "Error rendering thumbnail: " . ( $thumb->isError() ? $thumb->toText() : '' ) );
+		$this->assertFileExists( $thumb->getLocalCopyPath() );
+		$this->assertGreaterThan( 0, filesize( $thumb->getLocalCopyPath() ) );
+
+		// Verify that an intermediate thumb was actually made
+		$intermediateParams = array( 'width' => 2500, 'lossy' => 'lossless' );
+		$this->large_image->getHandler()->normaliseParams( $this->large_image, $intermediateParams );
+
+		$thumbName = $this->large_image->thumbName( $intermediateParams );
+		$thumbPath = $this->large_image->getThumbPath( $thumbName );
+
+		$this->assertTrue( $this->repo->fileExists( $thumbPath ), "Intermediate thumb missing" );
+
+	}
+
 	function testGetThumbType() {
 		// ---- Image information
 		// getThumbType
