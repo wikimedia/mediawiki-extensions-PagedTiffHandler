@@ -133,3 +133,14 @@ define('TIFF_METADATA_VERSION', '1.4');
 //$wgHooks['PagedTiffHandlerExifData'][] = 'PagedTiffImage::exifData';
 
 $wgHooks['ExtractThumbParameters'][] = 'PagedTiffHandler::onExtractThumbParameters';
+$wgHooks['UnitTestsList'][] = 'wfPagedTiffHandlerTests';
+
+/**
+ * @param $files array
+ * @return bool
+ */
+function wfPagedTiffHandlerTests( &$files ) {
+	$files[] = __DIR__ . '/tests/PagedTiffHandlerTest.php';
+	return true;
+}
+
