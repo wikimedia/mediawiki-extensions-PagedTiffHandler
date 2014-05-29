@@ -21,6 +21,7 @@
  */
 
 class PagedTiffHandler extends ImageHandler {
+	const EXPENSIVE_SIZE_LIMIT = 10485760; // TIFF files over 10M are considered expensive to thumbnail
 
 	/**
 	 * @return bool
@@ -783,4 +784,10 @@ class PagedTiffHandler extends ImageHandler {
 		}
 		return true; // pass through to next handler
 	}
+
+	public function isExpensiveToThumbnail( $file ) {
+		return $file->getSize() > static::EXPENSIVE_SIZE_LIMIT;
+	}
+
+
 }
