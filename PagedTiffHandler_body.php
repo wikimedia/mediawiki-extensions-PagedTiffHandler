@@ -664,15 +664,8 @@ class PagedTiffHandler extends ImageHandler {
 		}
 		$exif = $exif['exif'];
 		unset( $exif['MEDIAWIKI_EXIF_VERSION'] );
-		if ( class_exists( 'FormatMetadata' ) ) {
-			// 1.18+
-			$formatted = FormatMetadata::getFormattedData( $exif );
-		} else {
-			// 1.17 and earlier.
-			$format = new FormatExif( $exif );
+		$formatted = FormatMetadata::getFormattedData( $exif );
 
-			$formatted = $format->getFormattedData();
-		}
 		// Sort fields into visible and collapsed
 		$visibleFields = $this->visibleMetadataFields();
 		foreach ( $formatted as $name => $value ) {
