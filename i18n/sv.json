@@ -2,9 +2,23 @@
 	"@metadata": {
 		"authors": [
 			"Jopparn",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Lokal Profil"
 		]
 	},
+	"tiff-desc": "Hantering av visning av TIFF-filer i bildläge",
+	"tiff_no_metadata": "Kunde inte få metadata från TIFF",
+	"tiff_page_error": "Sidnummer inte i intervallet",
+	"tiff_too_many_embed_files": "Bilden innehåller för många inbäddade filer.",
+	"tiff_sourcefile_too_large": "Upplösningen på källfilen är för stor.\nIngen miniatyrbild kommer att genereras.",
+	"tiff_targetfile_too_large": "Upplösningen på målfilen är för stor.\nIngen miniatyrbild kommer att genereras.",
+	"tiff_file_too_large": "Den uppladdade filen är för stor och avvisades.",
+	"tiff_out_of_service": "Den uppladdade filen kunde inte bearbetas.\nImageMagick är inte tillgänglig.",
 	"tiff_too_much_meta": "Metadata använder alltför mycket utrymme.",
-	"tiff_invalid_file": "Den uppladdade filen är inte en giltig TIFF-fil."
+	"tiff_error_cached": "Denna fil kan bara renderas efter cachlagringsintervallet.",
+	"tiff_size_error": "Den rapporterade filstorleken överensstämmer inte med den faktiska filstorleken.",
+	"tiff_script_detected": "Den uppladdade filen innehåller skript.",
+	"tiff_bad_file": "Den uppladdade filen innehåller fel: $1",
+	"tiff_invalid_file": "Den uppladdade filen är inte en giltig TIFF-fil.",
+	"tiff-file-info-size": "$1 × $2 pixlar, filstorlek: $3, MIME-typ: $4, $5 {{PLURAL:$5|sida|sidor}}"
 }
