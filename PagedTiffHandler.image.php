@@ -422,9 +422,9 @@ class PagedTiffImage {
 }
 
 class PagedTiffInfoParserState {
-	var $metadata; # all data
-	var $page; # current page
-	var $prevPage;
+	public $metadata; # all data
+	public $page; # current page
+	public $prevPage;
 
 	function __construct() {
 		$this->metadata = array();
