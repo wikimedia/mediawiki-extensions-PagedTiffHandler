@@ -30,23 +30,23 @@ class ShowMetadata extends Maintenance {
 		$handler = new PagedTiffHandler();
 
 		$path = $this->mArgs[0];
-		$file = UnregisteredLocalFile::newFromPath($path, "image/tiff");
+		$file = UnregisteredLocalFile::newFromPath( $path, "image/tiff" );
 
 		$metadata = $handler->getMetadata( $file, $path );
 
 		if ( !$metadata ) {
-		    print "FAILED! \n";
-		    return;
+			print "FAILED! \n";
+			return;
 		} 
 
 		$metadata = unserialize( $metadata );
 
 		if ( !$metadata ) {
-		    print "BROKEN! \n";
-		    return;
+			print "BROKEN! \n";
+			return;
 		} 
 
-		print_r($metadata);
+		print_r( $metadata );
 	}
 }
 
