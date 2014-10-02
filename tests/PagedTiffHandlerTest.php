@@ -175,6 +175,10 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	}
 
 	function testDoTransformLarge() {
+		// Artificially make this small. Jenkins kept OOMing on
+		// big images.
+		$this->setMwGlobals( 'wgTiffIntermediaryScaleStep', 480 );
+
 		$params = array( 'width' => 120, 'lossy' => 'lossy' );
 		$thumb = $this->large_image->transform( $params, File::RENDER_FORCE );
 		$this->assertFalse( $thumb->isError(), "Error rendering thumbnail: " . ( $thumb->isError() ? $thumb->toText() : '' ) );
@@ -182,7 +186,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertGreaterThan( 0, filesize( $thumb->getLocalCopyPath() ) );
 
 		// Verify that an intermediate thumb was actually made
-		$intermediateParams = array( 'width' => 2500, 'lossy' => 'lossless' );
+		$intermediateParams = array( 'width' => 500, 'lossy' => 'lossless' );
 		$this->large_image->getHandler()->normaliseParams( $this->large_image, $intermediateParams );
 
 		$thumbName = $this->large_image->thumbName( $intermediateParams );
