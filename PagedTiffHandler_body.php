@@ -416,7 +416,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return $tiffImageThumbType;
 		}
 
-		if ( $params['lossy'] == 'lossy' ) {
+		if ( isset( $params['lossy'] ) && $params['lossy'] == 'lossy' ) {
 			return array( 'jpg', 'image/jpeg' );
 		} else {
 			return array( 'png', 'image/png' );
