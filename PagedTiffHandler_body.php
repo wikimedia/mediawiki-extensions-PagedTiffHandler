@@ -431,7 +431,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
 		}
-		if ( !isset( $data['page_count'] ) ) var_dump( $data, $this->isMetadataError( $data ) );
+
 		return intval( $data['page_count'] );
 	}
 
