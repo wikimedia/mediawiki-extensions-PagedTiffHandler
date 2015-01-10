@@ -326,7 +326,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	protected function getScalerType( $dstPath, $checkDstPath = true ) {
 		if ( !$dstPath && $checkDstPath ) {
 			// We don't have the option of doing client side scaling for this filetype.
-			throw new MWException( "Cannot create thumbnail, no destination path" );
+			throw new Exception( "Cannot create thumbnail, no destination path" );
 		}
 
 		return array( $this, 'transformIM' );
@@ -845,7 +845,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		if ( $isInThisFunction ) {
 			// Sanity check, should never be reached
-			throw new MWException( "Loop detected in " . __METHOD__ );
+			throw new Exception( "Loop detected in " . __METHOD__ );
 		}
 		$isInThisFunction = true;
 
