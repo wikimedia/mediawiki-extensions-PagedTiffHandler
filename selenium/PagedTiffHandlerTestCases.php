@@ -29,7 +29,7 @@ class SeleniumCheckPrerequisites extends SeleniumTestCase {
 	public function tearDown() {
 		if ( $this->prerequisiteError ) {
 			//$this->selenium->stop();
-			throw new MWException( 'failed: ' . $this->prerequisiteError . "\n" );
+			throw new Exception( 'failed: ' . $this->prerequisiteError . "\n" );
 		}
 	}
 }
