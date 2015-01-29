@@ -49,6 +49,7 @@ $wgExtensionCredits['media'][] = array(
 	),
 	'descriptionmsg' => 'tiff-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:PagedTiffHandler',
+	'license-name' => 'GPL-2.0+',
 );
 
 $wgTiffIdentifyRejectMessages = array(
