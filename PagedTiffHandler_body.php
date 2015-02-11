@@ -248,7 +248,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * @param $metadata array
-	 * @return bool
+	 * @return bool|string[] a list of errors or an error flag (true = error)
 	 */
 	static function getMetadataErrors( $metadata ) {
 		if ( is_string( $metadata ) ) {
@@ -272,9 +272,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	private function isMetadataError( $metadata ) {
 		$errors = self::getMetadataErrors( $metadata );
 		if ( is_array( $errors ) ) {
-			return true;
+			return count( $errors ) > 0;
 		} else {
-			$errors;
+			return $errors;
 		}
 	}
 
