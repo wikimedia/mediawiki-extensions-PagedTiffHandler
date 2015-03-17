@@ -618,9 +618,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * The function should return false if there is no metadata to display.
 	 *
 	 * @param $image File
+	 * @param bool|IContextSource $context Context to use (optional)
 	 * @return array|bool
 	 */
-	function formatMetadata( $image ) {
+	function formatMetadata( $image, $context = false ) {
 		$result = array(
 			'visible' => array(),
 			'collapsed' => array()
