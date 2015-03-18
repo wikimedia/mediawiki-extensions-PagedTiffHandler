@@ -636,7 +636,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		}
 		$exif = $exif['exif'];
 		unset( $exif['MEDIAWIKI_EXIF_VERSION'] );
-		$formatted = FormatMetadata::getFormattedData( $exif );
+		$formatted = FormatMetadata::getFormattedData( $exif, $context );
 
 		// Sort fields into visible and collapsed
 		$visibleFields = $this->visibleMetadataFields();
