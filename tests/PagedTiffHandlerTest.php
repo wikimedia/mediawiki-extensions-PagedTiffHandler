@@ -27,7 +27,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	function setUp() {
 		parent::setUp();
 		$this->handler = new PagedTiffHandler();
-		
+
 		$this->multipage_path = $this->filePath . '/multipage.tiff';
 		$this->truncated_path = $this->filePath . '/truncated.tiff';
 		$this->mhz_path = $this->filePath . '/380mhz.tiff';
@@ -45,7 +45,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->setMwGlobals( 'wgMaxImageArea', 5e7 );
 		$this->setMwGlobals( 'wgTiffIntermediaryScaleStep', 2048 );
 	}
-	
+
 	function testMetadata() {
 		// ---- Metdata initialization
 		$this->handler->getMetadata( $this->multipage_image, $this->multipage_path );
@@ -98,7 +98,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertTrue( $this->handler->validateParam( 'height', '60000' ) );
 		$this->assertTrue( $this->handler->validateParam( 'page', '60000' ) );
 
-		$this->assertFalse( $this->handler->validateParam( 'lossy', '' ) ); 
+		$this->assertFalse( $this->handler->validateParam( 'lossy', '' ) );
 		$this->assertFalse( $this->handler->validateParam( 'lossy', 'quark' ) );
 
 		$this->assertFalse( $this->handler->validateParam( 'width', '160000' ) );
@@ -210,7 +210,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	function testGetLongDesc() {
 		// English
-		$this->assertEquals( $this->handler->getLongDesc( $this->multipage_image ), wfMessage( 'tiff-file-info-size', '1,024', '768', '2.64 MB', 'image/tiff', '7' )->text() );
+		$this->assertEquals( $this->handler->getLongDesc( $this->multipage_image ), wfMessage( 'tiff-file-info-size', '1,024', '768', '2.64 MB', '<span class="mime-type">image/tiff</span>', '7' )->text() );
 	}
 
 	function testPageCount() {
@@ -252,7 +252,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 		foreach (  $formattedMetadata['collapsed'] as $k => $e ) {
 			if ( $e['id'] == 'exif-photometricinterpretation' ) {
-				$this->assertEquals( $e['value'], 'RGB' ); 
+				$this->assertEquals( $e['value'], 'RGB' );
 			}
 		}
 	}
