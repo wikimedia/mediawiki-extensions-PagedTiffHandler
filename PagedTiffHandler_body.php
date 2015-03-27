@@ -581,25 +581,6 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	 * Get a list of EXIF metadata items which should be displayed when
-	 * the metadata table is collapsed.
-	 *
-	 * @return array of strings
-	 */
-	protected function visibleMetadataFields() {
-		$fields = array();
-		$lines = explode( "\n", wfMessage( 'metadata-fields' )->text() );
-		foreach ( $lines as $line ) {
-			$matches = array();
-			if ( preg_match( '/^\\*\s*(.*?)\s*$/', $line, $matches ) ) {
-				$fields[] = $matches[1];
-			}
-		}
-		$fields = array_map( 'strtolower', $fields );
-		return $fields;
-	}
-
-	/**
 	 * Get an array structure that looks like this:
 	 *
 	 * array(
