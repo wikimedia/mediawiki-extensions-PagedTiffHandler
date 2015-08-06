@@ -382,7 +382,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$cmd .= " -depth 8 -resize {$width} ";
 		$cmd .= wfEscapeShellArg( $dstPath );
 
-		wfRunHooks( 'PagedTiffHandlerRenderCommand',
+		Hooks::run( 'PagedTiffHandlerRenderCommand',
 			array( &$cmd, $srcPath, $dstPath, $page, $width, $height, $scalerParams )
 		);
 

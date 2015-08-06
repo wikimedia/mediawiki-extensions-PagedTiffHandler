@@ -95,7 +95,7 @@ class PagedTiffImage {
 
 			//fetch base info: number of pages, size and alpha for each page.
 			//run hooks first, then optionally tiffinfo or, per default, ImageMagic's identify command
-			if ( !wfRunHooks( 'PagedTiffHandlerTiffData', array( $this->mFilename, &$this->_meta ) ) ) {
+			if ( !Hooks::run( 'PagedTiffHandlerTiffData', array( $this->mFilename, &$this->_meta ) ) ) {
 				wfDebug( __METHOD__ . ": hook PagedTiffHandlerTiffData overrides TIFF data extraction\n" );
 			} elseif ( $wgTiffUseTiffinfo ) {
 				// read TIFF directories using libtiff's tiffinfo, see
@@ -142,7 +142,7 @@ class PagedTiffImage {
 			//run hooks first, then optionally Exiv2 or, per default, the internal EXIF class
 			if ( !empty( $this->_meta['errors'] ) ) {
 				wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
-			} elseif ( !wfRunHooks( 'PagedTiffHandlerExifData', array( $this->mFilename, &$this->_meta['exif'] ) ) ) {
+			} elseif ( !Hooks::run( 'PagedTiffHandlerExifData', array( $this->mFilename, &$this->_meta['exif'] ) ) ) {
 				wfDebug( __METHOD__ . ": hook PagedTiffHandlerExifData overrides EXIF extraction\n" );
 			} elseif ( $wgTiffUseExiv ) {
 				// read EXIF, XMP, IPTC as name-tag => interpreted data
