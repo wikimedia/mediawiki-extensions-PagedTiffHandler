@@ -290,6 +290,10 @@ class PagedTiffImage {
 				} elseif ( preg_match('/.*IFDOffset/', $key) ) {
 					# ignore extra IFDs, see <http://www.awaresystems.be/imaging/tiff/tifftags/exififd.html>
 					# Note: we assume that we will always see the reference before the actual IFD, so we know which IFDs to ignore
+					// Offset is usually in hex
+					if ( preg_match( '/^0x[0-9A-Fa-f]+$/', $value ) ) {
+						$value = hexdec( substr( $value, 2 ) );
+					}
 					$offset = (int)$value;
 					$ignoreIFDs[$offset] = true;
 				}
