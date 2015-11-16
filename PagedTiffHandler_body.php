@@ -426,7 +426,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Returns the number of available pages/embedded files
 	 */
-	function pageCount( $image ) {
+	function pageCount( File $image ) {
 		$data = $this->getMetaArray( $image );
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
@@ -709,7 +709,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * expanded in the future.
 	 * Returns false if unknown or if the document is not multi-page.
 	 */
-	function getPageDimensions( $image, $page ) {
+	function getPageDimensions( File $image, $page ) {
 		// makeImageLink2 (Linker.php) sets $page to false if no page parameter
 		// is set in wiki code
 		$page = $this->adjustPage( $image, $page );
