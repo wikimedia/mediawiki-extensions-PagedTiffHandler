@@ -710,7 +710,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Returns false if unknown or if the document is not multi-page.
 	 */
 	function getPageDimensions( File $image, $page ) {
-		// makeImageLink2 (Linker.php) sets $page to false if no page parameter
+		// makeImageLink (Linker.php) sets $page to false if no page parameter
 		// is set in wiki code
 		$page = $this->adjustPage( $image, $page );
 		$data = $this->getMetaArray( $image );
