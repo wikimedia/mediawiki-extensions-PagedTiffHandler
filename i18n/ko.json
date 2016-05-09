@@ -9,7 +9,7 @@
 	"tiff-desc": "TIFF 파일을 이미지 모드에서 볼 수 있도록 하는 핸들러",
 	"tiff_no_metadata": "TIFF 파일에서 메타데이터를 가져올 수 없습니다.",
 	"tiff_page_error": "쪽수가 범위 바깥에 있습니다.",
-	"tiff_too_many_embed_files": "이 이미지가 너무 많은 임베드 파일을 포함하고 있습니다.",
+	"tiff_too_many_embed_files": "그림에 너무 많이 넣은 파일을 포함하고 있습니다.",
 	"tiff_sourcefile_too_large": "원본 파일의 해상도가 너무 큽니다.\n섬네일이 생성되지 않을 것입니다.",
 	"tiff_targetfile_too_large": "지정한 파일의 해상도가 너무 큽니다.\n섬네일이 생성되지 않을 것입니다.",
 	"tiff_file_too_large": "올린 파일이 너무 커서 거부했습니다.",
