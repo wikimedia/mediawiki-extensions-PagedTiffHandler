@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Silraks"
+		]
+	},
+	"tiff_too_much_meta": "Metadati izmanto pārāk daudz vietas.",
+	"tiff_bad_file": "Augšupielādētais fails satur kļūdas: $1"
+}
