@@ -793,8 +793,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$srcWidth = $file->getWidth( $page );
 		$srcHeight = $file->getHeight( $page );
 
-		if ( $srcWidth < $wgTiffIntermediaryScaleStep ) {
-			// Image is already smaller than intermediary step
+		if ( $srcWidth <= $wgTiffIntermediaryScaleStep ) {
+			// Image is already smaller than intermediary step or at that step
 			return false;
 		}
 
@@ -803,16 +803,16 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		// Try and get a width that's easy for VipsScaler to work with
 		// i.e. Is an integer shrink factor.
 		$rx = floor( $srcWidth / ( $wgTiffIntermediaryScaleStep + 0.125 ) );
-		$intermediaryWidth = intval( floor( $srcWidth / round( $rx ) ) );
-		$intermediaryHeight = intval( floor( $srcHeight / round( $rx ) ) );
+		$intermediaryWidth = intval( floor( $srcWidth / $rx ) );
+		$intermediaryHeight = intval( floor( $srcHeight / $rx ) );
 
 		// We need both the vertical and horizontal shrink factors to be
 		// integers, and at the same time make sure that both vips and mediawiki
 		// have the same height for a given width (MediaWiki makes the assumption
 		// that the height of an image functionally depends on its width)
 		for ( ; $rx >= 2; $rx-- ) {
-			$intermediaryWidth = intval( floor( $srcWidth / round( $rx ) ) );
-			$intermediaryHeight = intval( floor( $srcHeight / round( $rx ) ) );
+			$intermediaryWidth = intval( floor( $srcWidth / $rx ) );
+			$intermediaryHeight = intval( floor( $srcHeight / $rx ) );
 			if ( $intermediaryHeight == File::scaleHeight( $srcWidth, $srcHeight, $intermediaryWidth ) ) {
 				break;
 			}
