@@ -66,17 +66,21 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	function testGetMetaArray() {
 		// getMetaArray
 		$metaArray = $this->handler->getMetaArray( $this->mhz_image );
-		if ( !empty( $metaArray['errors'] ) ) $this->fail( join('; ', $metaArray['error']) );
-		$this->assertEquals( $metaArray['page_count'], 1 );
+		if ( !empty( $metaArray['errors'] ) ) {
+			$this->fail( join('; ', $metaArray['error']) );
+		}
+		$this->assertEquals( 1, $metaArray['page_count'] );
 
-		$this->assertEquals( strtolower( $metaArray['page_data'][1]['alpha'] ), 'true' );
+		$this->assertEquals( 'true', strtolower( $metaArray['page_data'][1]['alpha'] ) );
 
 		$metaArray = $this->handler->getMetaArray( $this->multipage_image );
-		if ( !empty( $metaArray['errors'] ) ) $this->fail( join('; ', $metaArray['error']) );
-		$this->assertEquals( $metaArray['page_count'], 7 );
+		if ( !empty( $metaArray['errors'] ) ) {
+			$this->fail( join('; ', $metaArray['error']) );
+		}
+		$this->assertEquals( 7, $metaArray['page_count'] );
 
-		$this->assertEquals( strtolower( $metaArray['page_data'][1]['alpha'] ), 'false' );
-		$this->assertEquals( strtolower( $metaArray['page_data'][2]['alpha'] ), 'true' );
+		$this->assertEquals( 'false', strtolower( $metaArray['page_data'][1]['alpha'] ) );
+		$this->assertEquals( 'true', strtolower( $metaArray['page_data'][2]['alpha'] ) );
 
 		$interp = $metaArray['exif']['PhotometricInterpretation'];
 		$this->assertTrue( $interp == 2 || $interp == 'RGB' ); //RGB
@@ -118,34 +122,35 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		// here, boxfit behavior is tested
 		$params = [ 'width' => '100', 'height' => '100', 'page' => '4' ];
 		$this->assertTrue( $this->handler->normaliseParams( $this->multipage_image, $params ) );
-		$this->assertEquals( $params['height'], 75 );
+		$this->assertEquals( 75, $params['height'] );
 
 		// lossy and lossless
-		$params = [ 'width'=>'100', 'height'=>'100', 'page'=>'1' ];
+		$params = [ 'width' => '100', 'height' => '100', 'page' => '1' ];
 		$this->handler->normaliseParams($this->multipage_image, $params );
-		$this->assertEquals($params['lossy'], 'lossy');
+		$this->assertEquals( 'lossy', $params['lossy'] );
 
-		$params = [ 'width'=>'100', 'height'=>'100', 'page'=>'2' ];
-		$this->handler->normaliseParams($this->multipage_image, $params );
-		$this->assertEquals($params['lossy'], 'lossless');
+		$params = [ 'width' => '100', 'height' => '100', 'page' => '2' ];
+		$this->handler->normaliseParams( $this->multipage_image, $params );
+		$this->assertEquals( 'lossless', $params['lossy'] );
 
 		// single page
-		$params = [ 'width'=>'100', 'height'=>'100', 'page'=>'1' ];
-		$this->handler->normaliseParams($this->mhz_image, $params );
-		$this->assertEquals($params['lossy'], 'lossless');
+		$params = [ 'width' => '100', 'height' => '100', 'page' => '1' ];
+		$this->handler->normaliseParams( $this->mhz_image, $params );
+		$this->assertEquals( 'lossless', $params['lossy'] );
 	}
 
 	function testMakeParamString() {
 
 		// makeParamString
 		$this->assertEquals(
+			'lossless-page4-100px',
 			$this->handler->makeParamString(
 				[
 					'width' => '100',
 					'page' => '4',
-					'lossy' => 'lossless' ]
-			),
-			'lossless-page4-100px'
+					'lossy' => 'lossless'
+				]
+			)
 		);
 	}
 
@@ -213,18 +218,17 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		// ---- Image information
 		// getThumbType
 		$type = $this->handler->getThumbType( '.tiff', 'image/tiff', [ 'lossy' => 'lossy' ] );
-		$this->assertEquals( $type[0], 'jpg' );
-		$this->assertEquals( $type[1], 'image/jpeg' );
+		$this->assertEquals( 'jpg', $type[0]  );
+		$this->assertEquals( 'image/jpeg', $type[1] );
 
 		$type = $this->handler->getThumbType( '.tiff', 'image/tiff', [ 'lossy' => 'lossless' ] );
-		$this->assertEquals( $type[0], 'png' );
-		$this->assertEquals( $type[1], 'image/png' );
+		$this->assertEquals( 'png', $type[0]  );
+		$this->assertEquals( 'image/png', $type[1] );
 	}
 
 	function testGetLongDesc() {
 		// English
 		$this->assertEquals(
-			$this->handler->getLongDesc( $this->multipage_image ),
 			wfMessage(
 				'tiff-file-info-size',
 				'1,024',
@@ -232,52 +236,53 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 				'2.64 MB',
 				'<span class="mime-type">image/tiff</span>',
 				'7'
-			)->text()
+			)->text(),
+			$this->handler->getLongDesc( $this->multipage_image )
 		);
 	}
 
 	function testPageCount() {
 		// pageCount
-		$this->assertEquals( $this->handler->pageCount( $this->multipage_image ), 7 );
-		$this->assertEquals( $this->handler->pageCount( $this->mhz_image ), 1 );
+		$this->assertEquals( 7, $this->handler->pageCount( $this->multipage_image ) );
+		$this->assertEquals( 1, $this->handler->pageCount( $this->mhz_image ) );
 	}
 
 	function testGetPageDimensions() {
 
 		// getPageDimensions
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->multipage_image, 0 ),
 			[ 'width' => 1024, 'height' => 768 ],
+			$this->handler->getPageDimensions( $this->multipage_image, 0 ),
 			"multipage, page 0"
 		);
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->multipage_image, 1 ),
 			[ 'width' => 1024, 'height' => 768 ],
+			$this->handler->getPageDimensions( $this->multipage_image, 1 ),
 			"multipage, page 1"
 		);
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->multipage_image, 2 ),
 			[ 'width' => 640, 'height' => 564 ],
+			$this->handler->getPageDimensions( $this->multipage_image, 2 ),
 			"multipage, page 2"
 		);
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->multipage_image, 3 ),
 			[ 'width' => 1024, 'height' => 563 ],
+			$this->handler->getPageDimensions( $this->multipage_image, 3 ),
 			"multipage, page 3"
 		);
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->multipage_image, 4 ),
 			[ 'width' => 1024, 'height' => 768 ],
+			$this->handler->getPageDimensions( $this->multipage_image, 4 ),
 			"multipage, page 4"
 		);
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->multipage_image, 5 ),
 			[ 'width' => 1024, 'height' => 768 ],
+			$this->handler->getPageDimensions( $this->multipage_image, 5 ),
 			"multipage, page 5"
 		);
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->multipage_image, 6 ),
 			[ 'width' => 1024, 'height' => 768 ],
+			$this->handler->getPageDimensions( $this->multipage_image, 6 ),
 			"multipage, page 6" );
 		$this->assertEquals(
 			$this->handler->getPageDimensions( $this->multipage_image, 7 ),
@@ -286,20 +291,20 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		);
 
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->mhz_image, 0 ),
 			[ 'width' => 643, 'height' => 452 ],
+			$this->handler->getPageDimensions( $this->mhz_image, 0 ),
 			"multipage, page 8"
 		);
 
 		// return dimensions of last page if page number is too high
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->multipage_image, 8 ),
 			[ 'width' => 768, 'height' => 1024 ],
+			$this->handler->getPageDimensions( $this->multipage_image, 8 ),
 			"multipage out of range"
 		);
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->mhz_image, 1 ),
 			[ 'width' => 643, 'height' => 452 ],
+			$this->handler->getPageDimensions( $this->mhz_image, 1 ),
 			"mhz"
 		);
 	}
@@ -318,7 +323,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 		foreach (  $formattedMetadata['collapsed'] as $k => $e ) {
 			if ( $e['id'] == 'exif-photometricinterpretation' ) {
-				$this->assertEquals( $e['value'], 'RGB' );
+				$this->assertEquals( 'RGB', $e['value'] );
 			}
 		}
 	}
@@ -337,7 +342,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$actualResult = $this->handler->normaliseParams( $file, $params );
 		$wgMaxImageArea = $oldMaxArea;
 
-		$this->assertEquals( $actualResult, $expectedResult, $testName );
+		$this->assertEquals( $expectedResult, $actualResult, $testName );
 	}
 
 	function normaliseProvider() {
@@ -393,7 +398,8 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	 * Get a file that will throw an exception when fetched
 	 */
 	private function getMockTiffFile( $name, $dim ) {
-		$file = $this->getMock( 'UnregisteredLocalFile',
+		$file = $this->getMock(
+			'UnregisteredLocalFile',
 			[ 'getWidth', 'getHeight', 'getMetadata', 'getLocalRefPath' ],
 			[ false, $this->repo, "mwstore://localtesting/data/$name", 'image/tiff' ]
 		);
@@ -404,4 +410,3 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		return $file;
 	}
 }
-
