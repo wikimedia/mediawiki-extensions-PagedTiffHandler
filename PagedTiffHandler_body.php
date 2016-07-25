@@ -24,10 +24,11 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	const EXPENSIVE_SIZE_LIMIT = 10485760; // TIFF files over 10M are considered expensive to thumbnail
 
 	/**
-	 * 1.0: initial
-	 * 1.1: fixed bugs in imageinfo parser
-	 * 1.2: photoshop quirks (reverted)
-	 * 1.3: handing extra IFDs reported by tiffinfo
+	 * 1.0: Initial
+	 * 1.1: Fixed bugs in imageinfo parser
+	 * 1.2: Photoshop quirks (reverted)
+	 * 1.3: Handing extra IFDs reported by tiffinfo
+	 * 1.4: Allowed page numbering to start from numbers other than 1
 	 */
 	const TIFF_METADATA_VERSION = '1.4';
 
