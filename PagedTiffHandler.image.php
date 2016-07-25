@@ -190,7 +190,7 @@ class PagedTiffImage {
 			unset( $this->_meta['exif']['XMLPacket'] );
 			unset( $this->_meta['exif']['ImageResources'] );
 
-			$this->_meta['TIFF_METADATA_VERSION'] = TIFF_METADATA_VERSION;
+			$this->_meta['TIFF_METADATA_VERSION'] = PagedTiffHandler::TIFF_METADATA_VERSION;
 
 			wfProfileOut( 'PagedTiffImage::retrieveMetaData' );
 		}

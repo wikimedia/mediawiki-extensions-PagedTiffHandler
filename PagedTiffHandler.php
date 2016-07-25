@@ -121,25 +121,9 @@ $wgAutoloadClasses['PagedTiffHandlerSeleniumTestSuite'] = $dir . 'selenium/Paged
 
 $wgMediaHandlers['image/tiff'] = 'PagedTiffHandler';
 
-define('TIFF_METADATA_VERSION', '1.4');
-# 1.0: initial
-# 1.1: fixed bugs in imageinfo parser
-# 1.2: photoshop quirks (reverted)
-# 1.3: handing extra IFDs reported by tiffinfo
-
 //$wgHooks['PagedTiffHandlerRenderCommand'][] = 'PagedTiffHandler::renderCommand';
 //$wgHooks['PagedTiffHandlerTiffData'][] = 'PagedTiffImage::tiffData';
 //$wgHooks['PagedTiffHandlerExifData'][] = 'PagedTiffImage::exifData';
 
 $wgHooks['ExtractThumbParameters'][] = 'PagedTiffHandler::onExtractThumbParameters';
-$wgHooks['UnitTestsList'][] = 'wfPagedTiffHandlerTests';
-
-/**
- * @param $files array
- * @return bool
- */
-function wfPagedTiffHandlerTests( &$files ) {
-	$files[] = __DIR__ . '/tests/PagedTiffHandlerTest.php';
-	return true;
-}
-
+$wgHooks['UnitTestsList'][] = 'PagedTiffHandler::onUnitTestsList';

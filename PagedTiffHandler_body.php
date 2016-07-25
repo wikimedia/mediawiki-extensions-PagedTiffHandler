@@ -24,6 +24,14 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	const EXPENSIVE_SIZE_LIMIT = 10485760; // TIFF files over 10M are considered expensive to thumbnail
 
 	/**
+	 * 1.0: initial
+	 * 1.1: fixed bugs in imageinfo parser
+	 * 1.2: photoshop quirks (reverted)
+	 * 1.3: handing extra IFDs reported by tiffinfo
+	 */
+	const TIFF_METADATA_VERSION = '1.4';
+
+	/**
 	 * @return bool
 	 */
 	function isEnabled() {
@@ -573,7 +581,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return false;
 		}
 
-		if ( $metadata['TIFF_METADATA_VERSION'] != TIFF_METADATA_VERSION ) {
+		if ( $metadata['TIFF_METADATA_VERSION'] != PagedTiffHandler::TIFF_METADATA_VERSION ) {
 			return false;
 		}
 
@@ -845,5 +853,14 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		$isInThisFunction = false;
 		return $mto;
+	}
+
+	/**
+	 * @param $files array
+	 * @return bool
+	 */
+	public static function onUnitTestsList( &$files ) {
+		$files[] = __DIR__ . '/tests/PagedTiffHandlerTest.php';
+		return true;
 	}
 }
