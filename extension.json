@@ -1,0 +1,107 @@
+{
+	"name": "PagedTiffHandler",
+	"author": [
+		"[http://www.hallowelt.biz HalloWelt! Medienwerkstatt GmbH]",
+		"Sebastian Ulbricht",
+		"Daniel Lynge",
+		"Marc Reymann",
+		"Markus Glaser for Wikimedia Deutschland"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:PagedTiffHandler",
+	"descriptionmsg": "tiff-desc",
+	"license-name": "GPL-2.0+",
+	"type": "media",
+	"MediaHandlers": {
+		"image/tiff": "PagedTiffHandler"
+	},
+	"MessagesDirs": {
+		"PagedTiffHandler": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"PagedTiffHandlerMagic": "PagedTiffHandler.i18n.magic.php"
+	},
+	"AutoloadClasses": {
+		"PagedTiffImage": "PagedTiffHandler.image.php",
+		"PagedTiffInfoParserState": "PagedTiffHandler.image.php",
+		"PagedTiffHandler": "PagedTiffHandler_body.php",
+		"TiffReader": "TiffReader.php",
+		"PagedTiffHandlerSeleniumTestSuite": "selenium/PagedTiffHandlerTestSuite.php"
+	},
+	"Hooks": {
+		"ExtractThumbParameters": "PagedTiffHandler::onExtractThumbParameters",
+		"UnitTestsList": "PagedTiffHandler::onUnitTestsList"
+	},
+	"config": {
+		"TiffIdentifyRejectMessages": {
+			"value": [
+				"/TIFFErrors?/",
+				"/^identify: Compression algorithm does not support random access/",
+				"/^identify: Old-style LZW codes, convert file/",
+				"/^identify: Sorry, requested compression method is not configured/",
+				"/^identify: ThunderDecode: Not enough data at scanline/",
+				"/^identify: .+?: Read error on strip/",
+				"/^identify: .+?: Can not read TIFF directory/",
+				"/^identify: Not a TIFF/"
+			]
+		},
+		"TiffIdentifyBypassMessages": {
+			"value": [
+				"/^identify: .*TIFFReadDirectory/",
+				"/^identify: .+?: unknown field with tag .+? encountered/"
+			]
+		},
+		"TiffTiffinfoRejectMessages": {
+			"value": [
+				"/.*: Cannot read TIFF header\\.$/",
+				"/.*: Not a TIFF or MDI file, bad magic number .+\\.$/",
+				"/.*: Error fetching data for field .+\\.$/",
+				"/TIFFReadDirectory: .*: Can not read TIFF directory count\\.$/"
+			]
+		},
+		"TiffTiffinfoBypassMessages": {
+			"value": [
+				"/^TIFFReadCustomDirectory: .+: unknown field with tag .+? encountered\\./",
+				"/^TIFFReadCustomDirectory: .+: wrong data type .*; tag ignored\\./"
+			]
+		},
+		"TiffUseTiffReader": {
+			"value": false
+		},
+		"TiffReaderCheckEofForJS": {
+			"value": 4
+		},
+		"ImageMagickIdentifyCommand": {
+			"value": "/usr/bin/identify"
+		},
+		"TiffUseExiv": {
+			"value": false
+		},
+		"TiffTiffinfoCommand": {
+			"value": "/usr/bin/tiffinfo"
+		},
+		"TiffUseTiffinfo": {
+			"value": false
+		},
+		"TiffMaxEmbedFiles": {
+			"value": 10000
+		},
+		"TiffMaxMetaSize": {
+			"value": 65536
+		},
+		"TiffErrorCacheTTL": {
+			"value": 86400
+		},
+		"TiffIntermediaryScaleStep": {
+			"value": 2048
+		},
+		"FileExtensions": {
+			"value": [
+				"tiff",
+				"tif"
+			]
+		}
+	},
+	"manifest_version": 2
+}

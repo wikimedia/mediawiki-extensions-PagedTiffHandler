@@ -20,110 +20,16 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-# Not a valid entry point, skip unless MEDIAWIKI is defined
-if ( !defined( 'MEDIAWIKI' ) ) {
-	echo 'PagedTiffHandler extension';
-	exit( 1 );
+if ( function_exists( 'wfLoadExtension' ) ) {
+	wfLoadExtension( 'PagedTiffHandler' );
+	// Keep i18n globals so mergeMessageFileList.php doesn't break
+	$wgMessagesDirs['PagedTiffHandler'] = __DIR__ . '/i18n';
+	$wgExtensionMessagesFiles['PagedTiffHandlerMagic'] = __DIR__ . '/PagedTiffHandler.i18n.magic.php';
+	wfWarn(
+		'Deprecated PHP entry point used for PagedTiffHandler extension. Please use wfLoadExtension instead, ' .
+		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+	);
+	return;
+} else {
+	die( 'This version of the PagedTiffHandler extension requires MediaWiki 1.28+' );
 }
-
-/* Add to LocalSettings.php
-require_once("$IP/extensions/PagedTiffHandler/PagedTiffHandler.php");
-
-$wgUseImageMagick = true;
-$wgImageMagickConvertCommand = "C:\Program Files\ImageMagick-6.5.6-Q8\convert";
-$wgImageMagickIdentifyCommand = "C:\Program Files\ImageMagick-6.5.6-Q8\identify";
-$wgExiv2Command = "C:\Program Files\Exiv2\exiv2";
-$wgMaxUploadSize = 1073741824;
-$wgShowEXIF = true;
-*/
-
-$wgExtensionCredits['media'][] = array(
-	'path' => __FILE__,
-	'name' => 'PagedTiffHandler',
-	'author' => array(
-		'[http://www.hallowelt.biz HalloWelt! Medienwerkstatt GmbH]',
-		'Sebastian Ulbricht',
-		'Daniel Lynge',
-		'Marc Reymann',
-		'Markus Glaser for Wikimedia Deutschland'
-	),
-	'descriptionmsg' => 'tiff-desc',
-	'url' => 'https://www.mediawiki.org/wiki/Extension:PagedTiffHandler',
-	'license-name' => 'GPL-2.0+',
-);
-
-$wgTiffIdentifyRejectMessages = array(
-	'/TIFFErrors?/',
-	'/^identify: Compression algorithm does not support random access/',
-	'/^identify: Old-style LZW codes, convert file/',
-	'/^identify: Sorry, requested compression method is not configured/',
-	'/^identify: ThunderDecode: Not enough data at scanline/',
-	'/^identify: .+?: Read error on strip/',
-	'/^identify: .+?: Can not read TIFF directory/',
-	'/^identify: Not a TIFF/',
-);
-
-$wgTiffIdentifyBypassMessages = array(
-	//'/TIFFWarnings/',
-	//'/TIFFWarning/',
-	'/^identify: .*TIFFReadDirectory/',
-	'/^identify: .+?: unknown field with tag .+? encountered/'
-);
-
-$wgTiffTiffinfoRejectMessages = array(
-	'/.*: Cannot read TIFF header\.$/',
-	'/.*: Not a TIFF or MDI file, bad magic number .+\.$/',
-	'/.*: Error fetching data for field .+\.$/',
-	'/TIFFReadDirectory: .*: Can not read TIFF directory count\.$/',
-);
-
-$wgTiffTiffinfoBypassMessages = array(
-	'/^TIFFReadCustomDirectory: .+: unknown field with tag .+? encountered\./',
-	'/^TIFFReadCustomDirectory: .+: wrong data type .*; tag ignored\./',
-);
-
-// Use PHP-TiffReader
-// This is still experimental
-$wgTiffUseTiffReader = false;
-$wgTiffReaderPath = dirname( __FILE__ );
-$wgTiffReaderCheckEofForJS = 4; // check the last 4MB for JS
-
-// Path to identify
-$wgImageMagickIdentifyCommand = '/usr/bin/identify';
-// Use exiv2? if false, MediaWiki's internal EXIF parser will be used
-$wgTiffUseExiv = false;
-//path to tiffinfo
-$wgTiffTiffinfoCommand = '/usr/bin/tiffinfo';
-// Use tiffinfo? if false, ImageMagick's identify command will be used
-$wgTiffUseTiffinfo = false;
-// Maximum number of embedded files in tiff image
-$wgTiffMaxEmbedFiles = 10000;
-// Maximum size of metadata
-$wgTiffMaxMetaSize = 64*1024;
-// TTL of cache entries for errors
-$wgTiffErrorCacheTTL = 24*60*60;
-// For thumbnails smaller than this, first scale to this amount
-// Set to 0 to disable
-$wgTiffIntermediaryScaleStep = 2048;
-
-$wgFileExtensions[] = 'tiff';
-$wgFileExtensions[] = 'tif';
-
-$dir = __DIR__ . '/';
-$wgMessagesDirs['PagedTiffHandler'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['PagedTiffHandler'] = $dir . 'PagedTiffHandler.i18n.php';
-$wgExtensionMessagesFiles['PagedTiffHandlerMagic'] = $dir . 'PagedTiffHandler.i18n.magic.php';
-$wgAutoloadClasses['PagedTiffImage'] = $dir . 'PagedTiffHandler.image.php';
-$wgAutoloadClasses['PagedTiffInfoParserState'] = $dir . 'PagedTiffHandler.image.php';
-$wgAutoloadClasses['PagedTiffHandler'] = $dir . 'PagedTiffHandler_body.php';
-$wgAutoloadClasses['TiffReader'] = $dir . 'TiffReader.php';
-$wgAutoloadClasses['PagedTiffHandlerSeleniumTestSuite'] = $dir . 'selenium/PagedTiffHandlerTestSuite.php';
-
-$wgMediaHandlers['image/tiff'] = 'PagedTiffHandler';
-
-//$wgHooks['PagedTiffHandlerRenderCommand'][] = 'PagedTiffHandler::renderCommand';
-//$wgHooks['PagedTiffHandlerTiffData'][] = 'PagedTiffImage::tiffData';
-//$wgHooks['PagedTiffHandlerExifData'][] = 'PagedTiffImage::exifData';
-
-$wgHooks['ExtractThumbParameters'][] = 'PagedTiffHandler::onExtractThumbParameters';
-$wgHooks['UnitTestsList'][] = 'PagedTiffHandler::onUnitTestsList';
