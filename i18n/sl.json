@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eleassar"
+			"Eleassar",
+			"Dbc334"
 		]
 	},
-	"tiff-file-info-size": "$1 × $2 pikslov, velikost strani: $3, MIME-tip: $4, $5 {{PLURAL:$5|stran|strani|strani|strani|strani}}"
+	"tiff-file-info-size": "$1 × $2 pikslov, velikost datoteke: $3, vrsta MIME: $4, $5 {{PLURAL:$5|stran|strani}}"
 }
