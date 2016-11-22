@@ -11,6 +11,9 @@
 	"descriptionmsg": "tiff-desc",
 	"license-name": "GPL-2.0+",
 	"type": "media",
+	"requires": {
+		"MediaWiki": ">= 1.29.0"
+	},
 	"MediaHandlers": {
 		"image/tiff": "PagedTiffHandler"
 	},
@@ -33,6 +36,10 @@
 		"ExtractThumbParameters": "PagedTiffHandler::onExtractThumbParameters",
 		"UnitTestsList": "PagedTiffHandler::onUnitTestsList"
 	},
+	"FileExtensions": [
+		"tiff",
+		"tif"
+	],
 	"config": {
 		"TiffIdentifyRejectMessages": {
 			"value": [
@@ -95,12 +102,6 @@
 		},
 		"TiffIntermediaryScaleStep": {
 			"value": 2048
-		},
-		"FileExtensions": {
-			"value": [
-				"tiff",
-				"tif"
-			]
 		}
 	},
 	"manifest_version": 2
