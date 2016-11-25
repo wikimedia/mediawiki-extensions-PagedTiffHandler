@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Nghtwlkr"
+			"Nghtwlkr",
+			"Jon Harald Søby"
 		]
 	},
 	"tiff-desc": "Håndterer for visning av TIFF-filer i bildemodus",
@@ -17,5 +18,6 @@
 	"tiff_size_error": "Den rapporterte filstørrelsen samsvarer ikke med den faktiske filstørrelsen.",
 	"tiff_script_detected": "Den opplastede filen inneholder skript.",
 	"tiff_bad_file": "Den opplastede filen inneholder feil: $1",
-	"tiff-file-info-size": "side $5, $1 x $2 piksler, filstørrelse: $3, MIME-type: $4"
+	"tiff_invalid_file": "Opplastingen er ikke en gyldig TIFF-fil.",
+	"tiff-file-info-size": "$1 × $2 piksler, filstørrelse: $3, MIME-type: $4, $5 {{PLURAL:$5|side|sider}}"
 }
