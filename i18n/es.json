@@ -5,10 +5,12 @@
 			"Pertile",
 			"Sanbec",
 			"Translationista",
-			"Fitoschido"
+			"Fitoschido",
+			"Dgstranz",
+			"Indiralena"
 		]
 	},
-	"tiff-desc": "Controlador para ver archivos TIFF en modo de imagen",
+	"tiff-desc": "Controlador para ver archivos TIFF en modo imagen",
 	"tiff_no_metadata": "No se pudo obtener los metadatos de TIFF",
 	"tiff_page_error": "Número de página fuera de rango",
 	"tiff_too_many_embed_files": "La imagen contiene demasiados archivos incrustados.",
