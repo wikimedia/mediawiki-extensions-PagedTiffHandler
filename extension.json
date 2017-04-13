@@ -33,7 +33,6 @@
 		"PagedTiffHandlerSeleniumTestSuite": "selenium/PagedTiffHandlerTestSuite.php"
 	},
 	"Hooks": {
-		"ExtractThumbParameters": "PagedTiffHandler::onExtractThumbParameters",
 		"UnitTestsList": "PagedTiffHandler::onUnitTestsList"
 	},
 	"FileExtensions": [
