@@ -12,7 +12,7 @@
 	},
 	"tiff-desc": "Controlador para ver archivos TIFF en modo imagen",
 	"tiff_no_metadata": "No se pudo obtener los metadatos de TIFF",
-	"tiff_page_error": "Número de página fuera de rango",
+	"tiff_page_error": "El número de página se ubica fuera del intervalo",
 	"tiff_too_many_embed_files": "La imagen contiene demasiados archivos incrustados.",
 	"tiff_sourcefile_too_large": "La resolución del archivo fuente es muy grande. No se generará miniaturas.",
 	"tiff_targetfile_too_large": "La resolución del archivo destino es muy grande. No se generará ninguna miniatura.",
