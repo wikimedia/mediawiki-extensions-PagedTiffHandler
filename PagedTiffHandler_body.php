@@ -842,4 +842,28 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$files[] = __DIR__ . '/tests/PagedTiffHandlerTest.php';
 		return true;
 	}
+
+	/**
+	* Get useful response headers for GET/HEAD requests for a file with the given metadata
+	* @param $metadata Array Contains this handler's unserialized getMetadata() for a file
+	* @return Array
+	*/
+	public function getContentHeaders( $metadata ) {
+		$pagesByDimensions = [];
+		$count = intval( $metadata['page_count'] );
+		for ( $i = 1; $i <= $count; $i++ ) {
+			$dimensions = PagedTiffImage::getPageSize( $metadata, $i );
+			$dimensionString = $dimensions['width'] . 'x' . $dimensions['height'];
+
+			if ( isset ( $pagesByDimensions[ $dimensionString ] ) ) {
+				$pagesByDimensions[ $dimensionString ][] = $i;
+			} else {
+				$pagesByDimensions[ $dimensionString ] = [ $i ];
+			}
+		}
+
+		$pageRangesByDimensions = MediaHandler::getPageRangesByDimensions( $pagesByDimensions );
+
+		return [ 'X-Content-Dimensions' => $pageRangesByDimensions ];
+	}
 }
