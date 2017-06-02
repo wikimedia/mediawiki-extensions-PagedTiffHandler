@@ -21,7 +21,8 @@
  */
 
 class PagedTiffHandler extends TransformationalImageHandler {
-	const EXPENSIVE_SIZE_LIMIT = 10485760; // TIFF files over 10M are considered expensive to thumbnail
+	// TIFF files over 10M are considered expensive to thumbnail
+	const EXPENSIVE_SIZE_LIMIT = 10485760;
 
 	/**
 	 * 1.0: Initial
@@ -111,7 +112,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		if ( $errors ) {
 			$error = array( 'tiff_bad_file', PagedTiffHandler::joinMessages( $errors ) );
 
-			wfDebug( __METHOD__ . ": {$error[0]} " . PagedTiffHandler::joinMessages( $errors, false ) . "\n" );
+			wfDebug( __METHOD__ . ": {$error[0]} " .
+				PagedTiffHandler::joinMessages( $errors, false ) . "\n" );
 			return false;
 		}
 
@@ -168,7 +170,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 					return true;
 				}
 
-				if ( $value === 'true' || $value === 'false' || $value === 'lossy' || $value === 'lossless' ) {
+				if ( $value === 'true' || $value === 'false'
+					|| $value === 'lossy' || $value === 'lossless'
+				) {
 					return true;
 				}
 
@@ -188,7 +192,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Page number was added.
 	 */
 	function makeParamString( $params ) {
-		if ( !isset( $params['width'] ) || !isset( $params['lossy'] ) || !isset( $params['page'] )) {
+		if (
+			!isset( $params['width'] ) || !isset( $params['lossy'] ) || !isset( $params['page'] )
+		) {
 			return false;
 		}
 
@@ -346,7 +352,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 *
 	 * @param File $file File object
 	 * @param Array $scalerParams Scaling options (see TransformationalImageHandler::doTransform)
-	 * @return Boolean|MediaTransformError False on success, an instance of MediaTransformError otherwise.
+	 * @return Boolean|MediaTransformError False on success, an instance of MediaTransformError
+	 *   otherwise.
 	 * @note Success is noted by $scalerParams['dstPath'] no longer being a 0 byte file.
 	 */
 	protected function transformIM( $file, $scalerParams ) {
@@ -498,14 +505,16 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			// thumbnail size seems sane.
 			$sz = $wgUser->getOption( 'thumbsize' );
 			$errorParams['clientWidth'] = $wgThumbLimits[ $sz ];
-			$errorParams['clientHeight'] = $wgThumbLimits[ $sz ]; // we don't have a height or aspect ratio. make it square.
+			// we don't have a height or aspect ratio. make it square.
+			$errorParams['clientHeight'] = $wgThumbLimits[ $sz ];
 		} else {
 			$errorParams['clientWidth'] = intval( $params['width'] );
 
 			if ( !empty( $params['height'] ) ) {
 				$errorParams['clientHeight'] = intval( $params['height'] );
 			} else {
-				$errorParams['clientWidth'] = $errorParams['clientHeight']; // we don't have a height or aspect ratio. make it square.
+				// we don't have a height or aspect ratio. make it square.
+				$errorParams['clientWidth'] = $errorParams['clientHeight'];
 			}
 		}
 
@@ -698,7 +707,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		$metadata = $image->getMetadata();
 
-		if ( !$this->isMetadataValid( $image, $metadata ) || PagedTiffHandler::getMetadataErrors( $metadata ) ) {
+		if ( !$this->isMetadataValid( $image, $metadata )
+			|| PagedTiffHandler::getMetadataErrors( $metadata )
+		) {
 			wfDebug( "Tiff metadata is invalid, missing or has errors.\n" );
 			return false;
 		}
@@ -800,12 +811,16 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		for ( ; $rx >= 2; $rx-- ) {
 			$intermediaryWidth = intval( floor( $srcWidth / $rx ) );
 			$intermediaryHeight = intval( floor( $srcHeight / $rx ) );
-			if ( $intermediaryHeight == File::scaleHeight( $srcWidth, $srcHeight, $intermediaryWidth ) ) {
+			if ( $intermediaryHeight ==
+				File::scaleHeight( $srcWidth, $srcHeight, $intermediaryWidth )
+			) {
 				break;
 			}
 		}
 
-		if ( $intermediaryWidth <= $widthOfFinalThumb + $wgThumbnailMinimumBucketDistance || $rx < 2 ) {
+		if (
+			$intermediaryWidth <= $widthOfFinalThumb + $wgThumbnailMinimumBucketDistance || $rx < 2
+		) {
 			// Need to scale the original full sized thumb
 			return false;
 		}

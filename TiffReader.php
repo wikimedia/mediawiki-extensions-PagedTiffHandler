@@ -173,7 +173,8 @@ class TiffReader {
 			}
 			echo '<b>Physicaly Size: </b>' . $this->real_eof . " bytes<br />\n";
 			echo '<b>Calculated Size: </b>' . $this->highest_addr . " bytes<br />\n";
-			echo '<b>Difference in Size: </b>' . ( $this->real_eof - $this->highest_addr ) . " bytes<br />\n";
+			echo '<b>Difference in Size: </b>' . ( $this->real_eof - $this->highest_addr ) .
+				" bytes<br />\n";
 			echo '<b>Unknown Fields: </b>';
 			if ( $this->unknown_fields ) {
 				echo "yes<br />\n";
@@ -181,7 +182,8 @@ class TiffReader {
 				echo "no<br />\n";
 			}
 			echo "<b>Embed Files: </b>" . $this->embed_files . "<br />\n";
-			echo "<b>Runtime: </b>" . round( ( microtime( true ) - $this->time ), 6 ) . " seconds<br />\n";
+			echo "<b>Runtime: </b>" . round( ( microtime( true ) - $this->time ), 6 ) .
+				" seconds<br />\n";
 		}
 	}
 
@@ -190,8 +192,9 @@ class TiffReader {
 		$type  = unpack( $this->short, fread( $this->file_handle, 2 ) );
 		$count = unpack( $this->long, fread( $this->file_handle, 4 ) );
 		$value = unpack( $this->long, fread( $this->file_handle, 4 ) );
-		if ( !is_array( $tag ) || !is_array( $type ) || !is_array( $count ) || !is_array( $value ) ||
-			!isset( $tag[1] ) || !isset( $type[1] ) || !isset( $count[1] ) || !isset( $value[1] ) ) {
+		if ( !is_array( $tag ) || !is_array( $type ) || !is_array( $count ) || !is_array( $value )
+			|| !isset( $tag[1] ) || !isset( $type[1] ) || !isset( $count[1] ) || !isset( $value[1] )
+		) {
 			$this->the_answer = 0;
 			return false;
 		}

@@ -94,9 +94,14 @@ class PagedTiffImage {
 			wfProfileIn( 'PagedTiffImage::retrieveMetaData' );
 
 			//fetch base info: number of pages, size and alpha for each page.
-			//run hooks first, then optionally tiffinfo or, per default, ImageMagic's identify command
-			if ( !Hooks::run( 'PagedTiffHandlerTiffData', array( $this->mFilename, &$this->_meta ) ) ) {
-				wfDebug( __METHOD__ . ": hook PagedTiffHandlerTiffData overrides TIFF data extraction\n" );
+			//run hooks first, then optionally tiffinfo or, per default,
+			//ImageMagic's identify command
+			if (
+				!Hooks::run( 'PagedTiffHandlerTiffData', array( $this->mFilename, &$this->_meta ) )
+			) {
+				wfDebug(
+					__METHOD__ . ": hook PagedTiffHandlerTiffData overrides TIFF data extraction\n"
+				);
 			} elseif ( $wgTiffUseTiffinfo ) {
 				// read TIFF directories using libtiff's tiffinfo, see
 				// http://www.libtiff.org/man/tiffinfo.1.html
@@ -118,7 +123,8 @@ class PagedTiffImage {
 				$this->_meta = $this->parseTiffinfoOutput( $dump );
 			} else {
 				$cmd = wfEscapeShellArg( $wgImageMagickIdentifyCommand ) .
-					' -format "[BEGIN]page=%p\nalpha=%A\nalpha2=%r\nheight=%h\nwidth=%w\ndepth=%z[END]" ' .
+					' -format ' .
+					'"[BEGIN]page=%p\nalpha=%A\nalpha2=%r\nheight=%h\nwidth=%w\ndepth=%z[END]" ' .
 					wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
 
 				wfProfileIn( 'identify' );
@@ -142,8 +148,13 @@ class PagedTiffImage {
 			//run hooks first, then optionally Exiv2 or, per default, the internal EXIF class
 			if ( !empty( $this->_meta['errors'] ) ) {
 				wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
-			} elseif ( !Hooks::run( 'PagedTiffHandlerExifData', array( $this->mFilename, &$this->_meta['exif'] ) ) ) {
-				wfDebug( __METHOD__ . ": hook PagedTiffHandlerExifData overrides EXIF extraction\n" );
+			} elseif (
+				!Hooks::run( 'PagedTiffHandlerExifData',
+					array( $this->mFilename, &$this->_meta['exif'] ) )
+			) {
+				wfDebug(
+					__METHOD__ . ": hook PagedTiffHandlerExifData overrides EXIF extraction\n"
+				);
 			} elseif ( $wgTiffUseExiv ) {
 				// read EXIF, XMP, IPTC as name-tag => interpreted data
 				// -ignore unknown fields
@@ -205,7 +216,8 @@ class PagedTiffImage {
 	protected function parseTiffinfoOutput( $dump ) {
 		global $wgTiffTiffinfoRejectMessages, $wgTiffTiffinfoBypassMessages;
 
-		$dump = preg_replace( '/ Image Length:/', "\n  Image Length:", $dump ); #HACK: width and length are given on a single line...
+		#HACK: width and length are given on a single line...
+		$dump = preg_replace( '/ Image Length:/', "\n  Image Length:", $dump );
 		$rows = preg_split('/[\r\n]+\s*/', $dump);
 
 		$state = new PagedTiffInfoParserState();
@@ -288,8 +300,10 @@ class PagedTiffImage {
 				} elseif ( $key == 'Image Length' || $key == 'PixelYDimension' ) {
 					$state->setPageProperty('height', (int)$value);
 				} elseif ( preg_match('/.*IFDOffset/', $key) ) {
-					# ignore extra IFDs, see <http://www.awaresystems.be/imaging/tiff/tifftags/exififd.html>
-					# Note: we assume that we will always see the reference before the actual IFD, so we know which IFDs to ignore
+					# ignore extra IFDs,
+					# see <http://www.awaresystems.be/imaging/tiff/tifftags/exififd.html>
+					# Note: we assume that we will always see the reference before the actual IFD,
+					# so we know which IFDs to ignore
 					// Offset is usually in hex
 					if ( preg_match( '/^0x[0-9A-Fa-f]+$/', $value ) ) {
 						$value = hexdec( substr( $value, 2 ) );
@@ -342,9 +356,9 @@ class PagedTiffImage {
 
 		$infos = null;
 		preg_match_all( '/\[BEGIN\](.+?)\[END\]/si', $dump, $infos, PREG_SET_ORDER );
-		// ImageMagick < 6.6.8-10 starts page numbering at 1; >= 6.6.8-10 starts at zero. Handle both
-		// and map to one-based page numbers (which are assumed in various other parts of the support
-		// for displaying multi-page files).
+		// ImageMagick < 6.6.8-10 starts page numbering at 1; >= 6.6.8-10 starts at zero.
+		// Handle both and map to one-based page numbers (which are assumed in various other parts
+		// of the support for displaying multi-page files).
 		$pageSeen = false;
 		$pageOffset = 0;
 		foreach ( $infos as $info ) {

@@ -3,7 +3,8 @@
  * To get this working you must
  * - set a valid path to PEAR
  * - check upload size in php.ini: Multipage.tiff needs at least 3M
- * - Either upload multipage.tiff when PagedTiffHandler is active or set $wgSeleniumTiffTestUploads = true.
+ * - Either upload multipage.tiff when PagedTiffHandler is active or
+ *   set $wgSeleniumTiffTestUploads = true.
  * - - if $wgSeleniumTiffTestsUploads = true, please remember to obtain all missing test images. See
  * - - testImages/SOURCES.txt for further information
  * - set the locale to English
@@ -32,11 +33,13 @@ class SeleniumCheckPrerequisites extends SeleniumTestCase {
 		}
 
 		// Check for language
-		$this->open($wgSeleniumTestsWikiUrl . '/api.php?action=query&meta=userinfo&uiprop=options&format=xml');
+		$this->open( $wgSeleniumTestsWikiUrl .
+			'/api.php?action=query&meta=userinfo&uiprop=options&format=xml' );
 
 		$lang = $this->getAttribute( "//options/@language" );
 		if ( $lang != 'en' ) {
-			$this->prerequisiteError = 'interface language must be set to English (en), but was '.$lang.'.';
+			$this->prerequisiteError = 'interface language must be set to English (en), but was ' .
+				$lang . '.';
 		}
 	}
 
@@ -115,13 +118,15 @@ class SeleniumDeleteTiffTest extends SeleniumTestCase {
 
 	public function runTest() {
 		global $wgSeleniumTestsWikiUrl;
-		$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=Image:' . ucfirst( $this->filename ) . '&action=delete' );
+		$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=Image:' .
+			ucfirst( $this->filename ) . '&action=delete' );
 		$this->type( 'wpReason', 'Remove test file' );
 		$this->click( 'mw-filedelete-submit' );
 		$this->waitForPageToLoad( 10000 );
 
 		// Todo: This message is localized
-		$this->assertSeleniumHTMLContains( '//div[@id="bodyContent"]/p', ucfirst( $this->filename ) . '.*has been deleted.' );
+		$this->assertSeleniumHTMLContains( '//div[@id="bodyContent"]/p', ucfirst( $this->filename )
+			. '.*has been deleted.' );
 	}
 
 }
@@ -151,7 +156,8 @@ class SeleniumTiffPageTest extends SeleniumTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		// Clear EmbedTiffTest page for future tests
-		$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=Image:' . $this->image . '&action=edit' );
+		$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=Image:'
+			. $this->image . '&action=edit' );
 		$this->type( 'wpTextbox1', '' );
 		$this->click( 'wpSave' );
 	}
@@ -159,7 +165,8 @@ class SeleniumTiffPageTest extends SeleniumTestCase {
 	public function prepareImagePage( $image, $text ) {
 		global $wgSeleniumTestsWikiUrl;
 		$this->image = $image;
-		$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=Image:' . $image . '&action=edit' );
+		$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=Image:' .
+			$image . '&action=edit' );
 		$this->type( 'wpTextbox1', $text );
 		$this->click( 'wpSave' );
 		$this->waitForPageToLoad( 10000 );
@@ -193,7 +200,8 @@ class SeleniumDisplayInGalleryTest extends SeleniumEmbedTiffTest {
 		//$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=GalleryTest' );
 
 		// Ergebnis chekcen
-		//$source = $this->getAttribute( "//div[@class='gallerybox']//a[@title='Multipage.tiff']//img@src" );
+		//$source = $this->getAttribute(
+		//	"//div[@class='gallerybox']//a[@title='Multipage.tiff']//img@src" );
 		$source = $this->getAttribute( "//div[@class='gallerybox']//a[@class='image']//img@src" );
 		$correct = strstr( $source, "-page1-" );
 		$this->assertEquals( $correct, true );
@@ -302,6 +310,7 @@ if ( $wgSeleniumTiffTestCheckPrerequistes ) {
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumCheckPrerequisites() );
 }
 
+// @codingStandardsIgnoreStart
 if ( $wgSeleniumTiffTestUploads ) {
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadBrokenTiffTest( 'caspian.tif', 'The uploaded file contains errors.' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadWorkingTiffTest( 'cramps.tif' ) );
@@ -373,4 +382,4 @@ if ( $wgSeleniumTiffTestUploads ) {
 	//$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'zackthecat.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'multipage.tiff' ) );
 }
-
+// @codingStandardsIgnoreEnd
