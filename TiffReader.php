@@ -5,7 +5,7 @@
  * @author Sebastian Ulbricht <sebastian.ulbricht@gmx.de>
  */
 
- // This is still experimental
+// This is still experimental
 class TiffReader {
 	protected $time		 = null;
 	protected $file		 = null;
@@ -13,7 +13,7 @@ class TiffReader {
 	protected $order		= null;
 	protected $the_answer   = null;
 	protected $embed_files  = 0;
-	protected $ifd_offsets  = array();
+	protected $ifd_offsets  = [];
 	protected $real_eof	 = 0;
 	protected $highest_addr = 0;
 
@@ -61,7 +61,7 @@ class TiffReader {
 			return true;
 		}
 
-		$tags = array( '<a href',
+		$tags = [ '<a href',
 			'<body',
 			'<head',
 			'<html',
@@ -69,7 +69,7 @@ class TiffReader {
 			'<pre',
 			'<script',
 			'<table',
-			'<title' );
+			'<title' ];
 		foreach ( $tags as $tag ) {
 			if ( false !== strpos( $chunk, $tag ) ) {
 				return true;
@@ -198,12 +198,12 @@ class TiffReader {
 			$this->the_answer = 0;
 			return false;
 		}
-		return array(
+		return [
 			'tag'   => $tag[1],
 			'type'  => $type[1],
 			'count' => $count[1],
 			'value' => $value[1]
-		);
+		];
 	}
 
 	protected function calculateDataRange() {
@@ -221,7 +221,7 @@ class TiffReader {
 					continue;
 				}
 				// set value size
-				switch( $data['type'] ) {
+				switch ( $data['type'] ) {
 					case 1:
 					case 2:
 					case 6:
@@ -262,7 +262,7 @@ class TiffReader {
 				// set file pointer to the offset for values from field 273
 				fseek( $this->file_handle, $ifd['data'][273]['value'], SEEK_SET );
 				// get all offsets of the ImageStripes
-				$stripes = array();
+				$stripes = [];
 				if ( $ifd['data'][273]['type'] == 3 ) {
 					for ( $i = 0; $i < $ifd['data'][273]['count']; $i++ ) {
 						$stripes[] = unpack( $this->short, fread( $this->file_handle, 2 ) );
@@ -276,7 +276,7 @@ class TiffReader {
 				// set file pointer to the offset for values from field 279
 				fseek( $this->file_handle, $ifd['data'][279]['value'], SEEK_SET );
 				// get all offsets of the StripeByteCounts
-				$stripebytes = array();
+				$stripebytes = [];
 				if ( $ifd['data'][279]['type'] == 3 ) {
 					for ( $i = 0; $i < $ifd['data'][279]['count']; $i++ ) {
 						$stripebytes[] = unpack( $this->short, fread( $this->file_handle, 2 ) );
@@ -287,7 +287,7 @@ class TiffReader {
 					}
 				}
 				// calculate the memory range of the image stripes
-				for ( $i = 0; $i < count( $stripes ); $i++ ) {
+				for ( $i = 0, $count = count( $stripes ); $i < $count; $i++ ) {
 					$size = $stripes[$i][1] + $stripebytes[$i][1];
 					if ( $size > $this->highest_addr ) {
 						$this->highest_addr = $size;
@@ -298,7 +298,7 @@ class TiffReader {
 				// set file pointer to the offset for values from field 324
 				fseek( $this->file_handle, $ifd['data'][324]['value'], SEEK_SET );
 				// get all offsets of the ImageTiles
-				$tiles = array();
+				$tiles = [];
 				for ( $i = 0; $i < $ifd['data'][324]['count']; $i++ ) {
 					$tiles[] = unpack( $this->long, fread( $this->file_handle, 4 ) );
 				}
@@ -306,7 +306,7 @@ class TiffReader {
 				// set file pointer to the offset for values from field 325
 				fseek( $this->file_handle, $ifd['data'][325]['value'], SEEK_SET );
 				// get all offsets of the TileByteCounts
-				$tilebytes = array();
+				$tilebytes = [];
 				if ( $ifd['data'][325]['type'] == 3 ) {
 					for ( $i = 0; $i < $ifd['data'][325]['count']; $i++ ) {
 						$tilebytes[] = unpack( $this->short, fread( $this->file_handle, 2 ) );
@@ -317,7 +317,7 @@ class TiffReader {
 					}
 				}
 				// calculate the memory range of the image tiles
-				for ( $i = 0; $i < count( $tiles ); $i++ ) {
+				for ( $i = 0, $count = count( $tiles ); $i < $count; $i++ ) {
 					$size = $tiles[$i][1] + $tilebytes[$i][1];
 					if ( $size > $this->highest_addr ) {
 						$this->highest_addr = $size;
@@ -328,7 +328,7 @@ class TiffReader {
 				// set file pointer to the offset for values from field 288
 				fseek( $this->file_handle, $ifd['data'][288]['value'], SEEK_SET );
 				// get all offsets of the ImageTiles
-				$free = array();
+				$free = [];
 				for ( $i = 0; $i < $ifd['data'][288]['count']; $i++ ) {
 					$free[] = unpack( $this->long, fread( $this->file_handle, 4 ) );
 				}
@@ -336,12 +336,12 @@ class TiffReader {
 				// set file pointer to the offset for values from field 289
 				fseek( $this->file_handle, $ifd['data'][289]['value'], SEEK_SET );
 				// get all offsets of the TileByteCounts
-				$freebytes = array();
+				$freebytes = [];
 				for ( $i = 0; $i < $ifd['data'][289]['count']; $i++ ) {
 					$freebytes[] = unpack( $this->long, fread( $this->file_handle, 4 ) );
 				}
 				// calculate the memory range of the image tiles
-				for ( $i = 0; $i < count( $tiles ); $i++ ) {
+				for ( $i = 0, $count = count( $tiles ); $i < $count; $i++ ) {
 					$size = $free[$i][1] + $freebytes[$i][1];
 					if ( $size > $this->highest_addr ) {
 						$this->highest_addr = $size;

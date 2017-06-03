@@ -51,8 +51,8 @@ class PagedTiffImage {
 		if ( $size ) {
 			$width = $size['width'];
 			$height = $size['height'];
-			return array( $width, $height, 'Tiff',
-			"width=\"$width\" height=\"$height\"" );
+			return [ $width, $height, 'Tiff',
+			"width=\"$width\" height=\"$height\"" ];
 		}
 		return false;
 	}
@@ -62,10 +62,10 @@ class PagedTiffImage {
 	 */
 	public static function getPageSize( $data, $page ) {
 		if ( isset( $data['page_data'][$page] ) ) {
-			return array(
+			return [
 				'width'  => intval( $data['page_data'][$page]['width'] ),
 				'height' => intval( $data['page_data'][$page]['height'] )
-			);
+			];
 		}
 		return false;
 	}
@@ -93,11 +93,11 @@ class PagedTiffImage {
 		if ( $this->_meta === null ) {
 			wfProfileIn( 'PagedTiffImage::retrieveMetaData' );
 
-			//fetch base info: number of pages, size and alpha for each page.
-			//run hooks first, then optionally tiffinfo or, per default,
-			//ImageMagic's identify command
+			// fetch base info: number of pages, size and alpha for each page.
+			// run hooks first, then optionally tiffinfo or, per default,
+			// ImageMagic's identify command
 			if (
-				!Hooks::run( 'PagedTiffHandlerTiffData', array( $this->mFilename, &$this->_meta ) )
+				!Hooks::run( 'PagedTiffHandlerTiffData', [ $this->mFilename, &$this->_meta ] )
 			) {
 				wfDebug(
 					__METHOD__ . ": hook PagedTiffHandlerTiffData overrides TIFF data extraction\n"
@@ -142,15 +142,15 @@ class PagedTiffImage {
 				$this->_meta = $this->parseIdentifyOutput( $dump );
 			}
 
-			$this->_meta['exif'] = array();
+			$this->_meta['exif'] = [];
 
-			//fetch extended info: EXIF/IPTC/XMP
-			//run hooks first, then optionally Exiv2 or, per default, the internal EXIF class
+			// fetch extended info: EXIF/IPTC/XMP
+			// run hooks first, then optionally Exiv2 or, per default, the internal EXIF class
 			if ( !empty( $this->_meta['errors'] ) ) {
 				wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
 			} elseif (
 				!Hooks::run( 'PagedTiffHandlerExifData',
-					array( $this->mFilename, &$this->_meta['exif'] ) )
+					[ $this->mFilename, &$this->_meta['exif'] ] )
 			) {
 				wfDebug(
 					__METHOD__ . ": hook PagedTiffHandlerExifData overrides EXIF extraction\n"
@@ -216,20 +216,20 @@ class PagedTiffImage {
 	protected function parseTiffinfoOutput( $dump ) {
 		global $wgTiffTiffinfoRejectMessages, $wgTiffTiffinfoBypassMessages;
 
-		#HACK: width and length are given on a single line...
+		# HACK: width and length are given on a single line...
 		$dump = preg_replace( '/ Image Length:/', "\n  Image Length:", $dump );
-		$rows = preg_split('/[\r\n]+\s*/', $dump);
+		$rows = preg_split( '/[\r\n]+\s*/', $dump );
 
 		$state = new PagedTiffInfoParserState();
 
-		$ignoreIFDs = array();
+		$ignoreIFDs = [];
 		$ignore = false;
 
 		foreach ( $rows as $row ) {
 			$row = trim( $row );
 
 			# ignore XML rows
-			if ( preg_match('/^<|^$/', $row) ) {
+			if ( preg_match( '/^<|^$/', $row ) ) {
 				continue;
 			}
 
@@ -248,9 +248,9 @@ class PagedTiffImage {
 				continue;
 			}
 
-			$m = array();
+			$m = [];
 
-			if ( preg_match('/^TIFF Directory at offset 0x[a-f0-9]+ \((\d+)\)/', $row, $m) ) {
+			if ( preg_match( '/^TIFF Directory at offset 0x[a-f0-9]+ \((\d+)\)/', $row, $m ) ) {
 				# new IFD starting, flush previous page
 
 				if ( $ignore ) {
@@ -267,7 +267,7 @@ class PagedTiffImage {
 				# check if the next IFD is to be ignored
 				$offset = (int)$m[1];
 				$ignore = !empty( $ignoreIFDs[ $offset ] );
-			} elseif ( preg_match('#^(TIFF.*?Directory): (.*?/.*?): (.*)#i', $row, $m) ) {
+			} elseif ( preg_match( '#^(TIFF.*?Directory): (.*?/.*?): (.*)#i', $row, $m ) ) {
 				# handle warnings
 
 				$bypass = false;
@@ -283,23 +283,27 @@ class PagedTiffImage {
 				if ( !$bypass ) {
 					$state->addWarning( $msg );
 				}
-			} elseif ( preg_match('/^\s*(.*?)\s*:\s*(.*?)\s*$/', $row, $m) ) {
+			} elseif ( preg_match( '/^\s*(.*?)\s*:\s*(.*?)\s*$/', $row, $m ) ) {
 				# handle key/value pair
 
 				$key = $m[1];
 				$value = $m[2];
 
-				if ( $key == 'Page Number' && preg_match('/(\d+)-(\d+)/', $value, $m) ) {
-					$state->setPageProperty('page', (int)$m[1] +1);
+				if ( $key == 'Page Number' && preg_match( '/(\d+)-(\d+)/', $value, $m ) ) {
+					$state->setPageProperty( 'page', (int)$m[1] + 1 );
 				} elseif ( $key == 'Samples/Pixel' ) {
-					if ($value == '4') $state->setPageProperty('alpha', 'true');
+					if ( $value == '4' ) {
+						$state->setPageProperty( 'alpha', 'true' );
+					}
 				} elseif ( $key == 'Extra samples' ) {
-					if (preg_match('.*alpha.*', $value)) $state->setPageProperty('alpha', 'true');
+					if ( preg_match( '.*alpha.*', $value ) ) {
+						$state->setPageProperty( 'alpha', 'true' );
+					}
 				} elseif ( $key == 'Image Width' || $key == 'PixelXDimension' ) {
-					$state->setPageProperty('width', (int)$value);
+					$state->setPageProperty( 'width', (int)$value );
 				} elseif ( $key == 'Image Length' || $key == 'PixelYDimension' ) {
-					$state->setPageProperty('height', (int)$value);
-				} elseif ( preg_match('/.*IFDOffset/', $key) ) {
+					$state->setPageProperty( 'height', (int)$value );
+				} elseif ( preg_match( '/.*IFDOffset/', $key ) ) {
 					# ignore extra IFDs,
 					# see <http://www.awaresystems.be/imaging/tiff/tifftags/exififd.html>
 					# Note: we assume that we will always see the reference before the actual IFD,
@@ -328,10 +332,10 @@ class PagedTiffImage {
 	 * parses shell return from exiv2-command into an array.
 	 */
 	protected function parseExiv2Output( $dump ) {
-		$result = array();
+		$result = [];
 		preg_match_all( '/^(\w+)\s+(.+)$/m', $dump, $result, PREG_SET_ORDER );
 
-		$data = array();
+		$data = [];
 
 		foreach ( $result as $row ) {
 			$data[$row[1]] = $row[2];
@@ -375,13 +379,13 @@ class PagedTiffImage {
 					continue;
 				}
 				if ( $key === 'alpha2' && !$state->hasPageProperty( 'alpha' ) ) {
-					switch( $value ) {
+					switch ( $value ) {
 						case 'DirectClassRGBMatte':
 						case 'DirectClassRGBA':
-							$state->setPageProperty('alpha', 'true');
+							$state->setPageProperty( 'alpha', 'true' );
 							break;
 						default:
-							$state->setPageProperty('alpha', 'false');
+							$state->setPageProperty( 'alpha', 'false' );
 							break;
 					}
 					continue;
@@ -400,14 +404,14 @@ class PagedTiffImage {
 			$state->finishPage();
 		}
 
-
 		$dump = preg_replace( '/\[BEGIN\](.+?)\[END\]/si', '', $dump );
 		if ( strlen( $dump ) ) {
 			$errors = explode( "\n", $dump );
 			foreach ( $errors as $error ) {
 				$error = trim( $error );
-				if ( $error === '' )
+				if ( $error === '' ) {
 					continue;
+				}
 
 				$knownError = false;
 				foreach ( $wgTiffIdentifyRejectMessages as $msg ) {
@@ -445,16 +449,16 @@ class PagedTiffInfoParserState {
 	public $prevPage;
 
 	function __construct() {
-		$this->metadata = array();
-		$this->page = array();
+		$this->metadata = [];
+		$this->page = [];
 		$this->prevPage = 0;
 
-		$this->metadata['page_data'] = array();
+		$this->metadata['page_data'] = [];
 	}
 
 	function finish( $finishPage = true ) {
 		if ( $finishPage ) {
-			$this->finishPage( );
+			$this->finishPage();
 		}
 
 		if ( ! $this->metadata['page_data'] ) {
@@ -475,11 +479,11 @@ class PagedTiffInfoParserState {
 		}
 	}
 
-	function resetPage( ) {
-		$this->page = array();
+	function resetPage() {
+		$this->page = [];
 	}
 
-	function finishPage( ) {
+	function finishPage() {
 		if ( !isset( $this->page['page'] ) ) {
 			$this->page['page'] = $this->prevPage +1;
 		} else {
@@ -490,7 +494,7 @@ class PagedTiffInfoParserState {
 		}
 
 		if ( isset( $this->page['width'] ) && isset( $this->page['height'] ) ) {
-			$this->prevPage = max($this->prevPage, $this->page['page']);
+			$this->prevPage = max( $this->prevPage, $this->page['page'] );
 
 			if ( !isset( $this->page['alpha'] ) ) {
 				$this->page['alpha'] = 'false';
@@ -500,7 +504,7 @@ class PagedTiffInfoParserState {
 			$this->metadata['page_data'][$this->page['page']] = $this->page;
 		}
 
-		$this->page = array();
+		$this->page = [];
 		return true;
 	}
 
@@ -528,7 +532,7 @@ class PagedTiffInfoParserState {
 		$this->metadata['warnings'][] = $message;
 	}
 
-	function getMetadata( ) {
+	function getMetadata() {
 		return $this->metadata;
 	}
 

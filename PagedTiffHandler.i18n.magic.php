@@ -13,9 +13,9 @@
  * @ingroup Extensions
  */
 
-$magicWords = array();
+$magicWords = [];
 
 /** English (English) */
-$magicWords['en'] = array(
-	'img_lossy' => array( 0, "lossy=$1" ),
-);
+$magicWords['en'] = [
+	'img_lossy' => [ 0, "lossy=$1" ],
+];

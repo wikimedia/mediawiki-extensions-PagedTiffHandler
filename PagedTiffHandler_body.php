@@ -93,7 +93,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			$ok = self::verifyMetaData( $meta, $error );
 
 			if ( !$ok ) {
-				call_user_func_array( array( $status, 'fatal' ), $error );
+				call_user_func_array( [ $status, 'fatal' ], $error );
 			}
 		}
 
@@ -110,7 +110,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		$errors = PagedTiffHandler::getMetadataErrors( $meta );
 		if ( $errors ) {
-			$error = array( 'tiff_bad_file', PagedTiffHandler::joinMessages( $errors ) );
+			$error = [ 'tiff_bad_file', PagedTiffHandler::joinMessages( $errors ) ];
 
 			wfDebug( __METHOD__ . ": {$error[0]} " .
 				PagedTiffHandler::joinMessages( $errors, false ) . "\n" );
@@ -118,18 +118,18 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		}
 
 		if ( $meta['page_count'] <= 0 || empty( $meta['page_data'] ) ) {
-			$error = array( 'tiff_page_error', $meta['page_count'] );
+			$error = [ 'tiff_page_error', $meta['page_count'] ];
 			wfDebug( __METHOD__ . ": {$error[0]}\n" );
 			return false;
 		}
 		if ( $wgTiffMaxEmbedFiles && $meta['page_count'] > $wgTiffMaxEmbedFiles ) {
-			$error = array( 'tiff_too_much_embed_files', $meta['page_count'], $wgTiffMaxEmbedFiles );
+			$error = [ 'tiff_too_much_embed_files', $meta['page_count'], $wgTiffMaxEmbedFiles ];
 			wfDebug( __METHOD__ . ": {$error[0]}\n" );
 			return false;
 		}
 		$len = strlen( serialize( $meta ) );
 		if ( ( $len + 1 ) > $wgTiffMaxMetaSize ) {
-			$error = array( 'tiff_too_much_meta', $len, $wgTiffMaxMetaSize );
+			$error = [ 'tiff_too_much_meta', $len, $wgTiffMaxMetaSize ];
 			wfDebug( __METHOD__ . ": {$error[0]}\n" );
 			return false;
 		}
@@ -143,20 +143,19 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * In this case, width, page, and lossy.
 	 */
 	function getParamMap() {
-		return array(
+		return [
 			'img_width' => 'width',
 			'img_page' => 'page',
 			'img_lossy' => 'lossy',
-		);
+		];
 	}
-
 
 	/**
 	 * Checks whether parameters are valid and have valid values.
 	 * Check for lossy was added.
 	 */
 	function validateParam( $name, $value ) {
-		if ( in_array( $name, array( 'width', 'height', 'page', 'lossy' ) ) ) {
+		if ( in_array( $name, [ 'width', 'height', 'page', 'lossy' ] ) ) {
 			if ( $name === 'page' && trim( $value ) !== (string) intval( $value ) ) {
 				// Extra junk on the end of page, probably actually a caption
 				// e.g. [[File:Foo.tiff|thumb|Page 3 of the document shows foo]]
@@ -207,7 +206,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	function parseParamString( $str ) {
 		$m = false;
 		if ( preg_match( '/^(\w+)-page(\d+)-(\d+)px$/', $str, $m ) ) {
-			return array( 'width' => $m[3], 'page' => $m[2], 'lossy' => $m[1] );
+			return [ 'width' => $m[3], 'page' => $m[2], 'lossy' => $m[1] ];
 		} else {
 			return false;
 		}
@@ -220,11 +219,11 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	* pass through the same parameters as in makeParamString().
 	*/
 	function getScriptParams( $params ) {
-		return array(
+		return [
 			'width' => $params['width'],
 			'page' => $params['page'],
 			'lossy' => $params['lossy'],
-		);
+		];
 	}
 
 	/**
@@ -239,7 +238,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		}
 
 		if ( isset( $params['lossy'] ) ) {
-			if ( in_array( $params['lossy'], array( 1, '1', 'true', 'lossy' ) ) ) {
+			if ( in_array( $params['lossy'], [ 1, '1', 'true', 'lossy' ] ) ) {
 				$params['lossy'] = 'lossy';
 			} else {
 				$params['lossy'] = 'lossless';
@@ -304,18 +303,21 @@ class PagedTiffHandler extends TransformationalImageHandler {
 				return false;
 			}
 
-			$errors = array();
+			$errors = [];
 			foreach ( $errors_raw as $error ) {
-				if ( $error === false || $error === null || $error === 0 || $error === '' )
+				if ( $error === false || $error === null || $error === 0 || $error === '' ) {
 					continue;
+				}
 
 				$error = trim( $error );
 
-				if ( $error === '' )
+				if ( $error === '' ) {
 					continue;
+				}
 
-				if ( $to_html )
+				if ( $to_html ) {
 					$error = htmlspecialchars( $error );
+				}
 
 				$errors[] = $error;
 			}
@@ -344,7 +346,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			throw new Exception( "Cannot create thumbnail, no destination path" );
 		}
 
-		return array( $this, 'transformIM' );
+		return [ $this, 'transformIM' ];
 	}
 
 	/**
@@ -399,7 +401,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$cmd .= wfEscapeShellArg( $dstPath );
 
 		Hooks::run( 'PagedTiffHandlerRenderCommand',
-			array( &$cmd, $srcPath, $dstPath, $page, $width, $height, $scalerParams )
+			[ &$cmd, $srcPath, $dstPath, $page, $width, $height, $scalerParams ]
 		);
 
 		wfDebug( __METHOD__ . ": $cmd\n" );
@@ -433,9 +435,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		}
 
 		if ( isset( $params['lossy'] ) && $params['lossy'] == 'lossy' ) {
-			return array( 'jpg', 'image/jpeg' );
+			return [ 'jpg', 'image/jpeg' ];
 		} else {
-			return array( 'png', 'image/png' );
+			return [ 'png', 'image/png' ];
 		}
 	}
 
@@ -496,7 +498,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	protected function doThumbError( $params, $msg ) {
 		global $wgUser, $wgThumbLimits;
 
-		$errorParams = array();
+		$errorParams = [];
 		if ( empty( $params['width'] ) ) {
 			// no usable width/height in the parameter array
 			// only happens if we don't have image meta-data, and no
@@ -551,13 +553,13 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$metadata = $this->getMetaArray( $image );
 
 		if ( $this->isMetadataError( $metadata ) ) {
-			$params = array(
+			$params = [
 				'width' => intval( $metadata['page_data'][$page]['width'] ),
 				'height' => intval( $metadata['page_data'][$page]['height'] ),
 				'size' => $wgLang->formatSize( $image->getSize() ),
 				'mime' => $image->getMimeType(),
 				'page_count' => intval( $metadata['page_count'] )
-			);
+			];
 
 			// $1 × $2 pixels, file size: $3, MIME type: $4, $5 pages
 			return wfMessage( 'tiff-file-info-size' )
@@ -601,16 +603,16 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Get an array structure that looks like this:
 	 *
-	 * array(
-	 *	'visible' => array(
+	 * [
+	 *	'visible' => [
 	 *	   'Human-readable name' => 'Human readable value',
 	 *	   ...
-	 *	),
-	 *	'collapsed' => array(
+	 *	],
+	 *	'collapsed' => [
 	 *	   'Human-readable name' => 'Human readable value',
 	 *	   ...
-	 *	)
-	 * )
+	 *	]
+	 * ]
 	 * The UI will format this into a table where the visible fields are always
 	 * visible, and the collapsed fields are optionally visible.
 	 *
@@ -621,10 +623,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return array|bool
 	 */
 	function formatMetadata( $image, $context = false ) {
-		$result = array(
-			'visible' => array(),
-			'collapsed' => array()
-		);
+		$result = [
+			'visible' => [],
+			'collapsed' => []
+		];
 		$metadata = $image->getMetadata();
 		if ( !$metadata ) {
 			return false;
@@ -756,7 +758,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		/** @var MediaTransformOutput */
 		$mto = $this->getIntermediaryStep( $file, $params );
 		if ( $mto && !$mto->isError() ) {
-			return array(
+			return [
 				'path' => $mto->getLocalCopyPath(),
 				'width' => $mto->getWidth(),
 				'height' => $mto->getHeight(),
@@ -764,7 +766,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 				// instance of the MediaTransformObject is garbage collected,
 				// so keep a reference around.
 				'mto' => $mto
-			);
+			];
 		} else {
 			return parent::getThumbnailSource( $file, $params );
 		}
@@ -808,7 +810,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		// integers, and at the same time make sure that both vips and mediawiki
 		// have the same height for a given width (MediaWiki makes the assumption
 		// that the height of an image functionally depends on its width)
+		// @codingStandardsIgnoreStart
 		for ( ; $rx >= 2; $rx-- ) {
+		// @codingStandardsIgnoreEnd
 			$intermediaryWidth = intval( floor( $srcWidth / $rx ) );
 			$intermediaryHeight = intval( floor( $srcHeight / $rx ) );
 			if ( $intermediaryHeight ==
@@ -833,12 +837,12 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		}
 		$isInThisFunction = true;
 
-		$newParams = array(
+		$newParams = [
 			'width' => $intermediaryWidth,
 			'page' => $page,
 			// Render a png, to avoid loss of quality when doing multi-step
 			'lossy' => 'lossless'
-		);
+		];
 
 		// RENDER_NOW causes rendering in this process if
 		// thumb doesn't exist, but unlike RENDER_FORCE, will return
