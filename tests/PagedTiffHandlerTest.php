@@ -34,7 +34,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->test_path = $this->filePath . '/test.tif';
 		$this->large_path = $this->filePath . '/large.tiff';
 
-
 		$this->multipage_image = $this->dataFile( 'multipage.tiff', 'image/tiff' );
 		$this->truncated_image = $this->dataFile( 'truncated.tiff', 'image/tiff' );
 		$this->mhz_image = $this->dataFile( '380mhz.tiff', 'image/tiff' );
@@ -51,7 +50,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->handler->getMetadata( $this->multipage_image, $this->multipage_path );
 		$this->handler->getMetadata( $this->truncated_image, $this->truncated_path );
 
-
 		// ---- Metadata handling
 		// getMetadata
 		$metadata =  $this->handler->getMetadata( false, $this->multipage_path );
@@ -67,7 +65,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		// getMetaArray
 		$metaArray = $this->handler->getMetaArray( $this->mhz_image );
 		if ( !empty( $metaArray['errors'] ) ) {
-			$this->fail( join('; ', $metaArray['error']) );
+			$this->fail( join( '; ', $metaArray['error'] ) );
 		}
 		$this->assertEquals( 1, $metaArray['page_count'] );
 
@@ -75,7 +73,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 		$metaArray = $this->handler->getMetaArray( $this->multipage_image );
 		if ( !empty( $metaArray['errors'] ) ) {
-			$this->fail( join('; ', $metaArray['error']) );
+			$this->fail( join( '; ', $metaArray['error'] ) );
 		}
 		$this->assertEquals( 7, $metaArray['page_count'] );
 
@@ -83,7 +81,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertEquals( 'true', strtolower( $metaArray['page_data'][2]['alpha'] ) );
 
 		$interp = $metaArray['exif']['PhotometricInterpretation'];
-		$this->assertTrue( $interp == 2 || $interp == 'RGB' ); //RGB
+		$this->assertTrue( $interp == 2 || $interp == 'RGB' ); // RGB
 
 	}
 
@@ -126,7 +124,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 		// lossy and lossless
 		$params = [ 'width' => '100', 'height' => '100', 'page' => '1' ];
-		$this->handler->normaliseParams($this->multipage_image, $params );
+		$this->handler->normaliseParams( $this->multipage_image, $params );
 		$this->assertEquals( 'lossy', $params['lossy'] );
 
 		$params = [ 'width' => '100', 'height' => '100', 'page' => '2' ];
@@ -220,11 +218,11 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		// ---- Image information
 		// getThumbType
 		$type = $this->handler->getThumbType( '.tiff', 'image/tiff', [ 'lossy' => 'lossy' ] );
-		$this->assertEquals( 'jpg', $type[0]  );
+		$this->assertEquals( 'jpg', $type[0] );
 		$this->assertEquals( 'image/jpeg', $type[1] );
 
 		$type = $this->handler->getThumbType( '.tiff', 'image/tiff', [ 'lossy' => 'lossless' ] );
-		$this->assertEquals( 'png', $type[0]  );
+		$this->assertEquals( 'png', $type[0] );
 		$this->assertEquals( 'image/png', $type[1] );
 	}
 
@@ -323,7 +321,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		// formatMetadata
 		$formattedMetadata = $this->handler->formatMetadata( $this->multipage_image );
 
-		foreach (  $formattedMetadata['collapsed'] as $k => $e ) {
+		foreach ( $formattedMetadata['collapsed'] as $k => $e ) {
 			if ( $e['id'] == 'exif-photometricinterpretation' ) {
 				$this->assertEquals( 'RGB', $e['value'] );
 			}

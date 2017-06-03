@@ -11,14 +11,14 @@
  * - set the locale to English
  */
 
-require_once(dirname( __FILE__ ) . '/PagedTiffHandlerTestCases.php');
+require_once __DIR__ . '/PagedTiffHandlerTestCases.php';
 
 class PagedTiffHandlerSeleniumTestSuite extends SeleniumTestSuite {
 
 	public $egSeleniumTiffTestUploads = false;
 	public $egSeleniumTiffTestCheckPrerequistes = true;
 
-	public function __construct( $name = 'PagedTiffHandler Test Suite') {
+	public function __construct( $name = 'PagedTiffHandler Test Suite' ) {
 		parent::__construct( $name );
 	}
 
@@ -89,7 +89,7 @@ class PagedTiffHandlerSeleniumTestSuite extends SeleniumTestSuite {
 			parent::addTest( new SeleniumUploadWorkingTiffTest(
 				'multipage.tiff' ) );
 		}
-		//parent::addTest( new SeleniumUploadWorkingTiffTest( 'multipage.tiff' ) );
+		// parent::addTest( new SeleniumUploadWorkingTiffTest( 'multipage.tiff' ) );
 
 		parent::addTest( new SeleniumEmbedTiffInclusionTest() );
 		parent::addTest( new SeleniumEmbedTiffThumbRatioTest() );
@@ -118,14 +118,14 @@ class PagedTiffHandlerSeleniumTestSuite extends SeleniumTestSuite {
 				'g3test.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
 				'Jello.tif' ) );
-			//parent::addTest( new SeleniumDeleteTiffTest(
-				//'jim___ah.tif' ) );
+			// parent::addTest( new SeleniumDeleteTiffTest(
+			// 	'jim___ah.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
 				'jim___cg.tif' ) );
-			//parent::addTest( new SeleniumDeleteTiffTest(
-				//'jim___dg.tif' ) );
-			//parent::addTest( new SeleniumDeleteTiffTest(
-				//'jim___gg.tif' ) );
+			// parent::addTest( new SeleniumDeleteTiffTest(
+			// 	'jim___dg.tif' ) );
+			// parent::addTest( new SeleniumDeleteTiffTest(
+			// 	'jim___gg.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
 				'ladoga.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
@@ -138,25 +138,24 @@ class PagedTiffHandlerSeleniumTestSuite extends SeleniumTestSuite {
 				'oxford.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
 				'pc260001.tif' ) );
-			//parent::addTest( new SeleniumDeleteTiffTest(
-				//'quad-jpeg.tif' ) );
+			// parent::addTest( new SeleniumDeleteTiffTest(
+			// 	'quad-jpeg.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
 				'quad-lzw.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
 				'quad-tile.tif' ) );
-			//parent::addTest( new SeleniumDeleteTiffTest(
-				//'smallliz.tif' ) );
+			// parent::addTest( new SeleniumDeleteTiffTest(
+			// 	'smallliz.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
 				'strike.tif' ) );
-			//parent::addTest( new SeleniumDeleteTiffTest(
-				//'text.tif' ) );
+			// parent::addTest( new SeleniumDeleteTiffTest(
+			// 	'text.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
 				'ycbcr-cat.tif' ) );
-			//parent::addTest( new SeleniumDeleteTiffTest(
-				//'zackthecat.tif' ) );
+			// parent::addTest( new SeleniumDeleteTiffTest(
+			// 	'zackthecat.tif' ) );
 			parent::addTest( new SeleniumDeleteTiffTest(
 				'multipage.tiff' ) );
 		}
 	}
 }
-

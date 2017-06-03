@@ -51,12 +51,11 @@ class SeleniumCheckPrerequisites extends SeleniumTestCase {
 	}
 }
 
-
 class SeleniumUploadTiffTest extends SeleniumTestCase {
 	public function uploadFile( $filename ) {
 		global $wgSeleniumTestsWikiUrl;
 		$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=Special:Upload' );
-		$this->type( 'wpUploadFile', dirname( __FILE__ ) . "\\testImages\\" . $filename );
+		$this->type( 'wpUploadFile', __DIR__ . "\\testImages\\" . $filename );
 		$this->check( 'wpIgnoreWarning' );
 		$this->click( 'wpUpload' );
 		$this->waitForPageToLoad( 30000 );
@@ -131,7 +130,7 @@ class SeleniumDeleteTiffTest extends SeleniumTestCase {
 
 }
 
-class SeleniumEmbedTiffTest extends SeleniumTestCase { //PHPUnit_Extensions_SeleniumTestCase
+class SeleniumEmbedTiffTest extends SeleniumTestCase { // PHPUnit_Extensions_SeleniumTestCase
 
 	public function tearDown() {
 		global $wgSeleniumTestsWikiUrl;
@@ -196,12 +195,12 @@ class SeleniumDisplayInGalleryTest extends SeleniumEmbedTiffTest {
 	public function runTest() {
 		$this->preparePage( "<gallery>\nImage:Multipage.tiff\n</gallery>\n" );
 
-		//global $wgSeleniumTestsWikiUrl;
-		//$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=GalleryTest' );
+		// global $wgSeleniumTestsWikiUrl;
+		// $this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=GalleryTest' );
 
 		// Ergebnis chekcen
-		//$source = $this->getAttribute(
-		//	"//div[@class='gallerybox']//a[@title='Multipage.tiff']//img@src" );
+		// $source = $this->getAttribute(
+		// 	"//div[@class='gallerybox']//a[@title='Multipage.tiff']//img@src" );
 		$source = $this->getAttribute( "//div[@class='gallerybox']//a[@class='image']//img@src" );
 		$correct = strstr( $source, "-page1-" );
 		$this->assertEquals( $correct, true );
@@ -225,7 +224,7 @@ class SeleniumEmbedTiffThumbRatioTest extends SeleniumEmbedTiffTest {
 
 	public function runTest() {
 		$this->preparePage( "[[Image:Multipage.tiff|200px]]\n" );
-		//$this->selenium->type( 'wpTextbox1', "[[Image:Pc260001.tif|thumb]]\n" );
+		// $this->selenium->type( 'wpTextbox1', "[[Image:Pc260001.tif|thumb]]\n" );
 
 		$this->assertSeleniumAttributeEquals( "//div[@id='bodyContent']//img@height", '150' );
 		$this->assertSeleniumAttributeEquals( "//div[@id='bodyContent']//img@width", '200' );
@@ -243,13 +242,12 @@ class SeleniumEmbedTiffBoxFitTest extends SeleniumEmbedTiffTest {
 	}
 }
 
-
 class SeleniumEmbedTiffPage2InclusionTest extends SeleniumEmbedTiffTest {
 	public $name = 'Include Tiff Images: Page 2';
 
 	public function runTest() {
 		$this->preparePage( "[[Image:Multipage.tiff|page=2]]\n" );
-		//$this->selenium->type( 'wpTextbox1', "[[Image:Pc260001.tif|thumb]]\n" );
+		// $this->selenium->type( 'wpTextbox1', "[[Image:Pc260001.tif|thumb]]\n" );
 
 		$this->assertSeleniumAttributeEquals( "//div[@id='bodyContent']//img@height", '564' );
 		$this->assertSeleniumAttributeEquals( "//div[@id='bodyContent']//img@width", '640' );

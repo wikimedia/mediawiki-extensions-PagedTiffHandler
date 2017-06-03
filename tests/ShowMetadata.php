@@ -13,9 +13,9 @@
 if ( getenv( 'MW_INSTALL_PATH' ) ) {
 	$IP = getenv( 'MW_INSTALL_PATH' );
 } else {
-	$IP = dirname( __FILE__ ) . '/../../..';
+	$IP = __DIR__ . '/../../..';
 }
-require_once( "$IP/maintenance/Maintenance.php" );
+require_once "$IP/maintenance/Maintenance.php";
 
 error_reporting( E_ALL );
 
@@ -37,18 +37,18 @@ class ShowMetadata extends Maintenance {
 		if ( !$metadata ) {
 			print "FAILED! \n";
 			return;
-		} 
+		}
 
 		$metadata = unserialize( $metadata );
 
 		if ( !$metadata ) {
 			print "BROKEN! \n";
 			return;
-		} 
+		}
 
 		print_r( $metadata );
 	}
 }
 
 $maintClass = "ShowMetadata";
-require_once( DO_MAINTENANCE );
+require_once DO_MAINTENANCE;
