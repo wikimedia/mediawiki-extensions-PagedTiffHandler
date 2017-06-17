@@ -27,7 +27,7 @@
  */
 
 class PagedTiffImage {
-	protected $_meta = null;
+	protected $metadata = null;
 	protected $mFilename;
 
 	function __construct( $filename ) {
@@ -71,7 +71,7 @@ class PagedTiffImage {
 	}
 
 	public function resetMetaData() {
-		$this->_meta = null;
+		$this->metadata = null;
 	}
 
 	/**
@@ -90,14 +90,14 @@ class PagedTiffImage {
 		global $wgTiffUseTiffinfo, $wgTiffTiffinfoCommand;
 		global $wgShowEXIF;
 
-		if ( $this->_meta === null ) {
+		if ( $this->metadata === null ) {
 			wfProfileIn( 'PagedTiffImage::retrieveMetaData' );
 
 			// fetch base info: number of pages, size and alpha for each page.
 			// run hooks first, then optionally tiffinfo or, per default,
 			// ImageMagic's identify command
 			if (
-				!Hooks::run( 'PagedTiffHandlerTiffData', [ $this->mFilename, &$this->_meta ] )
+				!Hooks::run( 'PagedTiffHandlerTiffData', [ $this->mFilename, &$this->metadata ] )
 			) {
 				wfDebug(
 					__METHOD__ . ": hook PagedTiffHandlerTiffData overrides TIFF data extraction\n"
@@ -120,7 +120,7 @@ class PagedTiffImage {
 					return $data; // fail. we *need* that info
 				}
 
-				$this->_meta = $this->parseTiffinfoOutput( $dump );
+				$this->metadata = $this->parseTiffinfoOutput( $dump );
 			} else {
 				$cmd = wfEscapeShellArg( $wgImageMagickIdentifyCommand ) .
 					' -format ' .
@@ -139,18 +139,18 @@ class PagedTiffImage {
 					return $data; // fail. we *need* that info
 				}
 
-				$this->_meta = $this->parseIdentifyOutput( $dump );
+				$this->metadata = $this->parseIdentifyOutput( $dump );
 			}
 
-			$this->_meta['exif'] = [];
+			$this->metadata['exif'] = [];
 
 			// fetch extended info: EXIF/IPTC/XMP
 			// run hooks first, then optionally Exiv2 or, per default, the internal EXIF class
-			if ( !empty( $this->_meta['errors'] ) ) {
+			if ( !empty( $this->metadata['errors'] ) ) {
 				wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
 			} elseif (
 				!Hooks::run( 'PagedTiffHandlerExifData',
-					[ $this->mFilename, &$this->_meta['exif'] ] )
+					[ $this->mFilename, &$this->metadata['exif'] ] )
 			) {
 				wfDebug(
 					__METHOD__ . ": hook PagedTiffHandlerExifData overrides EXIF extraction\n"
@@ -178,7 +178,7 @@ class PagedTiffImage {
 
 				$data = $this->parseExiv2Output( $dump );
 
-				$this->_meta['exif'] = $data;
+				$this->metadata['exif'] = $data;
 			} elseif ( $wgShowEXIF ) {
 				wfDebug( __METHOD__ . ": using internal Exif( {$this->mFilename} )\n" );
 				if ( method_exists( 'BitmapMetadataHandler', 'Tiff' ) ) {
@@ -191,22 +191,22 @@ class PagedTiffImage {
 
 				if ( $data ) {
 					$data['MEDIAWIKI_EXIF_VERSION'] = Exif::version();
-					$this->_meta['exif'] = $data;
+					$this->metadata['exif'] = $data;
 				}
 			}
 
-			unset( $this->_meta['exif']['Image'] );
-			unset( $this->_meta['exif']['filename'] );
-			unset( $this->_meta['exif']['Base filename'] );
-			unset( $this->_meta['exif']['XMLPacket'] );
-			unset( $this->_meta['exif']['ImageResources'] );
+			unset( $this->metadata['exif']['Image'] );
+			unset( $this->metadata['exif']['filename'] );
+			unset( $this->metadata['exif']['Base filename'] );
+			unset( $this->metadata['exif']['XMLPacket'] );
+			unset( $this->metadata['exif']['ImageResources'] );
 
-			$this->_meta['TIFF_METADATA_VERSION'] = PagedTiffHandler::TIFF_METADATA_VERSION;
+			$this->metadata['TIFF_METADATA_VERSION'] = PagedTiffHandler::TIFF_METADATA_VERSION;
 
 			wfProfileOut( 'PagedTiffImage::retrieveMetaData' );
 		}
 
-		return $this->_meta;
+		return $this->metadata;
 	}
 
 	/**
