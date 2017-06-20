@@ -156,7 +156,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 */
 	function validateParam( $name, $value ) {
 		if ( in_array( $name, [ 'width', 'height', 'page', 'lossy' ] ) ) {
-			if ( $name === 'page' && trim( $value ) !== (string) intval( $value ) ) {
+			if ( $name === 'page' && trim( $value ) !== (string)intval( $value ) ) {
 				// Extra junk on the end of page, probably actually a caption
 				// e.g. [[File:Foo.tiff|thumb|Page 3 of the document shows foo]]
 				return false;

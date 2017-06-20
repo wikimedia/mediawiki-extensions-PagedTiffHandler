@@ -169,7 +169,6 @@ class SeleniumTiffPageTest extends SeleniumTestCase {
 		$this->type( 'wpTextbox1', $text );
 		$this->click( 'wpSave' );
 		$this->waitForPageToLoad( 10000 );
-
 	}
 }
 
@@ -200,11 +199,10 @@ class SeleniumDisplayInGalleryTest extends SeleniumEmbedTiffTest {
 
 		// Ergebnis chekcen
 		// $source = $this->getAttribute(
-		// 	"//div[@class='gallerybox']//a[@title='Multipage.tiff']//img@src" );
+		// "//div[@class='gallerybox']//a[@title='Multipage.tiff']//img@src" );
 		$source = $this->getAttribute( "//div[@class='gallerybox']//a[@class='image']//img@src" );
 		$correct = strstr( $source, "-page1-" );
 		$this->assertEquals( $correct, true );
-
 	}
 }
 

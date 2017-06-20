@@ -82,7 +82,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 		$interp = $metaArray['exif']['PhotometricInterpretation'];
 		$this->assertTrue( $interp == 2 || $interp == 'RGB' ); // RGB
-
 	}
 
 	function testValidateParam() {
@@ -138,7 +137,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	}
 
 	function testMakeParamString() {
-
 		// makeParamString
 		$this->assertEquals(
 			'lossless-page4-100px',
@@ -211,7 +209,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$thumbPath = $this->large_image->getThumbPath( $thumbName );
 
 		$this->assertTrue( $this->repo->fileExists( $thumbPath ), "Intermediate thumb missing" );
-
 	}
 
 	function testGetThumbType() {
@@ -248,7 +245,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	}
 
 	function testGetPageDimensions() {
-
 		// getPageDimensions
 		$this->assertEquals(
 			[ 'width' => 1024, 'height' => 768 ],
@@ -313,11 +309,9 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		// isMultiPage
 		$this->assertTrue( $this->handler->isMultiPage( $this->multipage_image ) );
 		$this->assertTrue( $this->handler->isMultiPage( $this->mhz_image ) );
-
 	}
 
 	function testFormatMetadata() {
-
 		// formatMetadata
 		$formattedMetadata = $this->handler->formatMetadata( $this->multipage_image );
 

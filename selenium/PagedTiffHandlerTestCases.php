@@ -4,7 +4,6 @@ class SeleniumCheckPrerequisites extends SeleniumTestCase {
 	public $name = 'Check prerequisites';
 	private $prerequisiteError = null;
 	public function runTest() {
-
 		// check whether Multipage.tiff is already uploaded
 		$this->open( $this->getUrl() .
 			'/index.php?title=Image:Multipage.tiff' );
@@ -36,7 +35,6 @@ class SeleniumCheckPrerequisites extends SeleniumTestCase {
 
 class SeleniumUploadTiffTest extends SeleniumTestCase {
 	public function uploadFile( $filename ) {
-
 		$this->open( $this->getUrl() .
 			'/index.php?title=Special:Upload' );
 		$this->type( 'wpUploadFile', __DIR__ .
@@ -154,7 +152,6 @@ class SeleniumTiffPageTest extends SeleniumTestCase {
 		$this->type( 'wpTextbox1', $text );
 		$this->click( 'wpSave' );
 		$this->waitForPageToLoad( 10000 );
-
 	}
 }
 
@@ -185,7 +182,7 @@ class SeleniumDisplayInGalleryTest extends SeleniumEmbedTiffTest {
 
 		// Ergebnis chekcen
 		// $source = $this->getAttribute(
-		// 	"//div[@class='gallerybox']//a[@title='Multipage.tiff']//img@src" );
+		// "//div[@class='gallerybox']//a[@title='Multipage.tiff']//img@src" );
 		$source = $this->getAttribute(
 			"//li[@class='gallerybox']//a[@class='image']//img@src" );
 		$correct = strstr( $source, "-page1-" );
@@ -212,7 +209,7 @@ class SeleniumEmbedTiffThumbRatioTest extends SeleniumEmbedTiffTest {
 	public function runTest() {
 		$this->preparePage( "[[Image:Multipage.tiff|200px]]\n" );
 		// $this->selenium->type( 'wpTextbox1',
-		// 	"[[Image:Pc260001.tif|thumb]]\n" );
+		// "[[Image:Pc260001.tif|thumb]]\n" );
 
 		$this->assertSeleniumAttributeEquals(
 			"//div[@id='bodyContent']//img@height", '150' );
@@ -239,7 +236,7 @@ class SeleniumEmbedTiffPage2InclusionTest extends SeleniumEmbedTiffTest {
 
 	public function runTest() {
 		$this->preparePage( "[[Image:Multipage.tiff|page=2]]\n" );
-		// 	$this->selenium->type( 'wpTextbox1', "[[Image:Pc260001.tif|thumb]]\n" );
+		// $this->selenium->type( 'wpTextbox1', "[[Image:Pc260001.tif|thumb]]\n" );
 
 		$this->assertSeleniumAttributeEquals(
 			"//div[@id='bodyContent']//img@height", '564' );
