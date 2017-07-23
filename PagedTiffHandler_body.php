@@ -108,12 +108,12 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	static function verifyMetaData( $meta, &$error ) {
 		global $wgTiffMaxEmbedFiles, $wgTiffMaxMetaSize;
 
-		$errors = PagedTiffHandler::getMetadataErrors( $meta );
+		$errors = self::getMetadataErrors( $meta );
 		if ( $errors ) {
-			$error = [ 'tiff_bad_file', PagedTiffHandler::joinMessages( $errors ) ];
+			$error = [ 'tiff_bad_file', self::joinMessages( $errors ) ];
 
 			wfDebug( __METHOD__ . ": {$error[0]} " .
-				PagedTiffHandler::joinMessages( $errors, false ) . "\n" );
+				self::joinMessages( $errors, false ) . "\n" );
 			return false;
 		}
 
@@ -363,10 +363,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		$meta = $this->getMetaArray( $file );
 
-		$errors = PagedTiffHandler::getMetadataErrors( $meta );
+		$errors = self::getMetadataErrors( $meta );
 
 		if ( $errors ) {
-			$errors = PagedTiffHandler::joinMessages( $errors );
+			$errors = self::joinMessages( $errors );
 			if ( is_string( $errors ) ) {
 				// TODO: original error as param // TESTME
 				return $this->doThumbError( $scalerParams, 'tiff_bad_file' );
@@ -593,7 +593,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return false;
 		}
 
-		if ( $metadata['TIFF_METADATA_VERSION'] != PagedTiffHandler::TIFF_METADATA_VERSION ) {
+		if ( $metadata['TIFF_METADATA_VERSION'] != self::TIFF_METADATA_VERSION ) {
 			return false;
 		}
 
@@ -651,9 +651,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			);
 		}
 		$meta = unserialize( $metadata );
-		$errors_raw = PagedTiffHandler::getMetadataErrors( $meta );
+		$errors_raw = self::getMetadataErrors( $meta );
 		if ( $errors_raw ) {
-			$errors = PagedTiffHandler::joinMessages( $errors_raw );
+			$errors = self::joinMessages( $errors_raw );
 			self::addMeta( $result,
 				'collapsed',
 				'metadata',
@@ -663,7 +663,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			// XXX: need translation for <metadata-error>
 		}
 		if ( !empty( $meta['warnings'] ) ) {
-			$warnings = PagedTiffHandler::joinMessages( $meta['warnings'] );
+			$warnings = self::joinMessages( $meta['warnings'] );
 			self::addMeta( $result,
 				'collapsed',
 				'metadata',
@@ -710,7 +710,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$metadata = $image->getMetadata();
 
 		if ( !$this->isMetadataValid( $image, $metadata )
-			|| PagedTiffHandler::getMetadataErrors( $metadata )
+			|| self::getMetadataErrors( $metadata )
 		) {
 			wfDebug( "Tiff metadata is invalid, missing or has errors.\n" );
 			return false;
