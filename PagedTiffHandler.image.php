@@ -485,7 +485,7 @@ class PagedTiffInfoParserState {
 
 	function finishPage() {
 		if ( !isset( $this->page['page'] ) ) {
-			$this->page['page'] = $this->prevPage +1;
+			$this->page['page'] = $this->prevPage + 1;
 		} else {
 			if ( $this->prevPage >= $this->page['page'] ) {
 				$this->metadata['errors'][] = "inconsistent page numbering in TIFF directory";

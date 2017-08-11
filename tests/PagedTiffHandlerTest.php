@@ -52,11 +52,11 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 		// ---- Metadata handling
 		// getMetadata
-		$metadata =  $this->handler->getMetadata( false, $this->multipage_path );
+		$metadata = $this->handler->getMetadata( false, $this->multipage_path );
 		$this->assertTrue( strpos( $metadata, '"page_count";i:7' ) !== false );
 		$this->assertTrue( $this->handler->isMetadataValid( $this->multipage_image, $metadata ) );
 
-		$metadata =  $this->handler->getMetadata( false, $this->mhz_path );
+		$metadata = $this->handler->getMetadata( false, $this->mhz_path );
 		$this->assertTrue( strpos( $metadata, '"page_count";i:1' ) !== false );
 		$this->assertTrue( $this->handler->isMetadataValid( $this->mhz_image, $metadata ) );
 	}
@@ -379,7 +379,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$file->expects( $this->once() )
 			->method( 'getLocalRefPath' )
 			->will( $this->returnValue( false ) );
-		$result =$this->handler->doTransform(
+		$result = $this->handler->doTransform(
 			$file,
 			$tempFile,
 			'out.tif',
