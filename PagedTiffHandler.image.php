@@ -91,8 +91,6 @@ class PagedTiffImage {
 		global $wgShowEXIF;
 
 		if ( $this->metadata === null ) {
-			wfProfileIn( 'PagedTiffImage::retrieveMetaData' );
-
 			// fetch base info: number of pages, size and alpha for each page.
 			// run hooks first, then optionally tiffinfo or, per default,
 			// ImageMagic's identify command
@@ -108,11 +106,9 @@ class PagedTiffImage {
 				$cmd = wfEscapeShellArg( $wgTiffTiffinfoCommand ) .
 					' ' . wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
 
-				wfProfileIn( 'tiffinfo' );
 				wfDebug( __METHOD__ . ": $cmd\n" );
 				$retval = '';
 				$dump = wfShellExec( $cmd, $retval );
-				wfProfileOut( 'tiffinfo' );
 
 				if ( $retval ) {
 					$data['errors'][] = "tiffinfo command failed: $cmd";
@@ -127,11 +123,9 @@ class PagedTiffImage {
 					'"[BEGIN]page=%p\nalpha=%A\nalpha2=%r\nheight=%h\nwidth=%w\ndepth=%z[END]" ' .
 					wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
 
-				wfProfileIn( 'identify' );
 				wfDebug( __METHOD__ . ": $cmd\n" );
 				$retval = '';
 				$dump = wfShellExec( $cmd, $retval );
-				wfProfileOut( 'identify' );
 
 				if ( $retval ) {
 					$data['errors'][] = "identify command failed: $cmd";
@@ -164,11 +158,9 @@ class PagedTiffImage {
 				$cmd = wfEscapeShellArg( $wgExiv2Command ) .
 					' -u -psix -Pnt ' . wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
 
-				wfProfileIn( 'exiv2' );
 				wfDebug( __METHOD__ . ": $cmd\n" );
 				$retval = '';
 				$dump = wfShellExec( $cmd, $retval );
-				wfProfileOut( 'exiv2' );
 
 				if ( $retval ) {
 					$data['errors'][] = "exiv command failed: $cmd";
@@ -202,8 +194,6 @@ class PagedTiffImage {
 			unset( $this->metadata['exif']['ImageResources'] );
 
 			$this->metadata['TIFF_METADATA_VERSION'] = PagedTiffHandler::TIFF_METADATA_VERSION;
-
-			wfProfileOut( 'PagedTiffImage::retrieveMetaData' );
 		}
 
 		return $this->metadata;

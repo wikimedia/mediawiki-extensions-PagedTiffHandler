@@ -406,9 +406,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		wfDebug( __METHOD__ . ": $cmd\n" );
 		$retval = null;
-		wfProfileIn( 'PagedTiffHandler' );
 		$err = wfShellExecWithStderr( $cmd, $retval );
-		wfProfileOut( 'PagedTiffHandler' );
 
 		if ( $retval !== 0 ) {
 			wfDebugLog( 'thumbnail', "thumbnail failed on " . wfHostname() .
@@ -716,11 +714,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return false;
 		}
 
-		wfProfileIn( __METHOD__ );
-		wfSuppressWarnings();
+		MediaWiki\suppressWarnings();
 		$image->tiffMetaArray = unserialize( $metadata );
-		wfRestoreWarnings();
-		wfProfileOut( __METHOD__ );
+		MediaWiki\restoreWarnings();
 
 		return $image->tiffMetaArray;
 	}
