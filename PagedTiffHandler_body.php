@@ -41,6 +41,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
+	 * @param File $img
 	 * @return bool
 	 */
 	function mustRender( $img ) {
@@ -49,6 +50,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Does the file format support multi-page documents?
+	 * @param File $img
+	 * @return bool
 	 */
 	function isMultiPage( $img ) {
 		return true;
@@ -62,6 +65,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * - identify-errors
 	 * - identify-warnings
 	 * - check for running-identify-service
+	 * @param string $fileName
+	 * @return Status
 	 */
 	function verifyUpload( $fileName ) {
 		global $wgTiffUseTiffReader, $wgTiffReaderCheckEofForJS;
@@ -101,8 +106,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	 * @param $meta array
-	 * @param $error array
+	 * @param array $meta
+	 * @param array &$error
 	 * @return bool
 	 */
 	static function verifyMetaData( $meta, &$error ) {
@@ -141,6 +146,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Maps MagicWord-IDs to parameters.
 	 * In this case, width, page, and lossy.
+	 * @return array
 	 */
 	function getParamMap() {
 		return [
@@ -153,6 +159,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Checks whether parameters are valid and have valid values.
 	 * Check for lossy was added.
+	 * @param string $name
+	 * @param string $value
+	 * @return bool
 	 */
 	function validateParam( $name, $value ) {
 		if ( in_array( $name, [ 'width', 'height', 'page', 'lossy' ] ) ) {
@@ -189,6 +198,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Creates parameter string for file name.
 	 * Page number was added.
+	 * @param array $params
+	 * @return string|false
 	 */
 	function makeParamString( $params ) {
 		if (
@@ -202,6 +213,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Parses parameter string into an array.
+	 * @param string $str
+	 * @return array|false
 	 */
 	function parseParamString( $str ) {
 		$m = false;
@@ -213,11 +226,13 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	* The function is used to specify which parameters to File::transform() should be
-	* passed through to thumb.php, in the case where the configuration specifies
-	* thumb.php is to be used (e.g. $wgThumbnailScriptPath !== false). You should
-	* pass through the same parameters as in makeParamString().
-	*/
+	 * The function is used to specify which parameters to File::transform() should be
+	 * passed through to thumb.php, in the case where the configuration specifies
+	 * thumb.php is to be used (e.g. $wgThumbnailScriptPath !== false). You should
+	 * pass through the same parameters as in makeParamString().
+	 * @param array $params
+	 * @return array
+	 */
 	function getScriptParams( $params ) {
 		return [
 			'width' => $params['width'],
@@ -229,6 +244,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Prepares param array and sets standard values.
 	 * Adds normalisation for parameter "lossy".
+	 * @param File $image
+	 * @param array &$params
+	 * @return array
 	 */
 	function normaliseParams( $image, &$params ) {
 		if ( isset( $params['page'] ) ) {
@@ -261,7 +279,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	 * @param $metadata array
+	 * @param array $metadata
 	 * @return bool|string[] a list of errors or an error flag (true = error)
 	 */
 	static function getMetadataErrors( $metadata ) {
@@ -293,8 +311,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	 * @param $errors_raw array
-	 * @param $to_html bool
+	 * @param array $errors_raw
+	 * @param bool $to_html
 	 * @return bool|string
 	 */
 	static function joinMessages( $errors_raw, $to_html = true ) {
@@ -336,8 +354,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * What method to use to scale this file
 	 *
 	 * @see TransformationalImageHandler::getScalerType
-	 * @param $dstPath string Path to store thumbnail
-	 * @param $checkDstPath boolean Whether to verify destination path exists
+	 * @param string $dstPath Path to store thumbnail
+	 * @param bool $checkDstPath Whether to verify destination path exists
 	 * @return Callable Transform function to call.
 	 */
 	protected function getScalerType( $dstPath, $checkDstPath = true ) {
@@ -419,9 +437,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Get the thumbnail extension and MIME type for a given source MIME type
-	 * @param $ext
-	 * @param $mime
-	 * @param $params array
+	 * @param string $ext
+	 * @param string $mime
+	 * @param array $params
 	 * @return array thumbnail extension and MIME type
 	 */
 	function getThumbType( $ext, $mime, $params = null ) {
@@ -441,6 +459,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns the number of available pages/embedded files
+	 * @param File $image
+	 * @return int
 	 */
 	function pageCount( File $image ) {
 		$data = $this->getMetaArray( $image );
@@ -453,6 +473,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns the number of the first page in the file
+	 * @param File $image
+	 * @return int
 	 */
 	function firstPage( $image ) {
 		$data = $this->getMetaArray( $image );
@@ -464,6 +486,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns the number of the last page in the file
+	 * @param File $image
+	 * @return int
 	 */
 	function lastPage( $image ) {
 		$data = $this->getMetaArray( $image );
@@ -475,6 +499,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns a page number within range.
+	 * @param File $image
+	 * @param int|string $page
+	 * @return int
 	 */
 	function adjustPage( $image, $page ) {
 		$page = intval( $page );
@@ -492,6 +519,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns a new error message.
+	 * @param array $params
+	 * @param string $msg
+	 * @return string
 	 */
 	protected function doThumbError( $params, $msg ) {
 		global $wgUser, $wgThumbLimits;
@@ -524,8 +554,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Get handler-specific metadata which will be saved in the img_metadata field.
 	 *
-	 * @param $image File|bool: the image object, or false if there isn't one
-	 * @param $path String: path to the image?
+	 * @param File|bool $image the image object, or false if there isn't one
+	 * @param string $path path to the image?
 	 * @return string
 	 */
 	function getMetadata( $image, $path ) {
@@ -542,6 +572,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Creates detail information that is being displayed on image page.
+	 * @param File $image
+	 * @return string
 	 */
 	function getLongDesc( $image ) {
 		global $wgLang, $wgRequest;
@@ -575,6 +607,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Check if the metadata string is valid for this handler.
 	 * If it returns false, Image will reload the metadata from the file and update the database
+	 * @param File $image
+	 * @param array $metadata
+	 * @return bool
 	 */
 	function isMetadataValid( $image, $metadata ) {
 		if ( is_string( $metadata ) ) {
@@ -602,21 +637,21 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Get an array structure that looks like this:
 	 *
 	 * [
-	 *	'visible' => [
-	 *	   'Human-readable name' => 'Human readable value',
-	 *	   ...
-	 *	],
-	 *	'collapsed' => [
-	 *	   'Human-readable name' => 'Human readable value',
-	 *	   ...
-	 *	]
+	 *  'visible' => [
+	 *    'Human-readable name' => 'Human readable value',
+	 *    ...
+	 *  ],
+	 *  'collapsed' => [
+	 *    'Human-readable name' => 'Human readable value',
+	 *    ...
+	 *  ]
 	 * ]
 	 * The UI will format this into a table where the visible fields are always
 	 * visible, and the collapsed fields are optionally visible.
 	 *
 	 * The function should return false if there is no metadata to display.
 	 *
-	 * @param $image File
+	 * @param File $image
 	 * @param bool|IContextSource $context Context to use (optional)
 	 * @return array|bool
 	 */
@@ -675,8 +710,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns a PagedTiffImage or creates a new one if it doesn't exist.
-	 * @param $image File|bool: The image object, or false if there isn't one
-	 * @param $path String: path to the image?
+	 * @param File|bool $image The image object, or false if there isn't one
+	 * @param string $path path to the image?
 	 * @return PagedTiffImage
 	 */
 	static function getTiffImage( $image, $path ) {
@@ -697,7 +732,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Returns an Array with the Image metadata.
 	 *
-	 * @param $image File
+	 * @param File $image
 	 * @return bool|null|array
 	 */
 	function getMetaArray( $image ) {
@@ -725,7 +760,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Get an associative array of page dimensions
 	 * Currently "width" and "height" are understood, but this might be
 	 * expanded in the future.
-	 * Returns false if unknown or if the document is not multi-page.
+	 * @param File $image
+	 * @param int $page
+	 * @return int|false Returns false if unknown or if the document is not multi-page.
 	 */
 	function getPageDimensions( File $image, $page ) {
 		// makeImageLink (Linker.php) sets $page to false if no page parameter
@@ -746,9 +783,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * advantage of the fact that VIPS can scale integer shrink factors
 	 * much more efficiently than non-integral scaling factors.
 	 *
-	 * @param $file File
-	 * @param $params Array Parameters to transform file with.
-	 * @return Array Array with keys path, width and height
+	 * @param File $file
+	 * @param array $params Parameters to transform file with.
+	 * @return array Array with keys path, width and height
 	 */
 	protected function getThumbnailSource( $file, $params ) {
 		/** @var MediaTransformOutput */
@@ -775,8 +812,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * to further scale things down. Size is chosen to be
 	 * efficient to scale in vips for those who use VipsScaler
 	 *
-	 * @param $file File
-	 * @param $params Array Scaling parameters for original thumbnail
+	 * @param File $file
+	 * @param array $params Scaling parameters for original thumbnail
 	 * @return MediaTransformObject|bool false if no in between step needed,
 	 *   MediaTransformError on error. False if the doTransform method returns false
 	 *   MediaTransformOutput on success.
@@ -850,7 +887,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	 * @param $files array
+	 * @param array &$files
 	 * @return bool
 	 */
 	public static function onUnitTestsList( &$files ) {

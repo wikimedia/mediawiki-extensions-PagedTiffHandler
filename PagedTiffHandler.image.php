@@ -36,6 +36,7 @@ class PagedTiffImage {
 
 	/**
 	 * Called by MimeMagick functions.
+	 * @return int
 	 */
 	public function isValid() {
 		return count( $this->retrieveMetaData() );
@@ -43,6 +44,7 @@ class PagedTiffImage {
 
 	/**
 	 * Returns an array that corresponds to the native PHP function getimagesize().
+	 * @return array|false
 	 */
 	public function getImageSize() {
 		$data = $this->retrieveMetaData();
@@ -59,6 +61,9 @@ class PagedTiffImage {
 
 	/**
 	 * Returns an array with width and height of the tiff page.
+	 * @param array $data
+	 * @param int $page
+	 * @return array|false
 	 */
 	public static function getPageSize( $data, $page ) {
 		if ( isset( $data['page_data'][$page] ) ) {
@@ -76,7 +81,7 @@ class PagedTiffImage {
 
 	/**
 	 * Reads metadata of the tiff file via shell command and returns an associative array.
-	 * layout:
+	 * @return array Associative array. Layout:
 	 * meta['page_count'] = number of pages
 	 * meta['first_page'] = number of first page
 	 * meta['last_page'] = number of last page
@@ -202,6 +207,8 @@ class PagedTiffImage {
 	/**
 	 * helper function of retrieveMetaData().
 	 * parses shell return from tiffinfo-command into an array.
+	 * @param string $dump
+	 * @return array
 	 */
 	protected function parseTiffinfoOutput( $dump ) {
 		global $wgTiffTiffinfoRejectMessages, $wgTiffTiffinfoBypassMessages;
@@ -320,6 +327,8 @@ class PagedTiffImage {
 	/**
 	 * helper function of retrieveMetaData().
 	 * parses shell return from exiv2-command into an array.
+	 * @param string $dump
+	 * @return array
 	 */
 	protected function parseExiv2Output( $dump ) {
 		$result = [];
@@ -337,6 +346,8 @@ class PagedTiffImage {
 	/**
 	 * helper function of retrieveMetaData().
 	 * parses shell return from identify-command into an array.
+	 * @param string $dump
+	 * @return array
 	 */
 	protected function parseIdentifyOutput( $dump ) {
 		global $wgTiffIdentifyRejectMessages, $wgTiffIdentifyBypassMessages;
