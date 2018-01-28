@@ -24,6 +24,8 @@ $wgShowExceptionDetails = true;
 class ShowMetadata extends Maintenance {
 	public function __construct() {
 		parent::__construct();
+
+		$this->requireExtension( 'PagedTiffHandler' );
 	}
 
 	public function execute() {
