@@ -12,7 +12,7 @@
 	"license-name": "GPL-2.0+",
 	"type": "media",
 	"requires": {
-		"MediaWiki": ">= 1.29.0"
+		"MediaWiki": ">= 1.31.0"
 	},
 	"MediaHandlers": {
 		"image/tiff": "PagedTiffHandler"

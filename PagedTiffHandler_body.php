@@ -749,9 +749,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return false;
 		}
 
-		MediaWiki\suppressWarnings();
+		Wikimedia\suppressWarnings();
 		$image->tiffMetaArray = unserialize( $metadata );
-		MediaWiki\restoreWarnings();
+		Wikimedia\restoreWarnings();
 
 		return $image->tiffMetaArray;
 	}
