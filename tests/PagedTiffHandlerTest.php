@@ -65,7 +65,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		// getMetaArray
 		$metaArray = $this->handler->getMetaArray( $this->mhz_image );
 		if ( !empty( $metaArray['errors'] ) ) {
-			$this->fail( join( '; ', $metaArray['error'] ) );
+			$this->fail( implode( '; ', $metaArray['error'] ) );
 		}
 		$this->assertEquals( 1, $metaArray['page_count'] );
 
@@ -73,7 +73,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 		$metaArray = $this->handler->getMetaArray( $this->multipage_image );
 		if ( !empty( $metaArray['errors'] ) ) {
-			$this->fail( join( '; ', $metaArray['error'] ) );
+			$this->fail( implode( '; ', $metaArray['error'] ) );
 		}
 		$this->assertEquals( 7, $metaArray['page_count'] );
 

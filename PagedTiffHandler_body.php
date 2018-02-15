@@ -341,9 +341,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			}
 
 			if ( $to_html ) {
-				return trim( join( '<br />', $errors ) );
+				return trim( implode( '<br />', $errors ) );
 			} else {
-				return trim( join( ";\n", $errors ) );
+				return trim( implode( ";\n", $errors ) );
 			}
 		}
 
