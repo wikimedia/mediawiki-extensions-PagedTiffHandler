@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * @covers PagedTiffHandler
+ */
 class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	/** @var PagedTiffHandler */
