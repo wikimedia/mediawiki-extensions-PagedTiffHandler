@@ -246,7 +246,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Adds normalisation for parameter "lossy".
 	 * @param File $image
 	 * @param array &$params
-	 * @return array
+	 * @return bool
 	 */
 	function normaliseParams( $image, &$params ) {
 		if ( isset( $params['page'] ) ) {
@@ -298,8 +298,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Is metadata an error condition?
-	 * @param Array|string|boolean Metadata to test
-	 * @return boolean True if metadata is an error, false if it has normal info
+	 * @param array|string|bool $metadata Metadata to test
+	 * @return bool True if metadata is an error, false if it has normal info
 	 */
 	private function isMetadataError( $metadata ) {
 		$errors = self::getMetadataErrors( $metadata );
@@ -371,8 +371,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Actually scale the file (using ImageMagick).
 	 *
 	 * @param File $file File object
-	 * @param Array $scalerParams Scaling options (see TransformationalImageHandler::doTransform)
-	 * @return Boolean|MediaTransformError False on success, an instance of MediaTransformError
+	 * @param array $scalerParams Scaling options (see TransformationalImageHandler::doTransform)
+	 * @return bool|MediaTransformError False on success, an instance of MediaTransformError
 	 *   otherwise.
 	 * @note Success is noted by $scalerParams['dstPath'] no longer being a 0 byte file.
 	 */
@@ -521,7 +521,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Returns a new error message.
 	 * @param array $params
 	 * @param string $msg
-	 * @return string
+	 * @return MediaTransformError
 	 */
 	protected function doThumbError( $params, $msg ) {
 		global $wgUser, $wgThumbLimits;
@@ -608,7 +608,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Check if the metadata string is valid for this handler.
 	 * If it returns false, Image will reload the metadata from the file and update the database
 	 * @param File $image
-	 * @param array $metadata
+	 * @param array|string $metadata
 	 * @return bool
 	 */
 	function isMetadataValid( $image, $metadata ) {
@@ -796,7 +796,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 				'width' => $mto->getWidth(),
 				'height' => $mto->getHeight(),
 				// The path to the temporary file may be deleted when last
-				// instance of the MediaTransformObject is garbage collected,
+				// instance of the MediaTransformOutput is garbage collected,
 				// so keep a reference around.
 				'mto' => $mto
 			];
@@ -814,7 +814,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 *
 	 * @param File $file
 	 * @param array $params Scaling parameters for original thumbnail
-	 * @return MediaTransformObject|bool false if no in between step needed,
+	 * @return MediaTransformOutput|MediaTransformError|bool false if no in between step needed,
 	 *   MediaTransformError on error. False if the doTransform method returns false
 	 *   MediaTransformOutput on success.
 	 */
