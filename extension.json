@@ -32,9 +32,6 @@
 		"TiffReader": "TiffReader.php",
 		"PagedTiffHandlerSeleniumTestSuite": "tests/selenium/PagedTiffHandlerTestSuite.php"
 	},
-	"Hooks": {
-		"UnitTestsList": "PagedTiffHandler::onUnitTestsList"
-	},
 	"FileExtensions": [
 		"tiff",
 		"tif"

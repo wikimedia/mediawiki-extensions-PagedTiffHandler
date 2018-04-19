@@ -885,13 +885,4 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$isInThisFunction = false;
 		return $mto;
 	}
-
-	/**
-	 * @param array &$files
-	 * @return bool
-	 */
-	public static function onUnitTestsList( &$files ) {
-		$files[] = __DIR__ . '/tests/PagedTiffHandlerTest.php';
-		return true;
-	}
 }
