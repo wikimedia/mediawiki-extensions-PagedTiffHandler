@@ -30,7 +30,7 @@
 		"PagedTiffInfoParserState": "PagedTiffHandler.image.php",
 		"PagedTiffHandler": "PagedTiffHandler_body.php",
 		"TiffReader": "TiffReader.php",
-		"PagedTiffHandlerSeleniumTestSuite": "selenium/PagedTiffHandlerTestSuite.php"
+		"PagedTiffHandlerSeleniumTestSuite": "tests/selenium/PagedTiffHandlerTestSuite.php"
 	},
 	"Hooks": {
 		"UnitTestsList": "PagedTiffHandler::onUnitTestsList"
