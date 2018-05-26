@@ -439,7 +439,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Get the thumbnail extension and MIME type for a given source MIME type
 	 * @param string $ext
 	 * @param string $mime
-	 * @param array $params
+	 * @param array|null $params
 	 * @return array thumbnail extension and MIME type
 	 */
 	function getThumbType( $ext, $mime, $params = null ) {
