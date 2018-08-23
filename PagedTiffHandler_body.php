@@ -91,7 +91,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		}
 		$meta = self::getTiffImage( false, $fileName )->retrieveMetaData();
 		if ( !$meta ) {
-			wfDebug( __METHOD__ . ": unable to retreive metadata\n" );
+			wfDebug( __METHOD__ . ": unable to retrieve metadata\n" );
 			$status->fatal( 'tiff_out_of_service' );
 		} else {
 			$error = false;
