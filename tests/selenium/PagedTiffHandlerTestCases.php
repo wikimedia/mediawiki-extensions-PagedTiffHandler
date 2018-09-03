@@ -21,7 +21,7 @@ class SeleniumCheckPrerequisites extends SeleniumTestCase {
 		if ( $lang != 'en' ) {
 			$this->prerequisiteError =
 				'interface language must be set to' .
-				' English (en), but was '.$lang.'.';
+				' English (en), but was ' . $lang . '.';
 		}
 	}
 
