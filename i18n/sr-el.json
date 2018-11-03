@@ -1,5 +1,10 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": [
+			"Zoranzoki21"
+		]
+	},
+	"tiff-desc": "Rukovodilac za prikazivanje TIFF datoteka u režimu za slike",
 	"tiff_no_metadata": "Ne mogu se preuzeti metapodaci iz TIFF-a",
 	"tiff_page_error": "Broj strane nije u opsegu",
 	"tiff_too_many_embed_files": "Slika sadrži previše umetnutih fajlova.",
