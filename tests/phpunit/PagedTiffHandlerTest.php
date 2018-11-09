@@ -1,5 +1,7 @@
 <?php
 
+use Wikimedia\TestingAccessWrapper;
+
 /**
  * @covers PagedTiffHandler
  */
@@ -17,7 +19,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	/**
 	 * Inform parent class where test files are located
 	 */
-	function getFilePath() {
+	protected function getFilePath() {
 		return __DIR__ . '/testImages';
 	}
 
@@ -28,7 +30,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		return true;
 	}
 
-	function setUp() {
+	protected function setUp() {
 		parent::setUp();
 		$this->handler = new PagedTiffHandler();
 
@@ -49,7 +51,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->setMwGlobals( 'wgTiffIntermediaryScaleStep', 2048 );
 	}
 
-	function testMetadata() {
+	public function testMetadata() {
 		// ---- Metdata initialization
 		$this->handler->getMetadata( $this->multipage_image, $this->multipage_path );
 		$this->handler->getMetadata( $this->truncated_image, $this->truncated_path );
@@ -65,9 +67,10 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertTrue( $this->handler->isMetadataValid( $this->mhz_image, $metadata ) );
 	}
 
-	function testGetMetaArray() {
+	public function testGetMetaArray() {
 		// getMetaArray
-		$metaArray = $this->handler->getMetaArray( $this->mhz_image );
+		$handler = TestingAccessWrapper::newFromObject( $this->handler );
+		$metaArray = $handler->getMetaArray( $this->mhz_image );
 		if ( !empty( $metaArray['errors'] ) ) {
 			$this->fail( implode( '; ', $metaArray['error'] ) );
 		}
@@ -75,7 +78,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 		$this->assertEquals( 'true', strtolower( $metaArray['page_data'][1]['alpha'] ) );
 
-		$metaArray = $this->handler->getMetaArray( $this->multipage_image );
+		$metaArray = $handler->getMetaArray( $this->multipage_image );
 		if ( !empty( $metaArray['errors'] ) ) {
 			$this->fail( implode( '; ', $metaArray['error'] ) );
 		}
@@ -88,7 +91,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertTrue( $interp == 2 || $interp == 'RGB' ); // RGB
 	}
 
-	function testValidateParam() {
+	public function testValidateParam() {
 		// ---- Parameter handling and lossy parameter
 		// validateParam
 		$this->assertTrue( $this->handler->validateParam( 'lossy', '0' ) );
@@ -118,7 +121,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertFalse( $this->handler->validateParam( 'page', '-1' ) );
 	}
 
-	function testNormaliseParams() {
+	public function testNormaliseParams() {
 		// normaliseParams
 		// here, boxfit behavior is tested
 		$params = [ 'width' => '100', 'height' => '100', 'page' => '4' ];
@@ -140,7 +143,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertEquals( 'lossless', $params['lossy'] );
 	}
 
-	function testMakeParamString() {
+	public function testMakeParamString() {
 		// makeParamString
 		$this->assertEquals(
 			'lossless-page4-100px',
@@ -154,7 +157,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		);
 	}
 
-	function testVerifyUpload() {
+	public function testVerifyUpload() {
 		// ---- File upload checks.
 		// check
 		// TODO: check other images
@@ -166,7 +169,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertTrue( $status->hasMessage( 'tiff_bad_file' ) );
 	}
 
-	function testDoTransform() {
+	public function testDoTransform() {
 		$multipageThumbFile = $this->getNewTempFile();
 		// doTransform
 		$result = $this->handler->doTransform(
@@ -189,7 +192,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertTrue( $error->isError() );
 	}
 
-	function testDoTransformLarge() {
+	public function testDoTransformLarge() {
 		// Artificially make this small. Jenkins kept OOMing on
 		// big images.
 		$this->setMwGlobals( 'wgTiffIntermediaryScaleStep', 480 );
@@ -215,7 +218,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertTrue( $this->repo->fileExists( $thumbPath ), "Intermediate thumb missing" );
 	}
 
-	function testGetThumbType() {
+	public function testGetThumbType() {
 		// ---- Image information
 		// getThumbType
 		$type = $this->handler->getThumbType( '.tiff', 'image/tiff', [ 'lossy' => 'lossy' ] );
@@ -227,7 +230,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertEquals( 'image/png', $type[1] );
 	}
 
-	function testGetLongDesc() {
+	public function testGetLongDesc() {
 		// English
 		$this->assertEquals(
 			wfMessage(
@@ -242,13 +245,13 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		);
 	}
 
-	function testPageCount() {
+	public function testPageCount() {
 		// pageCount
 		$this->assertEquals( 7, $this->handler->pageCount( $this->multipage_image ) );
 		$this->assertEquals( 1, $this->handler->pageCount( $this->mhz_image ) );
 	}
 
-	function testGetPageDimensions() {
+	public function testGetPageDimensions() {
 		// getPageDimensions
 		$this->assertEquals(
 			[ 'width' => 1024, 'height' => 768 ],
@@ -309,13 +312,13 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		);
 	}
 
-	function testIsMultiPage() {
+	public function testIsMultiPage() {
 		// isMultiPage
 		$this->assertTrue( $this->handler->isMultiPage( $this->multipage_image ) );
 		$this->assertTrue( $this->handler->isMultiPage( $this->mhz_image ) );
 	}
 
-	function testFormatMetadata() {
+	public function testFormatMetadata() {
 		// formatMetadata
 		$formattedMetadata = $this->handler->formatMetadata( $this->multipage_image );
 
@@ -330,7 +333,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	 * This is only testing the boolean output. There's some other
 	 * tests above for the other behaviours of normaliseParams.
 	 */
-	function testNormaliseParamsBoolean() {
+	public function testNormaliseParamsBoolean() {
 		// Make max image area bigger than one test file, smaller than the other
 		$this->setMwGlobals( 'wgMaxImageArea', 500000 );
 
@@ -378,7 +381,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	 *
 	 * The main assertion of this test is that no exception was thrown.
 	 */
-	function testTransformTooBig() {
+	public function testTransformTooBig() {
 		$file = $this->getMockTiffFile( 'multipage.tiff', [ 8000, 8000 ] );
 		$file->expects( $this->never() )->method( 'getLocalRefPath' );
 		$tempFile = $this->getNewTempFile();
@@ -394,7 +397,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	/**
 	 * The file is small enough so it should get transformed
 	 */
-	function testTransformNotTooBig() {
+	public function testTransformNotTooBig() {
 		$tempFile = $this->getNewTempFile();
 		$file = $this->getMockTiffFile( 'multipage.tiff', [ 1000, 1000 ] );
 		// We however don't want to actually transform it, as that is unnessary so return false.

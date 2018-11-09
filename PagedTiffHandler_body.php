@@ -36,7 +36,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * @return bool
 	 */
-	function isEnabled() {
+	public function isEnabled() {
 		return true;
 	}
 
@@ -44,7 +44,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param File $img
 	 * @return bool
 	 */
-	function mustRender( $img ) {
+	public function mustRender( $img ) {
 		return true;
 	}
 
@@ -53,7 +53,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param File $img
 	 * @return bool
 	 */
-	function isMultiPage( $img ) {
+	public function isMultiPage( $img ) {
 		return true;
 	}
 
@@ -68,7 +68,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param string $fileName
 	 * @return Status
 	 */
-	function verifyUpload( $fileName ) {
+	public function verifyUpload( $fileName ) {
 		global $wgTiffUseTiffReader, $wgTiffReaderCheckEofForJS;
 
 		$status = Status::newGood();
@@ -110,7 +110,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param array &$error
 	 * @return bool
 	 */
-	static function verifyMetaData( $meta, &$error ) {
+	private static function verifyMetaData( $meta, &$error ) {
 		global $wgTiffMaxEmbedFiles, $wgTiffMaxMetaSize;
 
 		$errors = self::getMetadataErrors( $meta );
@@ -148,7 +148,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * In this case, width, page, and lossy.
 	 * @return array
 	 */
-	function getParamMap() {
+	public function getParamMap() {
 		return [
 			'img_width' => 'width',
 			'img_page' => 'page',
@@ -163,7 +163,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param string $value
 	 * @return bool
 	 */
-	function validateParam( $name, $value ) {
+	public function validateParam( $name, $value ) {
 		if ( in_array( $name, [ 'width', 'height', 'page', 'lossy' ] ) ) {
 			if ( $name === 'page' && trim( $value ) !== (string)intval( $value ) ) {
 				// Extra junk on the end of page, probably actually a caption
@@ -201,7 +201,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param array $params
 	 * @return string|false
 	 */
-	function makeParamString( $params ) {
+	public function makeParamString( $params ) {
 		if (
 			!isset( $params['width'] ) || !isset( $params['lossy'] ) || !isset( $params['page'] )
 		) {
@@ -216,7 +216,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param string $str
 	 * @return array|false
 	 */
-	function parseParamString( $str ) {
+	public function parseParamString( $str ) {
 		$m = false;
 		if ( preg_match( '/^(\w+)-page(\d+)-(\d+)px$/', $str, $m ) ) {
 			return [ 'width' => $m[3], 'page' => $m[2], 'lossy' => $m[1] ];
@@ -233,7 +233,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param array $params
 	 * @return array
 	 */
-	function getScriptParams( $params ) {
+	protected function getScriptParams( $params ) {
 		return [
 			'width' => $params['width'],
 			'page' => $params['page'],
@@ -248,7 +248,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param array &$params
 	 * @return bool
 	 */
-	function normaliseParams( $image, &$params ) {
+	public function normaliseParams( $image, &$params ) {
 		if ( isset( $params['page'] ) ) {
 			$params['page'] = $this->adjustPage( $image, $params['page'] );
 		} else {
@@ -282,7 +282,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param array $metadata
 	 * @return bool|string[] a list of errors or an error flag (true = error)
 	 */
-	static function getMetadataErrors( $metadata ) {
+	private static function getMetadataErrors( $metadata ) {
 		if ( is_string( $metadata ) ) {
 			$metadata = unserialize( $metadata );
 		}
@@ -315,7 +315,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param bool $to_html
 	 * @return bool|string
 	 */
-	static function joinMessages( $errors_raw, $to_html = true ) {
+	private static function joinMessages( $errors_raw, $to_html = true ) {
 		if ( is_array( $errors_raw ) ) {
 			if ( !$errors_raw ) {
 				return false;
@@ -442,7 +442,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param array|null $params
 	 * @return array thumbnail extension and MIME type
 	 */
-	function getThumbType( $ext, $mime, $params = null ) {
+	public function getThumbType( $ext, $mime, $params = null ) {
 		// Make sure the file is actually a tiff image
 		$tiffImageThumbType = parent::getThumbType( $ext, $mime, $params );
 		if ( $tiffImageThumbType[1] !== 'image/tiff' ) {
@@ -462,7 +462,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param File $image
 	 * @return int
 	 */
-	function pageCount( File $image ) {
+	public function pageCount( File $image ) {
 		$data = $this->getMetaArray( $image );
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
@@ -476,7 +476,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param File $image
 	 * @return int
 	 */
-	function firstPage( $image ) {
+	private function firstPage( $image ) {
 		$data = $this->getMetaArray( $image );
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
@@ -489,7 +489,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param File $image
 	 * @return int
 	 */
-	function lastPage( $image ) {
+	private function lastPage( $image ) {
 		$data = $this->getMetaArray( $image );
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
@@ -503,7 +503,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param int|string $page
 	 * @return int
 	 */
-	function adjustPage( $image, $page ) {
+	private function adjustPage( $image, $page ) {
 		$page = intval( $page );
 
 		if ( !$page || $page < $this->firstPage( $image ) ) {
@@ -558,7 +558,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param string $path path to the image?
 	 * @return string
 	 */
-	function getMetadata( $image, $path ) {
+	public function getMetadata( $image, $path ) {
 		if ( !$image ) {
 			return serialize( $this->getTiffImage( $image, $path )->retrieveMetaData() );
 		} else {
@@ -575,7 +575,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param File $image
 	 * @return string
 	 */
-	function getLongDesc( $image ) {
+	public function getLongDesc( $image ) {
 		global $wgLang, $wgRequest;
 
 		$page = $wgRequest->getText( 'page', 1 );
@@ -611,7 +611,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param array|string $metadata
 	 * @return bool
 	 */
-	function isMetadataValid( $image, $metadata ) {
+	public function isMetadataValid( $image, $metadata ) {
 		if ( is_string( $metadata ) ) {
 			$metadata = unserialize( $metadata );
 		}
@@ -655,7 +655,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param bool|IContextSource $context Context to use (optional)
 	 * @return array|bool
 	 */
-	function formatMetadata( $image, $context = false ) {
+	public function formatMetadata( $image, $context = false ) {
 		$result = [
 			'visible' => [],
 			'collapsed' => []
@@ -714,7 +714,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param string $path path to the image?
 	 * @return PagedTiffImage
 	 */
-	static function getTiffImage( $image, $path ) {
+	private static function getTiffImage( $image, $path ) {
 		// If no Image object is passed, a TiffImage is created based on $path .
 		// If there is an Image object, we check whether there's already a TiffImage
 		// instance in there; if not, a new instance is created and stored in the Image object
@@ -735,7 +735,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param File $image
 	 * @return bool|null|array
 	 */
-	function getMetaArray( $image ) {
+	private function getMetaArray( $image ) {
 		if ( isset( $image->tiffMetaArray ) ) {
 			return $image->tiffMetaArray;
 		}
@@ -764,7 +764,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param int $page
 	 * @return int|false Returns false if unknown or if the document is not multi-page.
 	 */
-	function getPageDimensions( File $image, $page ) {
+	public function getPageDimensions( File $image, $page ) {
 		// makeImageLink (Linker.php) sets $page to false if no page parameter
 		// is set in wiki code
 		$page = $this->adjustPage( $image, $page );

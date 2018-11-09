@@ -30,7 +30,7 @@ class PagedTiffImage {
 	protected $metadata = null;
 	protected $mFilename;
 
-	function __construct( $filename ) {
+	public function __construct( $filename ) {
 		$this->mFilename = $filename;
 	}
 
@@ -449,7 +449,7 @@ class PagedTiffInfoParserState {
 	public $page; # current page
 	public $prevPage;
 
-	function __construct() {
+	public function __construct() {
 		$this->metadata = [];
 		$this->page = [];
 		$this->prevPage = 0;
@@ -457,7 +457,7 @@ class PagedTiffInfoParserState {
 		$this->metadata['page_data'] = [];
 	}
 
-	function finish( $finishPage = true ) {
+	public function finish( $finishPage = true ) {
 		if ( $finishPage ) {
 			$this->finishPage();
 		}
@@ -480,11 +480,11 @@ class PagedTiffInfoParserState {
 		}
 	}
 
-	function resetPage() {
+	public function resetPage() {
 		$this->page = [];
 	}
 
-	function finishPage() {
+	public function finishPage() {
 		if ( !isset( $this->page['page'] ) ) {
 			$this->page['page'] = $this->prevPage + 1;
 		} else {
@@ -509,35 +509,35 @@ class PagedTiffInfoParserState {
 		return true;
 	}
 
-	function setPageProperty( $key, $value ) {
+	public function setPageProperty( $key, $value ) {
 		$this->page[$key] = $value;
 	}
 
-	function hasPageProperty( $key ) {
+	public function hasPageProperty( $key ) {
 		return isset( $this->page[$key] ) && !is_null( $this->page[$key] );
 	}
 
-	function setFileProperty( $key, $value ) {
+	public function setFileProperty( $key, $value ) {
 		$this->metadata[$key] = $value;
 	}
 
-	function hasFileProperty( $key, $value ) {
+	public function hasFileProperty( $key, $value ) {
 		return isset( $this->metadata[$key] ) && !is_null( $this->metadata[$key] );
 	}
 
-	function addError( $message ) {
+	public function addError( $message ) {
 		$this->metadata['errors'][] = $message;
 	}
 
-	function addWarning( $message ) {
+	public function addWarning( $message ) {
 		$this->metadata['warnings'][] = $message;
 	}
 
-	function getMetadata() {
+	public function getMetadata() {
 		return $this->metadata;
 	}
 
-	function hasErrors() {
+	public function hasErrors() {
 		return !empty( $this->metadata['errors'] );
 	}
 }
