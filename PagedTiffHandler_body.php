@@ -94,7 +94,6 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			wfDebug( __METHOD__ . ": unable to retrieve metadata\n" );
 			$status->fatal( 'tiff_out_of_service' );
 		} else {
-			$error = false;
 			$ok = self::verifyMetaData( $meta, $error );
 
 			if ( !$ok ) {
@@ -393,7 +392,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			}
 		}
 
-		if ( !self::verifyMetaData( $meta, $error, $scalerParams['dstPath'] ) ) {
+		if ( !self::verifyMetaData( $meta, $error ) ) {
 			return $this->doThumbError( $scalerParams, $error );
 		}
 		if ( !wfMkdirParents( dirname( $scalerParams['dstPath'] ), null, __METHOD__ ) ) {
@@ -520,7 +519,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Returns a new error message.
 	 * @param array $params
-	 * @param string $msg
+	 * @param string|array $msg
 	 * @return MediaTransformError
 	 */
 	protected function doThumbError( $params, $msg ) {
@@ -548,7 +547,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			}
 		}
 
-		return $this->getMediaTransformError( $errorParams, wfMessage( $msg )->text() );
+		return $this->getMediaTransformError( $errorParams, Message::newFromSpecifier( $msg )->text() );
 	}
 
 	/**
