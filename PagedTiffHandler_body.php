@@ -544,7 +544,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 				$errorParams['clientHeight'] = intval( $params['height'] );
 			} else {
 				// we don't have a height or aspect ratio. make it square.
-				$errorParams['clientWidth'] = $errorParams['clientHeight'];
+				$errorParams['clientHeight'] = $errorParams['clientWidth'];
 			}
 		}
 
