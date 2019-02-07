@@ -462,7 +462,7 @@ class PagedTiffInfoParserState {
 			$this->finishPage();
 		}
 
-		if ( ! $this->metadata['page_data'] ) {
+		if ( !$this->metadata['page_data'] ) {
 			$this->metadata['errors'][] = 'no page data found in tiff directory!';
 			return;
 		}
@@ -514,7 +514,7 @@ class PagedTiffInfoParserState {
 	}
 
 	function hasPageProperty( $key ) {
-		return isset( $this->page[$key] ) && ! is_null( $this->page[$key] );
+		return isset( $this->page[$key] ) && !is_null( $this->page[$key] );
 	}
 
 	function setFileProperty( $key, $value ) {
@@ -522,7 +522,7 @@ class PagedTiffInfoParserState {
 	}
 
 	function hasFileProperty( $key, $value ) {
-		return isset( $this->metadata[$key] ) && ! is_null( $this->metadata[$key] );
+		return isset( $this->metadata[$key] ) && !is_null( $this->metadata[$key] );
 	}
 
 	function addError( $message ) {
