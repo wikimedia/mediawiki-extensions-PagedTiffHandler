@@ -57,7 +57,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->handler->getMetadata( $this->truncated_image, $this->truncated_path );
 
 		// ---- Metadata handling
-		// getMetadata
 		$metadata = $this->handler->getMetadata( false, $this->multipage_path );
 		$this->assertTrue( strpos( $metadata, '"page_count";i:7' ) !== false );
 		$this->assertTrue( $this->handler->isMetadataValid( $this->multipage_image, $metadata ) );
@@ -68,7 +67,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	}
 
 	public function testGetMetaArray() {
-		// getMetaArray
+		/** @var PagedTiffHandler $handler */
 		$handler = TestingAccessWrapper::newFromObject( $this->handler );
 		$metaArray = $handler->getMetaArray( $this->mhz_image );
 		if ( !empty( $metaArray['errors'] ) ) {
@@ -93,7 +92,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	public function testValidateParam() {
 		// ---- Parameter handling and lossy parameter
-		// validateParam
 		$this->assertTrue( $this->handler->validateParam( 'lossy', '0' ) );
 		$this->assertTrue( $this->handler->validateParam( 'lossy', '1' ) );
 		$this->assertTrue( $this->handler->validateParam( 'lossy', 'false' ) );
@@ -122,7 +120,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	}
 
 	public function testNormaliseParams() {
-		// normaliseParams
 		// here, boxfit behavior is tested
 		$params = [ 'width' => '100', 'height' => '100', 'page' => '4' ];
 		$this->assertTrue( $this->handler->normaliseParams( $this->multipage_image, $params ) );
@@ -144,7 +141,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	}
 
 	public function testMakeParamString() {
-		// makeParamString
 		$this->assertEquals(
 			'lossless-page4-100px',
 			$this->handler->makeParamString(
@@ -171,7 +167,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	public function testDoTransform() {
 		$multipageThumbFile = $this->getNewTempFile();
-		// doTransform
 		$result = $this->handler->doTransform(
 			$this->multipage_image,
 			$multipageThumbFile,
@@ -220,7 +215,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	public function testGetThumbType() {
 		// ---- Image information
-		// getThumbType
 		$type = $this->handler->getThumbType( '.tiff', 'image/tiff', [ 'lossy' => 'lossy' ] );
 		$this->assertEquals( 'jpg', $type[0] );
 		$this->assertEquals( 'image/jpeg', $type[1] );
@@ -246,13 +240,11 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	}
 
 	public function testPageCount() {
-		// pageCount
 		$this->assertEquals( 7, $this->handler->pageCount( $this->multipage_image ) );
 		$this->assertEquals( 1, $this->handler->pageCount( $this->mhz_image ) );
 	}
 
 	public function testGetPageDimensions() {
-		// getPageDimensions
 		$this->assertEquals(
 			[ 'width' => 1024, 'height' => 768 ],
 			$this->handler->getPageDimensions( $this->multipage_image, 0 ),
@@ -313,13 +305,11 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	}
 
 	public function testIsMultiPage() {
-		// isMultiPage
 		$this->assertTrue( $this->handler->isMultiPage( $this->multipage_image ) );
 		$this->assertTrue( $this->handler->isMultiPage( $this->mhz_image ) );
 	}
 
 	public function testFormatMetadata() {
-		// formatMetadata
 		$formattedMetadata = $this->handler->formatMetadata( $this->multipage_image );
 
 		foreach ( $formattedMetadata['collapsed'] as $k => $e ) {
