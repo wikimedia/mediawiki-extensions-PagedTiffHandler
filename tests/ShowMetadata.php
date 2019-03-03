@@ -52,5 +52,5 @@ class ShowMetadata extends Maintenance {
 	}
 }
 
-$maintClass = "ShowMetadata";
+$maintClass = ShowMetadata::class;
 require_once RUN_MAINTENANCE_IF_MAIN;
