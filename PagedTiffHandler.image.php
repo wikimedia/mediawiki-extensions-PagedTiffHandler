@@ -293,7 +293,7 @@ class PagedTiffImage {
 						$state->setPageProperty( 'alpha', 'true' );
 					}
 				} elseif ( $key == 'Extra samples' ) {
-					if ( preg_match( '.*alpha.*', $value ) ) {
+					if ( preg_match( '/.*alpha.*/', $value ) ) {
 						$state->setPageProperty( 'alpha', 'true' );
 					}
 				} elseif ( $key == 'Image Width' || $key == 'PixelXDimension' ) {
