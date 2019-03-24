@@ -283,8 +283,7 @@ class PagedTiffImage {
 			} elseif ( preg_match( '/^\s*(.*?)\s*:\s*(.*?)\s*$/', $row, $m ) ) {
 				# handle key/value pair
 
-				$key = $m[1];
-				$value = $m[2];
+				list( , $key, $value ) = $m;
 
 				if ( $key == 'Page Number' && preg_match( '/(\d+)-(\d+)/', $value, $m ) ) {
 					$state->setPageProperty( 'page', (int)$m[1] + 1 );
