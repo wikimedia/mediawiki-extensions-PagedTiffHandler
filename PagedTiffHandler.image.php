@@ -116,7 +116,7 @@ class PagedTiffImage {
 				$dump = wfShellExec( $cmd, $retval );
 
 				if ( $retval ) {
-					$data['errors'][] = "tiffinfo command failed: $cmd";
+					$data = [ 'errors' => [ "tiffinfo command failed: $cmd" ] ];
 					wfDebug( __METHOD__ . ": tiffinfo command failed: $cmd\n" );
 					return $data; // fail. we *need* that info
 				}
@@ -133,7 +133,7 @@ class PagedTiffImage {
 				$dump = wfShellExec( $cmd, $retval );
 
 				if ( $retval ) {
-					$data['errors'][] = "identify command failed: $cmd";
+					$data = [ 'errors' => [ "identify command failed: $cmd" ] ];
 					wfDebug( __METHOD__ . ": identify command failed: $cmd\n" );
 					return $data; // fail. we *need* that info
 				}
@@ -168,7 +168,7 @@ class PagedTiffImage {
 				$dump = wfShellExec( $cmd, $retval );
 
 				if ( $retval ) {
-					$data['errors'][] = "exiv command failed: $cmd";
+					$data = [ 'errors' => [ "exiv command failed: $cmd" ] ];
 					wfDebug( __METHOD__ . ": exiv command failed: $cmd\n" );
 					// don't fail - we are missing info, just report
 				}
