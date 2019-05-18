@@ -69,26 +69,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return Status
 	 */
 	public function verifyUpload( $fileName ) {
-		global $wgTiffUseTiffReader, $wgTiffReaderCheckEofForJS;
-
 		$status = Status::newGood();
-		if ( $wgTiffUseTiffReader ) {
-			$tr = new TiffReader( $fileName );
-			$tr->check();
-			if ( !$tr->isValidTiff() ) {
-				wfDebug( __METHOD__ . ": bad file\n" );
-				$status->fatal( 'tiff_invalid_file' );
-			} else {
-				if ( $tr->checkScriptAtEnd( $wgTiffReaderCheckEofForJS ) ) {
-					wfDebug( __METHOD__ . ": script detected\n" );
-					$status->fatal( 'tiff_script_detected' );
-				}
-				if ( !$tr->checkSize() ) {
-					wfDebug( __METHOD__ . ": size error\n" );
-					$status->fatal( 'tiff_size_error' );
-				}
-			}
-		}
 		$meta = self::getTiffImage( false, $fileName )->retrieveMetaData();
 		if ( !$meta ) {
 			wfDebug( __METHOD__ . ": unable to retrieve metadata\n" );

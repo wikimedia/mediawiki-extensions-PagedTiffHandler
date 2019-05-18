@@ -29,7 +29,6 @@
 		"PagedTiffImage": "PagedTiffHandler.image.php",
 		"PagedTiffInfoParserState": "PagedTiffHandler.image.php",
 		"PagedTiffHandler": "PagedTiffHandler_body.php",
-		"TiffReader": "TiffReader.php",
 		"PagedTiffHandlerSeleniumTestSuite": "tests/selenium/PagedTiffHandlerTestSuite.php"
 	},
 	"FileExtensions": [
@@ -68,12 +67,6 @@
 				"/^TIFFReadCustomDirectory: .+: unknown field with tag .+? encountered\\./",
 				"/^TIFFReadCustomDirectory: .+: wrong data type .*; tag ignored\\./"
 			]
-		},
-		"TiffUseTiffReader": {
-			"value": false
-		},
-		"TiffReaderCheckEofForJS": {
-			"value": 4
 		},
 		"ImageMagickIdentifyCommand": {
 			"value": "/usr/bin/identify"
