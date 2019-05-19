@@ -197,12 +197,11 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return array|false
 	 */
 	public function parseParamString( $str ) {
-		$m = false;
-		if ( preg_match( '/^(\w+)-page(\d+)-(\d+)px$/', $str, $m ) ) {
-			return [ 'width' => $m[3], 'page' => $m[2], 'lossy' => $m[1] ];
-		} else {
-			return false;
+		if ( preg_match( '/^(\w+)-page(\d+)-(\d+)px$/', $str, $matches ) ) {
+			return [ 'width' => $matches[3], 'page' => $matches[2], 'lossy' => $matches[1] ];
 		}
+
+		return false;
 	}
 
 	/**
@@ -259,7 +258,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	 * @param array $metadata
+	 * @param array|string|false $metadata
 	 * @return bool|string[] a list of errors or an error flag (true = error)
 	 */
 	private static function getMetadataErrors( $metadata ) {
@@ -269,16 +268,16 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		if ( !$metadata ) {
 			return true;
-		} elseif ( isset( $metadata[ 'errors' ] ) ) {
-			return $metadata[ 'errors' ];
-		} else {
+		} elseif ( !isset( $metadata['errors'] ) ) {
 			return false;
 		}
+
+		return $metadata['errors'];
 	}
 
 	/**
 	 * Is metadata an error condition?
-	 * @param array|string|bool $metadata Metadata to test
+	 * @param array|string|false $metadata Metadata to test
 	 * @return bool True if metadata is an error, false if it has normal info
 	 */
 	private function isMetadataError( $metadata ) {
@@ -602,11 +601,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return true;
 		}
 
-		if ( !isset( $metadata['TIFF_METADATA_VERSION'] ) ) {
-			return false;
-		}
-
-		if ( $metadata['TIFF_METADATA_VERSION'] != self::TIFF_METADATA_VERSION ) {
+		if ( !isset( $metadata['TIFF_METADATA_VERSION'] )
+			|| $metadata['TIFF_METADATA_VERSION'] != self::TIFF_METADATA_VERSION
+		) {
 			return false;
 		}
 
@@ -690,23 +687,22 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns a PagedTiffImage or creates a new one if it doesn't exist.
-	 * @param File|bool $image The image object, or false if there isn't one
+	 * @param File|false $image The image object, or false if there isn't one
 	 * @param string $path path to the image?
 	 * @return PagedTiffImage
 	 */
 	private static function getTiffImage( $image, $path ) {
-		// If no Image object is passed, a TiffImage is created based on $path .
-		// If there is an Image object, we check whether there's already a TiffImage
-		// instance in there; if not, a new instance is created and stored in the Image object
 		if ( !$image ) {
-			$tiffimg = new PagedTiffImage( $path );
-		} elseif ( !isset( $image->tiffImage ) ) {
-			$tiffimg = $image->tiffImage = new PagedTiffImage( $path );
-		} else {
-			$tiffimg = $image->tiffImage;
+			return new PagedTiffImage( $path );
 		}
 
-		return $tiffimg;
+		// If there is an Image object, we check whether there's already a TiffImage
+		// instance in there; if not, a new instance is created and stored in the Image object
+		if ( !isset( $image->tiffImage ) ) {
+			$image->tiffImage = new PagedTiffImage( $path );
+		}
+
+		return $image->tiffImage;
 	}
 
 	/**
