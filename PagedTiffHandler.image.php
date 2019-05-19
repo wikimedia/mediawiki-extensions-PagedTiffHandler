@@ -372,9 +372,9 @@ class PagedTiffImage {
 				if ( trim( $line ) == '' ) {
 					continue;
 				}
-				$parts = explode( '=', $line );
-				$key = trim( $parts[0] );
-				$value = trim( $parts[1] );
+				list( $key, $value ) = explode( '=', $line );
+				$key = trim( $key );
+				$value = trim( $value );
 				if ( $key === 'alpha' && $value === '%A' ) {
 					continue;
 				}
