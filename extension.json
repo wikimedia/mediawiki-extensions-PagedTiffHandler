@@ -29,7 +29,7 @@
 		"PagedTiffImage": "PagedTiffHandler.image.php",
 		"PagedTiffInfoParserState": "PagedTiffHandler.image.php",
 		"PagedTiffHandler": "PagedTiffHandler_body.php",
-		"PagedTiffHandlerSeleniumTestSuite": "tests/selenium/PagedTiffHandlerTestSuite.php"
+		"PagedTiffHandlerSeleniumTestSuite": "tests/phpunit-selenium/PagedTiffHandlerTestSuite.php"
 	},
 	"FileExtensions": [
 		"tiff",
