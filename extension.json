@@ -26,9 +26,9 @@
 		"PagedTiffHandlerMagic": "PagedTiffHandler.i18n.magic.php"
 	},
 	"AutoloadClasses": {
-		"PagedTiffImage": "PagedTiffHandler.image.php",
-		"PagedTiffInfoParserState": "PagedTiffHandler.image.php",
-		"PagedTiffHandler": "PagedTiffHandler_body.php",
+		"PagedTiffImage": "includes/PagedTiffImage.php",
+		"PagedTiffInfoParserState": "includes/PagedTiffInfoParserState.php",
+		"PagedTiffHandler": "includes/PagedTiffHandler.php",
 		"PagedTiffHandlerSeleniumTestSuite": "tests/phpunit-selenium/PagedTiffHandlerTestSuite.php"
 	},
 	"FileExtensions": [
