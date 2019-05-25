@@ -21,8 +21,13 @@
  */
 
 class PagedTiffInfoParserState {
-	public $metadata; # all data
-	public $page; # current page
+	/** @var array All data */
+	public $metadata;
+
+	/** @var array Current page */
+	public $page;
+
+	/** @var int */
 	public $prevPage;
 
 	public function __construct() {
