@@ -8,5 +8,15 @@
 	"tiff_no_metadata": "Non ge pozze pigghià metadate da TIFF",
 	"tiff_page_error": "Numere de pàgene non ge ste jndr'à l'indervalle",
 	"tiff_too_many_embed_files": "L'immaggine tène troppe file 'ngapsulate.",
-	"tiff_too_much_meta": "'U metadate ause troppe spazie."
+	"tiff_sourcefile_too_large": "'A resoluzione d'u file de origgene jè troppe granne.\nNisciuna andeprime avène ccrejate.",
+	"tiff_targetfile_too_large": "'A resoluzione d'u file de destinazione jè troppe granne.\nNisciuna andeprime avène ccrejate.",
+	"tiff_file_too_large": "'U file carecate jè troppe granne e ha state scettate.",
+	"tiff_out_of_service": "'U file carecate non ge pò essere processate.\nImageMagick non g'è disponibbele.",
+	"tiff_too_much_meta": "'U metadate ause troppe spazie.",
+	"tiff_error_cached": "Stu file pò sulamente essere reindirizzate apprisse ca ave passate 'nu certe 'ndervale de caching.",
+	"tiff_size_error": "Le dimenziune d'u file non ge s'accocchiane cu chidde effettive d'u file.",
+	"tiff_script_detected": "'U file carecate tène script.",
+	"tiff_bad_file": "'U file carecate tène errore: $1",
+	"tiff_invalid_file": "'U file carecate non g'è 'nu file TIFF valide.",
+	"tiff-file-info-size": "$1 × $2 pixel, dimenzione d'u file: $3, Tipe de MIME : $4, $5 {{PLURAL:$5|pàgene|pàggene}}"
 }
