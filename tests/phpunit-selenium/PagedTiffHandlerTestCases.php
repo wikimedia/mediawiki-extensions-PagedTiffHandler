@@ -3,6 +3,7 @@
 class SeleniumCheckPrerequisites extends SeleniumTestCase {
 	public $name = 'Check prerequisites';
 	private $prerequisiteError = null;
+
 	public function runTest() {
 		// check whether Multipage.tiff is already uploaded
 		$this->open( $this->getUrl() .
