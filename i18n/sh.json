@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"tiff-desc": "Rukovodilac za prikazivanje TIFF datoteka u slikovnom režimu",
+	"tiff_no_metadata": "Ne mogu se preuzeti metapodaci iz TIFF-a",
+	"tiff_page_error": "Broj stranice je nadvor od raspona",
+	"tiff_too_many_embed_files": "Slika sadrži previše umetnutih datoteka.",
+	"tiff_sourcefile_too_large": "Razdjeljenost izvorne datoteke je prevelika. Minijatura neće biti generisana.",
+	"tiff_targetfile_too_large": "Razdjeljenost ciljne datoteke je prevelika. Neće biti učinjena minijatura.",
+	"tiff_file_too_large": "Postavljena datoteka je prevelika i zbog toga je bila odbijena.",
+	"tiff_out_of_service": "Poslana datoteka ne može se obraditi. ImageMagick nije dostupan.",
+	"tiff_too_much_meta": "Metapodaci zauzimaju previše prostora.",
+	"tiff_error_cached": "Ova datoteka se može oformiti samo nakon međuspremljenja intervala.",
+	"tiff_size_error": "Prijavljena veličina datoteke ne se podudara sa stvarnom.",
+	"tiff_script_detected": "Poslana datoteka sadrži skripte.",
+	"tiff_bad_file": "Poslana datoteka sadrži greške: $1",
+	"tiff_invalid_file": "Poslana datoteka ne predstavlja važeći TIFF",
+	"tiff-file-info-size": "$1 × $2 piksela, veličina: $3, MIME-vrsta: $4, $5 {{PLURAL:$5|stranica|stranice|stranica}}"
+}
