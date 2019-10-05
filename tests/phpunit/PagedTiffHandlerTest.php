@@ -407,11 +407,15 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	 * Get a file that will throw an exception when fetched
 	 */
 	private function getMockTiffFile( $name, $dim ) {
-		$file = $this->getMock(
-			'UnregisteredLocalFile',
-			[ 'getWidth', 'getHeight', 'getMetadata', 'getLocalRefPath' ],
-			[ false, $this->repo, "mwstore://localtesting/data/$name", 'image/tiff' ]
-		);
+		$file = $this->getMockBuilder( UnregisteredLocalFile::class )
+			->setMethods( [ 'getWidth', 'getHeight', 'getMetadata', 'getLocalRefPath' ] )
+			->setConstructorArgs( [
+				false,
+				$this->repo,
+				"mwstore://localtesting/data/$name",
+				'image/tiff'
+			] )
+			->getMock();
 		$file->expects( $this->any() )->method( 'getWidth' )->will( $this->returnValue( $dim[0] ) );
 		$file->expects( $this->any() )->method( 'getHeight' )->will( $this->returnValue( $dim[1] ) );
 		// @codingStandardsIgnoreStart
