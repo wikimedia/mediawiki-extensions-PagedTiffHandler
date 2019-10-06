@@ -130,7 +130,7 @@ class SeleniumDeleteTiffTest extends SeleniumTestCase {
 
 }
 
-class SeleniumEmbedTiffTest extends SeleniumTestCase { // PHPUnit_Extensions_SeleniumTestCase
+class SeleniumEmbedTiffTest extends SeleniumTestCase {
 
 	public function tearDown() {
 		global $wgSeleniumTestsWikiUrl;
