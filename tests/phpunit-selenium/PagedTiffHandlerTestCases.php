@@ -117,7 +117,7 @@ class SeleniumDeleteTiffTest extends SeleniumTestCase {
 
 class SeleniumEmbedTiffTest extends SeleniumTestCase {
 
-	public function tearDown() {
+	public function tearDown() : void {
 		parent::tearDown();
 		// Clear EmbedTiffTest page for future tests
 		$this->open( $this->getUrl() .
@@ -137,7 +137,7 @@ class SeleniumEmbedTiffTest extends SeleniumTestCase {
 }
 
 class SeleniumTiffPageTest extends SeleniumTestCase {
-	public function tearDown() {
+	public function tearDown() : void {
 		parent::tearDown();
 		// Clear EmbedTiffTest page for future tests
 		$this->open( $this->getUrl() . '/index.php?title=Image:'
