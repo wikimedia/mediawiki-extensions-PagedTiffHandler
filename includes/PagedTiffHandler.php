@@ -245,6 +245,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			$data = $this->getMetaArray( $image );
 
 			if ( !$this->isMetadataError( $data )
+				// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 				&& strtolower( $data['page_data'][$page]['alpha'] ) == 'true'
 			) {
 				// If there is an alpha channel, use png.
@@ -447,6 +448,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return 1;
 		}
 
+		// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 		return intval( $data['page_count'] );
 	}
 
@@ -460,6 +462,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
 		}
+		// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 		return intval( $data['first_page'] );
 	}
 
@@ -473,6 +476,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
 		}
+		// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 		return intval( $data['last_page'] );
 	}
 
@@ -553,6 +557,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Creates detail information that is being displayed on image page.
 	 * @param File $image
 	 * @return string
+	 * @suppress PhanTypeArraySuspiciousNullable
 	 */
 	public function getLongDesc( $image ) {
 		global $wgLang, $wgRequest;
