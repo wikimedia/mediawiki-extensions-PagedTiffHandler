@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"BaRaN6161 TURK"
+		]
+	},
+	"tiff-desc": "Görüntü modunda TIFF dosyalarını görüntülemek için işleyici",
+	"tiff_no_metadata": "TIFF'den meta veri alınamıyor",
+	"tiff_page_error": "Sayfa numarası aralıkta değil",
+	"tiff_too_many_embed_files": "Görüntü çok fazla gömülü dosya içeriyor.",
+	"tiff_sourcefile_too_large": "Kaynak dosyanın çözünürlüğü çok büyük.\nHiçbir küçük resim oluşturulmaz.",
+	"tiff_targetfile_too_large": "Hedef dosyanın çözünürlüğü çok büyük.\nHiçbir küçük resim oluşturulmaz.",
+	"tiff_file_too_large": "Yüklenen dosya çok büyük ve reddedildi.",
+	"tiff_out_of_service": "Yüklenen dosya işlenemedi.\nImageMagick kullanılamıyor.",
+	"tiff_too_much_meta": "Meta veriler çok fazla alan kullanıyor.",
+	"tiff_error_cached": "Bu dosya yalnızca önbellekleme aralığından sonra yeniden gönderilebilir.",
+	"tiff_size_error": "Bildirilen dosya boyutu gerçek dosya boyutuyla eşleşmiyor.",
+	"tiff_script_detected": "Yüklenen dosya betikleri içeriyor.",
+	"tiff_bad_file": "Yüklenen dosya hata içeriyor: $1",
+	"tiff_invalid_file": "Yüklenen dosya geçerli bir TIFF dosyası değil.",
+	"tiff-file-info-size": "$1 × $2 pikseller, dosya boyutu: $3, MIME türü: $4, $5 {{PLURAL:$5|sayfa|sayfa}}"
+}
