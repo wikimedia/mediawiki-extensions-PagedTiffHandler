@@ -384,7 +384,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$width = intval( $scalerParams['physicalWidth'] );
 		$height = intval( $scalerParams['physicalHeight'] );
 		$page = intval( $scalerParams['page'] );
-		$srcPath = $this->escapeMagickInput( $scalerParams['srcPath'], $page - 1 );
+		$srcPath = $this->escapeMagickInput( $scalerParams['srcPath'], (string)( $page - 1 ) );
 		$dstPath = $this->escapeMagickOutput( $scalerParams['dstPath'] );
 
 		if ( isset( $meta['page_data'][$page]['pixels'] )
