@@ -28,7 +28,9 @@
 	"AutoloadClasses": {
 		"PagedTiffImage": "includes/PagedTiffImage.php",
 		"PagedTiffInfoParserState": "includes/PagedTiffInfoParserState.php",
-		"PagedTiffHandler": "includes/PagedTiffHandler.php",
+		"PagedTiffHandler": "includes/PagedTiffHandler.php"
+	},
+	"TestAutoloadClasses": {
 		"PagedTiffHandlerSeleniumTestSuite": "tests/phpunit-selenium/PagedTiffHandlerTestSuite.php"
 	},
 	"FileExtensions": [
