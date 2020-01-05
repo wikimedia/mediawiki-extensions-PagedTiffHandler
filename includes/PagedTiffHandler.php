@@ -507,7 +507,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return MediaTransformError
 	 */
 	protected function doThumbError( $params, $msg ) {
-		global $wgUser, $wgThumbLimits;
+		global $wgThumbLimits;
 
 		$errorParams = [];
 		if ( empty( $params['width'] ) ) {
@@ -516,7 +516,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			// size was specified by the user.
 			// we need to pick *some* size, and the preferred
 			// thumbnail size seems sane.
-			$sz = $wgUser->getOption( 'thumbsize' );
+			$sz = RequestContext::getMain()->getUser()->getOption( 'thumbsize' );
 			$errorParams['clientWidth'] = $wgThumbLimits[ $sz ];
 			// we don't have a height or aspect ratio. make it square.
 			$errorParams['clientHeight'] = $wgThumbLimits[ $sz ];
