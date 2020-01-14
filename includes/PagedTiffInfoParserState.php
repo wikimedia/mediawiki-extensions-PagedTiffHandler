@@ -95,7 +95,7 @@ class PagedTiffInfoParserState {
 	}
 
 	public function hasPageProperty( $key ) {
-		return isset( $this->page[$key] ) && !is_null( $this->page[$key] );
+		return isset( $this->page[$key] ) && $this->page[$key] !== null;
 	}
 
 	public function setFileProperty( $key, $value ) {
@@ -103,7 +103,7 @@ class PagedTiffInfoParserState {
 	}
 
 	public function hasFileProperty( $key, $value ) {
-		return isset( $this->metadata[$key] ) && !is_null( $this->metadata[$key] );
+		return isset( $this->metadata[$key] ) && $this->metadata[$key] !== null;
 	}
 
 	public function addError( $message ) {
