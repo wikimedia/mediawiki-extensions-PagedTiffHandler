@@ -169,7 +169,7 @@ class SeleniumDisplayInCategoryTest extends SeleniumTiffPageTest {
 		$source = $this->getAttribute(
 			"//li[@class='gallerybox']//a[@class='image']//img@src" );
 		$correct = strstr( $source, "-page1-" );
-		$this->assertEquals( $correct, true );
+		$this->assertTrue( $correct );
 	}
 }
 
@@ -187,7 +187,7 @@ class SeleniumDisplayInGalleryTest extends SeleniumEmbedTiffTest {
 		$source = $this->getAttribute(
 			"//li[@class='gallerybox']//a[@class='image']//img@src" );
 		$correct = strstr( $source, "-page1-" );
-		$this->assertEquals( $correct, true );
+		$this->assertTrue( $correct );
 	}
 }
 
@@ -280,7 +280,7 @@ class SeleniumEmbedTiffNegativePageParameterTest extends SeleniumEmbedTiffTest {
 
 		$source = $this->getAttribute( "//div[@id='bodyContent']//img@src" );
 		$correct = strstr( $source, "-page1-" );
-		$this->assertEquals( $correct, true );
+		$this->assertTrue( $correct );
 	}
 }
 
@@ -292,6 +292,6 @@ class SeleniumEmbedTiffPageParameterTooHighTest extends SeleniumEmbedTiffTest {
 
 		$source = $this->getAttribute( "//div[@id='bodyContent']//img@src" );
 		$correct = strstr( $source, "-page7-" );
-		$this->assertEquals( $correct, true );
+		$this->assertTrue( $correct );
 	}
 }

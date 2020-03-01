@@ -73,7 +73,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		if ( !empty( $metaArray['errors'] ) ) {
 			$this->fail( implode( '; ', $metaArray['error'] ) );
 		}
-		$this->assertEquals( 1, $metaArray['page_count'] );
+		$this->assertSame( 1, $metaArray['page_count'] );
 
 		$this->assertEquals( 'true', strtolower( $metaArray['page_data'][1]['alpha'] ) );
 
@@ -241,7 +241,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	public function testPageCount() {
 		$this->assertEquals( 7, $this->handler->pageCount( $this->multipage_image ) );
-		$this->assertEquals( 1, $this->handler->pageCount( $this->mhz_image ) );
+		$this->assertSame( 1, $this->handler->pageCount( $this->mhz_image ) );
 	}
 
 	public function testGetPageDimensions() {
