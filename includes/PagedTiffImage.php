@@ -20,6 +20,8 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+use MediaWiki\Shell\Shell;
+
 /**
  * inspired by djvuimage from Brion Vibber
  * modified and written by xarax
@@ -108,8 +110,8 @@ class PagedTiffImage {
 			} elseif ( $wgTiffUseTiffinfo ) {
 				// read TIFF directories using libtiff's tiffinfo, see
 				// http://www.libtiff.org/man/tiffinfo.1.html
-				$cmd = wfEscapeShellArg( $wgTiffTiffinfoCommand ) .
-					' ' . wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
+				$cmd = Shell::escape( $wgTiffTiffinfoCommand ) .
+					' ' . Shell::escape( $this->mFilename ) . ' 2>&1';
 
 				wfDebug( __METHOD__ . ": $cmd\n" );
 				$retval = '';
@@ -123,10 +125,10 @@ class PagedTiffImage {
 
 				$this->metadata = $this->parseTiffinfoOutput( $dump );
 			} else {
-				$cmd = wfEscapeShellArg( $wgImageMagickIdentifyCommand ) .
+				$cmd = Shell::escape( $wgImageMagickIdentifyCommand ) .
 					' -format ' .
 					'"[BEGIN]page=%p\nalpha=%A\nalpha2=%r\nheight=%h\nwidth=%w\ndepth=%z[END]" ' .
-					wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
+					Shell::escape( $this->mFilename ) . ' 2>&1';
 
 				wfDebug( __METHOD__ . ": $cmd\n" );
 				$retval = '';
@@ -160,8 +162,8 @@ class PagedTiffImage {
 				// see exiv2-doc @link http://www.exiv2.org/sample.html
 				// NOTE: the linux version of exiv2 has a bug: it can only
 				// read one type of meta-data at a time, not all at once.
-				$cmd = wfEscapeShellArg( $wgExiv2Command ) .
-					' -u -psix -Pnt ' . wfEscapeShellArg( $this->mFilename ) . ' 2>&1';
+				$cmd = Shell::escape( $wgExiv2Command ) .
+					' -u -psix -Pnt ' . Shell::escape( $this->mFilename ) . ' 2>&1';
 
 				wfDebug( __METHOD__ . ": $cmd\n" );
 				$retval = '';
