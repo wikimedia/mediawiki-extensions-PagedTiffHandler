@@ -20,6 +20,8 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+use MediaWiki\Shell\Shell;
+
 class PagedTiffHandler extends TransformationalImageHandler {
 	// TIFF files over 10M are considered expensive to thumbnail
 	const EXPENSIVE_SIZE_LIMIT = 10485760;
@@ -393,10 +395,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return $this->doThumbError( $scalerParams, 'tiff_sourcefile_too_large' );
 		}
 
-		$cmd = wfEscapeShellArg( $wgImageMagickConvertCommand );
-		$cmd .= " " . wfEscapeShellArg( $srcPath );
+		$cmd = Shell::escape( $wgImageMagickConvertCommand );
+		$cmd .= " " . Shell::escape( $srcPath );
 		$cmd .= " -depth 8 -resize {$width} ";
-		$cmd .= wfEscapeShellArg( $dstPath );
+		$cmd .= Shell::escape( $dstPath );
 
 		Hooks::run( 'PagedTiffHandlerRenderCommand',
 			[ &$cmd, $srcPath, $dstPath, $page, $width, $height, $scalerParams ]
