@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Rancher",
-			"Михајло Анђелковић",
 			"BadDog",
-			"Zoranzoki21"
+			"Rancher",
+			"Zoranzoki21",
+			"Михајло Анђелковић"
 		]
 	},
 	"tiff-desc": "Руковалац за приказ TIFF датотека у режиму за слике",

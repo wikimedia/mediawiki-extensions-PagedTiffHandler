@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Garam",
 			"Kwj2772",
 			"Priviet",
-			"아라",
-			"Garam"
+			"아라"
 		]
 	},
 	"tiff-desc": "TIFF 파일을 영상 방식으로 볼 수 있도록 하는 조정기",

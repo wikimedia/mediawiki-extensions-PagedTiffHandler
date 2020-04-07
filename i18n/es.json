@@ -2,12 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Armando-Martin",
+			"Dgstranz",
+			"Fitoschido",
+			"Indiralena",
 			"Pertile",
 			"Sanbec",
-			"Translationista",
-			"Fitoschido",
-			"Dgstranz",
-			"Indiralena"
+			"Translationista"
 		]
 	},
 	"tiff-desc": "Controlador para ver archivos TIFF en modo imagen",
