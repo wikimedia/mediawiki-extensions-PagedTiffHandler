@@ -564,7 +564,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	public function getLongDesc( $image ) {
 		global $wgLang, $wgRequest;
 
-		$page = $wgRequest->getText( 'page', 1 );
+		$page = $wgRequest->getInt( 'page', 1 );
 		$page = $this->adjustPage( $image, $page );
 		$metadata = $this->getMetaArray( $image );
 
