@@ -24,7 +24,7 @@ use MediaWiki\Shell\Shell;
 
 class PagedTiffHandler extends TransformationalImageHandler {
 	// TIFF files over 10M are considered expensive to thumbnail
-	const EXPENSIVE_SIZE_LIMIT = 10485760;
+	private const EXPENSIVE_SIZE_LIMIT = 10485760;
 
 	/**
 	 * 1.0: Initial
@@ -33,7 +33,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * 1.3: Handing extra IFDs reported by tiffinfo
 	 * 1.4: Allowed page numbering to start from numbers other than 1
 	 */
-	const TIFF_METADATA_VERSION = '1.4';
+	public const TIFF_METADATA_VERSION = '1.4';
 
 	/**
 	 * @return bool
