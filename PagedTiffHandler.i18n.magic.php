@@ -17,5 +17,5 @@ $magicWords = [];
 
 /** English (English) */
 $magicWords['en'] = [
-	'img_lossy' => [ 0, "lossy=$1" ],
+	'img_lossy' => [ 1, "lossy=$1" ],
 ];
