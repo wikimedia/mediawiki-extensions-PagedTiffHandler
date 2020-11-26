@@ -29,9 +29,14 @@ use MediaWiki\Shell\Shell;
  */
 
 class PagedTiffImage {
+	/** @var array|null */
 	protected $metadata = null;
+	/** @var string */
 	protected $mFilename;
 
+	/**
+	 * @param string $filename
+	 */
 	public function __construct( $filename ) {
 		$this->mFilename = $filename;
 	}

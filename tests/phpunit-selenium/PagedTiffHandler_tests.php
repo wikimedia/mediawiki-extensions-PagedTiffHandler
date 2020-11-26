@@ -153,6 +153,7 @@ class SeleniumEmbedTiffTest extends SeleniumTestCase {
 
 class SeleniumTiffPageTest extends SeleniumTestCase {
 	public function tearDown() : void {
+		global $wgSeleniumTestsWikiUrl;
 		parent::tearDown();
 		// Clear EmbedTiffTest page for future tests
 		$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=Image:'
