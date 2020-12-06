@@ -338,7 +338,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @see TransformationalImageHandler::getScalerType
 	 * @param string $dstPath Path to store thumbnail
 	 * @param bool $checkDstPath Whether to verify destination path exists
-	 * @return Callable Transform function to call.
+	 * @return callable Transform function to call.
 	 */
 	protected function getScalerType( $dstPath, $checkDstPath = true ) {
 		if ( !$dstPath && $checkDstPath ) {
