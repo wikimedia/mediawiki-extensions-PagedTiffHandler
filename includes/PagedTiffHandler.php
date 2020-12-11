@@ -661,6 +661,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		foreach ( $formatted as $name => $value ) {
 			$tag = strtolower( $name );
 			self::addMeta( $result,
+				// @phan-suppress-next-line SecurityCheck-DoubleEscaped
 				in_array( $tag, $visibleFields ) ? 'visible' : 'collapsed',
 				'exif',
 				$tag,
