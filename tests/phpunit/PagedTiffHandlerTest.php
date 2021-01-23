@@ -18,6 +18,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	/**
 	 * Inform parent class where test files are located
+	 * @return string
 	 */
 	protected function getFilePath() {
 		return __DIR__ . '/testImages';
@@ -25,6 +26,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	/**
 	 * Set up file repo for thumbnails
+	 * @inheritDoc
 	 */
 	protected function createsThumbnails() {
 		return true;
@@ -405,6 +407,9 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	/**
 	 * Get a file that will throw an exception when fetched
+	 * @param string $name
+	 * @param array $dim
+	 * @return File
 	 */
 	private function getMockTiffFile( $name, $dim ) {
 		$file = $this->getMockBuilder( UnregisteredLocalFile::class )
