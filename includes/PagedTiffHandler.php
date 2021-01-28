@@ -247,8 +247,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			$data = $this->getMetaArray( $image );
 
 			if ( !$this->isMetadataError( $data )
-				// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
-				&& strtolower( $data['page_data'][$page]['alpha'] ) == 'true'
+				&& strtolower( $data['page_data'][$page]['alpha'] ?? '' ) == 'true'
 			) {
 				// If there is an alpha channel, use png.
 				$params['lossy'] = 'lossless';
