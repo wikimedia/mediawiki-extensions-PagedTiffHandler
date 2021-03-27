@@ -307,8 +307,8 @@ if ( $wgSeleniumTiffTestCheckPrerequistes ) {
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumCheckPrerequisites() );
 }
 
-// @codingStandardsIgnoreStart
 if ( $wgSeleniumTiffTestUploads ) {
+	// phpcs:disable Generic.Files.LineLength
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadBrokenTiffTest( 'caspian.tif', 'The uploaded file contains errors.' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadWorkingTiffTest( 'cramps.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadWorkingTiffTest( 'cramps-tile.tif' ) );
@@ -335,8 +335,9 @@ if ( $wgSeleniumTiffTestUploads ) {
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadWorkingTiffTest( 'ycbcr-cat.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadBrokenTiffTest( 'zackthecat.tif', 'The uploaded file could not be processed. ImageMagick is not available.' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadWorkingTiffTest( 'multipage.tiff' ) );
+	// phpcs:enable
 }
-//$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadWorkingTiffTest( 'multipage.tiff' ) );
+// $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumUploadWorkingTiffTest( 'multipage.tiff' ) );
 
 $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumEmbedTiffInclusionTest() );
 $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumEmbedTiffThumbRatioTest() );
@@ -359,24 +360,23 @@ if ( $wgSeleniumTiffTestUploads ) {
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'fax2d.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'g3test.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'Jello.tif' ) );
-	//$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'jim___ah.tif' ) );
+	// $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'jim___ah.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'jim___cg.tif' ) );
-	//$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'jim___dg.tif' ) );
-	//$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'jim___gg.tif' ) );
+	// $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'jim___dg.tif' ) );
+	// $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'jim___gg.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'ladoga.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'off_l16.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'off_luv24.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'off_luv24.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'oxford.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'pc260001.tif' ) );
-	//$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'quad-jpeg.tif' ) );
+	// $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'quad-jpeg.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'quad-lzw.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'quad-tile.tif' ) );
-	//$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'smallliz.tif' ) );
+	// $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'smallliz.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'strike.tif' ) );
-	//$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'text.tif' ) );
+	// $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'text.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'ycbcr-cat.tif' ) );
-	//$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'zackthecat.tif' ) );
+	// $wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'zackthecat.tif' ) );
 	$wgSeleniumTestSuites['PagedTiffHandler']->addTest( new SeleniumDeleteTiffTest( 'multipage.tiff' ) );
 }
-// @codingStandardsIgnoreEnd

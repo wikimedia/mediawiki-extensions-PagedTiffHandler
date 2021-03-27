@@ -825,9 +825,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		// integers, and at the same time make sure that both vips and mediawiki
 		// have the same height for a given width (MediaWiki makes the assumption
 		// that the height of an image functionally depends on its width)
-		// @codingStandardsIgnoreStart
 		for ( ; $rx >= 2; $rx-- ) {
-		// @codingStandardsIgnoreEnd
 			$intermediaryWidth = intval( floor( $srcWidth / $rx ) );
 			$intermediaryHeight = intval( floor( $srcHeight / $rx ) );
 			if ( $intermediaryHeight ==
