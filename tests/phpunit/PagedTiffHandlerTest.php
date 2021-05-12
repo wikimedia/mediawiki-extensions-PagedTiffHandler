@@ -413,7 +413,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	 */
 	private function getMockTiffFile( $name, $dim ) {
 		$file = $this->getMockBuilder( UnregisteredLocalFile::class )
-			->setMethods( [ 'getWidth', 'getHeight', 'getMetadata', 'getLocalRefPath' ] )
+			->onlyMethods( [ 'getWidth', 'getHeight', 'getMetadata', 'getLocalRefPath' ] )
 			->setConstructorArgs( [
 				false,
 				$this->repo,
