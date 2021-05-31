@@ -3,7 +3,8 @@
 		"authors": [
 			"BáthoryPéter",
 			"Dani",
-			"Glanthor Reviol"
+			"Glanthor Reviol",
+			"Tacsipacsi"
 		]
 	},
 	"tiff_no_metadata": "Nem sikerült lekérni a TIFF metaadatait",
@@ -15,5 +16,5 @@
 	"tiff_too_much_meta": "A metaadatok túl sok helyet foglalnak.",
 	"tiff_script_detected": "A feltöltött fájl parancsfájlokat tartalmaz.",
 	"tiff_bad_file": "A feltöltött fájl hibákat tartalmaz: $1",
-	"tiff-file-info-size": "$5 oldal, $1 × $2 képpont, fájlméret: $3, MIME-típus: $4"
+	"tiff-file-info-size": "$1 × $2 képpont, fájlméret: $3, MIME-típus: $4, $5 {{PLURAL:$5|oldal}}"
 }
