@@ -26,7 +26,7 @@ class SeleniumCheckPrerequisites extends SeleniumTestCase {
 		}
 	}
 
-	public function tearDown() : void {
+	public function tearDown(): void {
 		if ( $this->prerequisiteError ) {
 			// $this->selenium->stop();
 			throw new Exception( 'failed: ' . $this->prerequisiteError . "\n" );
@@ -117,7 +117,7 @@ class SeleniumDeleteTiffTest extends SeleniumTestCase {
 
 class SeleniumEmbedTiffTest extends SeleniumTestCase {
 
-	public function tearDown() : void {
+	public function tearDown(): void {
 		parent::tearDown();
 		// Clear EmbedTiffTest page for future tests
 		$this->open( $this->getUrl() .
@@ -137,7 +137,7 @@ class SeleniumEmbedTiffTest extends SeleniumTestCase {
 }
 
 class SeleniumTiffPageTest extends SeleniumTestCase {
-	public function tearDown() : void {
+	public function tearDown(): void {
 		parent::tearDown();
 		// Clear EmbedTiffTest page for future tests
 		$this->open( $this->getUrl() . '/index.php?title=Image:'

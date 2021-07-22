@@ -32,7 +32,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		return true;
 	}
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->handler = new PagedTiffHandler();
 
