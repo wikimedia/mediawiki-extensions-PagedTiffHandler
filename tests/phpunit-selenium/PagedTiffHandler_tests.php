@@ -120,7 +120,7 @@ class SeleniumDeleteTiffTest extends SeleniumTestCase {
 		$this->open( $wgSeleniumTestsWikiUrl . '/index.php?title=Image:' .
 			ucfirst( $this->filename ) . '&action=delete' );
 		$this->type( 'wpReason', 'Remove test file' );
-		$this->click( 'mw-filedelete-submit' );
+		$this->click( 'wpConfirmB' );
 		$this->waitForPageToLoad( 10000 );
 
 		// Todo: This message is localized
