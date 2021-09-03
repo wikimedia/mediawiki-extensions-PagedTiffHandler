@@ -103,16 +103,10 @@ class PagedTiffImage {
 		global $wgShowEXIF;
 
 		if ( $this->metadata === null ) {
-			// fetch base info: number of pages, size and alpha for each page.
-			// run hooks first, then optionally tiffinfo or, per default,
-			// ImageMagic's identify command
-			if (
-				!Hooks::run( 'PagedTiffHandlerTiffData', [ $this->mFilename, &$this->metadata ] )
-			) {
-				wfDebug(
-					__METHOD__ . ": hook PagedTiffHandlerTiffData overrides TIFF data extraction\n"
-				);
-			} elseif ( $wgTiffUseTiffinfo ) {
+			// Fetch base info: number of pages, size and alpha for each page.
+			// Run optionally tiffinfo or, per default, ImageMagick's identify
+			// command.
+			if ( $wgTiffUseTiffinfo ) {
 				// read TIFF directories using libtiff's tiffinfo, see
 				// http://www.libtiff.org/man/tiffinfo.1.html
 				$cmd = Shell::escape( $wgTiffTiffinfoCommand ) .
@@ -150,17 +144,10 @@ class PagedTiffImage {
 
 			$this->metadata['exif'] = [];
 
-			// fetch extended info: EXIF/IPTC/XMP
-			// run hooks first, then optionally Exiv2 or, per default, the internal EXIF class
+			// Fetch extended info: EXIF/IPTC/XMP.
+			// Run optionally Exiv2 or, per default, the internal EXIF class.
 			if ( !empty( $this->metadata['errors'] ) ) {
 				wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
-			} elseif (
-				!Hooks::run( 'PagedTiffHandlerExifData',
-					[ $this->mFilename, &$this->metadata['exif'] ] )
-			) {
-				wfDebug(
-					__METHOD__ . ": hook PagedTiffHandlerExifData overrides EXIF extraction\n"
-				);
 			} elseif ( $wgTiffUseExiv ) {
 				// read EXIF, XMP, IPTC as name-tag => interpreted data
 				// -ignore unknown fields
