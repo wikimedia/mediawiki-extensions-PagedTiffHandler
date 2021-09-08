@@ -102,92 +102,94 @@ class PagedTiffImage {
 		global $wgTiffUseTiffinfo, $wgTiffTiffinfoCommand;
 		global $wgShowEXIF;
 
-		if ( $this->metadata === null ) {
-			// Fetch base info: number of pages, size and alpha for each page.
-			// Run optionally tiffinfo or, per default, ImageMagick's identify
-			// command.
-			if ( $wgTiffUseTiffinfo ) {
-				// read TIFF directories using libtiff's tiffinfo, see
-				// http://www.libtiff.org/man/tiffinfo.1.html
-				$cmd = Shell::escape( $wgTiffTiffinfoCommand ) .
-					' ' . Shell::escape( $this->mFilename ) . ' 2>&1';
-
-				wfDebug( __METHOD__ . ": $cmd\n" );
-				$retval = '';
-				$dump = wfShellExec( $cmd, $retval );
-
-				if ( $retval ) {
-					$data = [ 'errors' => [ "tiffinfo command failed: $cmd" ] ];
-					wfDebug( __METHOD__ . ": tiffinfo command failed: $cmd\n" );
-					return $data; // fail. we *need* that info
-				}
-
-				$this->metadata = $this->parseTiffinfoOutput( $dump );
-			} else {
-				$cmd = Shell::escape( $wgImageMagickIdentifyCommand ) .
-					' -format ' .
-					'"[BEGIN]page=%p\nalpha=%A\nalpha2=%r\nheight=%h\nwidth=%w\ndepth=%z[END]" ' .
-					Shell::escape( $this->mFilename ) . ' 2>&1';
-
-				wfDebug( __METHOD__ . ": $cmd\n" );
-				$retval = '';
-				$dump = wfShellExec( $cmd, $retval );
-
-				if ( $retval ) {
-					$data = [ 'errors' => [ "identify command failed: $cmd" ] ];
-					wfDebug( __METHOD__ . ": identify command failed: $cmd\n" );
-					return $data; // fail. we *need* that info
-				}
-
-				$this->metadata = $this->parseIdentifyOutput( $dump );
-			}
-
-			$this->metadata['exif'] = [];
-
-			// Fetch extended info: EXIF/IPTC/XMP.
-			// Run optionally Exiv2 or, per default, the internal EXIF class.
-			if ( !empty( $this->metadata['errors'] ) ) {
-				wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
-			} elseif ( $wgTiffUseExiv ) {
-				// read EXIF, XMP, IPTC as name-tag => interpreted data
-				// -ignore unknown fields
-				// see exiv2-doc @link http://www.exiv2.org/sample.html
-				// NOTE: the linux version of exiv2 has a bug: it can only
-				// read one type of meta-data at a time, not all at once.
-				$cmd = Shell::escape( $wgExiv2Command ) .
-					' -u -psix -Pnt ' . Shell::escape( $this->mFilename ) . ' 2>&1';
-
-				wfDebug( __METHOD__ . ": $cmd\n" );
-				$retval = '';
-				$dump = wfShellExec( $cmd, $retval );
-
-				if ( $retval ) {
-					$data = [ 'errors' => [ "exiv command failed: $cmd" ] ];
-					wfDebug( __METHOD__ . ": exiv command failed: $cmd\n" );
-					// don't fail - we are missing info, just report
-				}
-
-				$data = $this->parseExiv2Output( $dump );
-
-				$this->metadata['exif'] = $data;
-			} elseif ( $wgShowEXIF ) {
-				wfDebug( __METHOD__ . ": using internal Exif( {$this->mFilename} )\n" );
-				$data = BitmapMetadataHandler::Tiff( $this->mFilename );
-
-				if ( $data ) {
-					$data['MEDIAWIKI_EXIF_VERSION'] = Exif::version();
-					$this->metadata['exif'] = $data;
-				}
-			}
-
-			unset( $this->metadata['exif']['Image'] );
-			unset( $this->metadata['exif']['filename'] );
-			unset( $this->metadata['exif']['Base filename'] );
-			unset( $this->metadata['exif']['XMLPacket'] );
-			unset( $this->metadata['exif']['ImageResources'] );
-
-			$this->metadata['TIFF_METADATA_VERSION'] = PagedTiffHandler::TIFF_METADATA_VERSION;
+		if ( $this->metadata !== null ) {
+			return $this->metadata;
 		}
+
+		// Fetch base info: number of pages, size and alpha for each page.
+		// Run optionally tiffinfo or, per default, ImageMagick's identify
+		// command.
+		if ( $wgTiffUseTiffinfo ) {
+			// read TIFF directories using libtiff's tiffinfo, see
+			// http://www.libtiff.org/man/tiffinfo.1.html
+			$cmd = Shell::escape( $wgTiffTiffinfoCommand ) .
+				' ' . Shell::escape( $this->mFilename ) . ' 2>&1';
+
+			wfDebug( __METHOD__ . ": $cmd\n" );
+			$retval = '';
+			$dump = wfShellExec( $cmd, $retval );
+
+			if ( $retval ) {
+				$data = [ 'errors' => [ "tiffinfo command failed: $cmd" ] ];
+				wfDebug( __METHOD__ . ": tiffinfo command failed: $cmd\n" );
+				return $data; // fail. we *need* that info
+			}
+
+			$this->metadata = $this->parseTiffinfoOutput( $dump );
+		} else {
+			$cmd = Shell::escape( $wgImageMagickIdentifyCommand ) .
+				' -format ' .
+				'"[BEGIN]page=%p\nalpha=%A\nalpha2=%r\nheight=%h\nwidth=%w\ndepth=%z[END]" ' .
+				Shell::escape( $this->mFilename ) . ' 2>&1';
+
+			wfDebug( __METHOD__ . ": $cmd\n" );
+			$retval = '';
+			$dump = wfShellExec( $cmd, $retval );
+
+			if ( $retval ) {
+				$data = [ 'errors' => [ "identify command failed: $cmd" ] ];
+				wfDebug( __METHOD__ . ": identify command failed: $cmd\n" );
+				return $data; // fail. we *need* that info
+			}
+
+			$this->metadata = $this->parseIdentifyOutput( $dump );
+		}
+
+		$this->metadata['exif'] = [];
+
+		// Fetch extended info: EXIF/IPTC/XMP.
+		// Run optionally Exiv2 or, per default, the internal EXIF class.
+		if ( !empty( $this->metadata['errors'] ) ) {
+			wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
+		} elseif ( $wgTiffUseExiv ) {
+			// read EXIF, XMP, IPTC as name-tag => interpreted data
+			// -ignore unknown fields
+			// see exiv2-doc @link http://www.exiv2.org/sample.html
+			// NOTE: the linux version of exiv2 has a bug: it can only
+			// read one type of meta-data at a time, not all at once.
+			$cmd = Shell::escape( $wgExiv2Command ) .
+				' -u -psix -Pnt ' . Shell::escape( $this->mFilename ) . ' 2>&1';
+
+			wfDebug( __METHOD__ . ": $cmd\n" );
+			$retval = '';
+			$dump = wfShellExec( $cmd, $retval );
+
+			if ( $retval ) {
+				$data = [ 'errors' => [ "exiv command failed: $cmd" ] ];
+				wfDebug( __METHOD__ . ": exiv command failed: $cmd\n" );
+				// don't fail - we are missing info, just report
+			}
+
+			$data = $this->parseExiv2Output( $dump );
+
+			$this->metadata['exif'] = $data;
+		} elseif ( $wgShowEXIF ) {
+			wfDebug( __METHOD__ . ": using internal Exif( {$this->mFilename} )\n" );
+			$data = BitmapMetadataHandler::Tiff( $this->mFilename );
+
+			if ( $data ) {
+				$data['MEDIAWIKI_EXIF_VERSION'] = Exif::version();
+				$this->metadata['exif'] = $data;
+			}
+		}
+
+		unset( $this->metadata['exif']['Image'] );
+		unset( $this->metadata['exif']['filename'] );
+		unset( $this->metadata['exif']['Base filename'] );
+		unset( $this->metadata['exif']['XMLPacket'] );
+		unset( $this->metadata['exif']['ImageResources'] );
+
+		$this->metadata['TIFF_METADATA_VERSION'] = PagedTiffHandler::TIFF_METADATA_VERSION;
 
 		return $this->metadata;
 	}
