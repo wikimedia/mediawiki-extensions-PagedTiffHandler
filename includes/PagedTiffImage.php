@@ -175,12 +175,7 @@ class PagedTiffImage {
 			$this->metadata['exif'] = $data;
 		} elseif ( $wgShowEXIF ) {
 			wfDebug( __METHOD__ . ": using internal Exif( {$this->mFilename} )\n" );
-			$data = BitmapMetadataHandler::Tiff( $this->mFilename );
-
-			if ( $data ) {
-				$data['MEDIAWIKI_EXIF_VERSION'] = Exif::version();
-				$this->metadata['exif'] = $data;
-			}
+			$this->metadata['exif'] = BitmapMetadataHandler::Tiff( $this->mFilename );
 		}
 
 		unset( $this->metadata['exif']['Image'] );
