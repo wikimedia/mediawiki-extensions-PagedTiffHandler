@@ -20,7 +20,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-use MediaWiki\Shell\Shell;
+use MediaWiki\MediaWikiServices;
 
 /**
  * inspired by djvuimage from Brion Vibber
@@ -100,77 +100,73 @@ class PagedTiffImage {
 	public function retrieveMetaData() {
 		global $wgImageMagickIdentifyCommand, $wgExiv2Command, $wgTiffUseExiv;
 		global $wgTiffUseTiffinfo, $wgTiffTiffinfoCommand;
-		global $wgShowEXIF;
+		global $wgShowEXIF, $wgTiffShell;
 
 		if ( $this->metadata !== null ) {
 			return $this->metadata;
 		}
 
-		// Fetch base info: number of pages, size and alpha for each page.
-		// Run optionally tiffinfo or, per default, ImageMagick's identify
-		// command.
+		$command = MediaWikiServices::getInstance()->getShellCommandFactory()
+			->createBoxed( 'pagedtiffhandler' )
+			->disableNetwork()
+			->firejailDefaultSeccomp()
+			->routeName( 'pagedtiffhandler-metadata' );
+		$command
+			->params( $wgTiffShell, 'scripts/retrieveMetaData.sh' )
+			->inputFileFromFile(
+				'scripts/retrieveMetaData.sh',
+				__DIR__ . '/../scripts/retrieveMetaData.sh' )
+			->inputFileFromFile( 'file.tiff', $this->mFilename )
+			->environment( [
+				'TIFF_USETIFFINFO' => $wgTiffUseTiffinfo ? 'yes' : 'no',
+				'TIFF_TIFFINFO' => $wgTiffTiffinfoCommand,
+				'TIFF_IDENTIFY' => $wgImageMagickIdentifyCommand,
+				'TIFF_USEEXIV' => $wgTiffUseExiv ? 'yes' : 'no',
+				'TIFF_EXIV2' => $wgExiv2Command,
+			] );
 		if ( $wgTiffUseTiffinfo ) {
-			// read TIFF directories using libtiff's tiffinfo, see
-			// http://www.libtiff.org/man/tiffinfo.1.html
-			$cmd = Shell::escape( $wgTiffTiffinfoCommand ) .
-				' ' . Shell::escape( $this->mFilename ) . ' 2>&1';
-
-			wfDebug( __METHOD__ . ": $cmd\n" );
-			$retval = '';
-			$dump = wfShellExec( $cmd, $retval );
-
-			if ( $retval ) {
-				$data = [ 'errors' => [ "tiffinfo command failed: $cmd" ] ];
-				wfDebug( __METHOD__ . ": tiffinfo command failed: $cmd\n" );
-				return $data; // fail. we *need* that info
-			}
-
-			$this->metadata = $this->parseTiffinfoOutput( $dump );
+			$command->outputFileToString( 'info' );
 		} else {
-			$cmd = Shell::escape( $wgImageMagickIdentifyCommand ) .
-				' -format ' .
-				'"[BEGIN]page=%p\nalpha=%A\nalpha2=%r\nheight=%h\nwidth=%w\ndepth=%z[END]" ' .
-				Shell::escape( $this->mFilename ) . ' 2>&1';
+			$command->outputFileToString( 'identified' );
+		}
+		if ( $wgTiffUseExiv ) {
+			$command
+				->outputFileToString( 'extended' )
+				->outputFileToString( 'exiv_exit_code' );
+		}
 
-			wfDebug( __METHOD__ . ": $cmd\n" );
-			$retval = '';
-			$dump = wfShellExec( $cmd, $retval );
+		$result = $command->execute();
+		$overallExit = $result->getExitCode();
+		if ( $overallExit == 10 ) {
+			// tiffinfo failure
+			wfDebug( __METHOD__ . ": tiffinfo command failed: {$this->mFilename}" );
+			return [ 'errors' => [ "tiffinfo command failed: {$this->mFilename}" ] ];
+		} elseif ( $overallExit == 11 ) {
+			// identify failure
+			wfDebug( __METHOD__ . ": identify command failed: {$this->mFilename}" );
+			return [ 'errors' => [ "identify command failed: {$this->mFilename}" ] ];
+		}
 
-			if ( $retval ) {
-				$data = [ 'errors' => [ "identify command failed: $cmd" ] ];
-				wfDebug( __METHOD__ . ": identify command failed: $cmd\n" );
-				return $data; // fail. we *need* that info
-			}
-
-			$this->metadata = $this->parseIdentifyOutput( $dump );
+		if ( $wgTiffUseTiffinfo ) {
+			$this->metadata = $this->parseTiffinfoOutput( $result->getFileContents( 'info' ) );
+		} else {
+			$this->metadata = $this->parseIdentifyOutput( $result->getFileContents( 'identified' ) );
 		}
 
 		$this->metadata['exif'] = [];
 
-		// Fetch extended info: EXIF/IPTC/XMP.
-		// Run optionally Exiv2 or, per default, the internal EXIF class.
 		if ( !empty( $this->metadata['errors'] ) ) {
 			wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
 		} elseif ( $wgTiffUseExiv ) {
-			// read EXIF, XMP, IPTC as name-tag => interpreted data
-			// -ignore unknown fields
-			// see exiv2-doc @link http://www.exiv2.org/sample.html
-			// NOTE: the linux version of exiv2 has a bug: it can only
-			// read one type of meta-data at a time, not all at once.
-			$cmd = Shell::escape( $wgExiv2Command ) .
-				' -u -psix -Pnt ' . Shell::escape( $this->mFilename ) . ' 2>&1';
-
-			wfDebug( __METHOD__ . ": $cmd\n" );
-			$retval = '';
-			$dump = wfShellExec( $cmd, $retval );
-
-			if ( $retval ) {
-				$data = [ 'errors' => [ "exiv command failed: $cmd" ] ];
-				wfDebug( __METHOD__ . ": exiv command failed: $cmd\n" );
+			$exivExit = (int)trim( $result->getFileContents( 'exiv_exit_code' ) );
+			if ( $exivExit != 0 ) {
+				// FIXME: $data is immediately overwritten?
+				$data = [ 'errors' => [ "exiv command failed: {$this->mFilename}" ] ];
+				wfDebug( __METHOD__ . ": exiv command failed: {$this->mFilename}\n" );
 				// don't fail - we are missing info, just report
 			}
 
-			$data = $this->parseExiv2Output( $dump );
+			$data = $this->parseExiv2Output( $result->getFileContents( 'extended' ) );
 
 			$this->metadata['exif'] = $data;
 		} elseif ( $wgShowEXIF ) {
