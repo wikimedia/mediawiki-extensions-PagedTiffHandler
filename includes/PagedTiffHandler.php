@@ -388,7 +388,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$srcPath = $this->escapeMagickInput( $scalerParams['srcPath'], (string)( $page - 1 ) );
 		$dstPath = $this->escapeMagickOutput( $scalerParams['dstPath'] );
 
-		if ( isset( $meta['page_data'][$page]['pixels'] )
+		if ( $wgMaxImageArea
+			&& isset( $meta['page_data'][$page]['pixels'] )
 			&& $meta['page_data'][$page]['pixels'] > $wgMaxImageArea
 		) {
 			return $this->doThumbError( $scalerParams, 'tiff_sourcefile_too_large' );
