@@ -136,6 +136,10 @@ class PagedTiffImage {
 		}
 
 		$result = $command->execute();
+		// Record in statsd
+		MediaWikiServices::getInstance()->getStatsdDataFactory()
+			->increment( 'pagedtiffhandler.shell.retrieve_meta_data' );
+
 		$overallExit = $result->getExitCode();
 		if ( $overallExit == 10 ) {
 			// tiffinfo failure
