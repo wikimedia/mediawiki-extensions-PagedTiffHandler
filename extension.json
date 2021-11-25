@@ -15,7 +15,7 @@
 		"MediaWiki": ">= 1.31.0"
 	},
 	"MediaHandlers": {
-		"image/tiff": "PagedTiffHandler"
+		"image/tiff": "MediaWiki\\Extension\\PagedTiffHandler\\PagedTiffHandler"
 	},
 	"MessagesDirs": {
 		"PagedTiffHandler": [
@@ -25,10 +25,8 @@
 	"ExtensionMessagesFiles": {
 		"PagedTiffHandlerMagic": "PagedTiffHandler.i18n.magic.php"
 	},
-	"AutoloadClasses": {
-		"PagedTiffImage": "includes/PagedTiffImage.php",
-		"PagedTiffInfoParserState": "includes/PagedTiffInfoParserState.php",
-		"PagedTiffHandler": "includes/PagedTiffHandler.php"
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\PagedTiffHandler\\": "includes/"
 	},
 	"TestAutoloadClasses": {
 		"PagedTiffHandlerSeleniumTestSuite": "tests/phpunit-selenium/PagedTiffHandlerTestSuite.php"

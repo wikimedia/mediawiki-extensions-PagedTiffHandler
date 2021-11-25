@@ -20,6 +20,8 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+namespace MediaWiki\Extension\PagedTiffHandler;
+
 class PagedTiffInfoParserState {
 	/** @var array All data */
 	public $metadata;

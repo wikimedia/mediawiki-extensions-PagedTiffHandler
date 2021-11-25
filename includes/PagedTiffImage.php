@@ -20,6 +20,9 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+namespace MediaWiki\Extension\PagedTiffHandler;
+
+use BitmapMetadataHandler;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -55,7 +58,7 @@ class PagedTiffImage {
 	 */
 	public function getImageSize() {
 		$data = $this->retrieveMetaData();
-		$size = $this->getPageSize( $data, 1 );
+		$size = self::getPageSize( $data, 1 );
 
 		if ( $size ) {
 			$width = $size['width'];
@@ -304,8 +307,7 @@ class PagedTiffImage {
 
 		$state->finish( !$ignore );
 
-		$data = $state->getMetadata();
-		return $data;
+		return $state->getMetadata();
 	}
 
 	/**
@@ -423,7 +425,6 @@ class PagedTiffImage {
 
 		$state->finish();
 
-		$data = $state->getMetadata();
-		return $data;
+		return $state->getMetadata();
 	}
 }

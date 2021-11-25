@@ -20,8 +20,22 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+namespace MediaWiki\Extension\PagedTiffHandler;
+
+use Exception;
+use File;
+use FormatMetadata;
+use Hooks;
+use IContextSource;
+use MediaTransformError;
+use MediaTransformOutput;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Shell\Shell;
+use Message;
+use RequestContext;
+use Status;
+use TransformationalImageHandler;
+use Wikimedia\AtEase\AtEase;
 
 class PagedTiffHandler extends TransformationalImageHandler {
 	// TIFF files over 10M are considered expensive to thumbnail
@@ -548,10 +562,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 */
 	public function getMetadata( $image, $path ) {
 		if ( !$image ) {
-			return serialize( $this->getTiffImage( $image, $path )->retrieveMetaData() );
+			return serialize( self::getTiffImage( $image, $path )->retrieveMetaData() );
 		} else {
 			if ( !isset( $image->tiffMetaArray ) ) {
-				$image->tiffMetaArray = $this->getTiffImage( $image, $path )->retrieveMetaData();
+				$image->tiffMetaArray = self::getTiffImage( $image, $path )->retrieveMetaData();
 			}
 
 			return serialize( $image->tiffMetaArray );
@@ -735,9 +749,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return false;
 		}
 
-		Wikimedia\suppressWarnings();
+		AtEase::suppressWarnings();
 		$image->tiffMetaArray = unserialize( $metadata );
-		Wikimedia\restoreWarnings();
+		AtEase::restoreWarnings();
 
 		return $image->tiffMetaArray;
 	}

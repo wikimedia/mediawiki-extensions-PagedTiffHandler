@@ -1,9 +1,10 @@
 <?php
 
+use MediaWiki\Extension\PagedTiffHandler\PagedTiffHandler;
 use Wikimedia\TestingAccessWrapper;
 
 /**
- * @covers PagedTiffHandler
+ * @covers MediaWiki\Extension\PagedTiffHandler\PagedTiffHandler
  */
 class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
@@ -395,7 +396,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		// We however don't want to actually transform it, as that is unnessary so return false.
 		$file->expects( $this->once() )
 			->method( 'getLocalRefPath' )
-			->will( $this->returnValue( false ) );
+			->willReturn( false );
 		$result = $this->handler->doTransform(
 			$file,
 			$tempFile,

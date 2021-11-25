@@ -10,6 +10,8 @@
  * - Upload multipage.tiff when PagedTiffHandler is active
  */
 
+use MediaWiki\Extension\PagedTiffHandler\PagedTiffHandler;
+
 if ( getenv( 'MW_INSTALL_PATH' ) ) {
 	$IP = getenv( 'MW_INSTALL_PATH' );
 } else {
