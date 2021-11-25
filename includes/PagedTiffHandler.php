@@ -20,6 +20,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Shell\Shell;
 
 class PagedTiffHandler extends TransformationalImageHandler {
@@ -513,12 +514,14 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		$errorParams = [];
 		if ( empty( $params['width'] ) ) {
+			$user = RequestContext::getMain()->getUser();
+			$userOptionsLookup = MediaWikiServices::getInstance()->getUserOptionsLookup();
 			// no usable width/height in the parameter array
 			// only happens if we don't have image meta-data, and no
 			// size was specified by the user.
 			// we need to pick *some* size, and the preferred
 			// thumbnail size seems sane.
-			$sz = RequestContext::getMain()->getUser()->getOption( 'thumbsize' );
+			$sz = $userOptionsLookup->getOption( $user, 'thumbsize' );
 			$errorParams['clientWidth'] = $wgThumbLimits[ $sz ];
 			// we don't have a height or aspect ratio. make it square.
 			$errorParams['clientHeight'] = $wgThumbLimits[ $sz ];
