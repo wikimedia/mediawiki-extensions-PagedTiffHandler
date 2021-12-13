@@ -3,9 +3,11 @@
 		"authors": [
 			"Centerlink",
 			"Crt",
-			"Nike"
+			"Nike",
+			"MITO"
 		]
 	},
+	"tiff-desc": "Käsittelijä TIFF-tiedostojen katsomiseen kuvatilassa",
 	"tiff_no_metadata": "Metatietojen hakeminen TIFF-tiedostosta epäonnistui",
 	"tiff_too_many_embed_files": "Kuvassa on liian monta upotettua tiedostoa.",
 	"tiff_file_too_large": "Palvelimelle kopioitu tiedosto on liian suuri ja torjuttiin.",
