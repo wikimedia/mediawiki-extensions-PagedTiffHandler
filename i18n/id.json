@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Farras",
-			"IvanLanin"
+			"IvanLanin",
+			"Daud I.F. Argana"
 		]
 	},
 	"tiff-desc": "Pengatur untuk melihat berkas TIFF dalam mode gambar",
@@ -18,5 +19,6 @@
 	"tiff_size_error": "Ukuran berkas yang dilaporkan tidak sama dengan ukuran berkas aslinya.",
 	"tiff_script_detected": "Berkas unggahan berisi skrip.",
 	"tiff_bad_file": "Berkas unggahan berisi kesalahan: $1",
+	"tiff_invalid_file": "Berkas yang diunggah bukan berkas TIFF yang sah.",
 	"tiff-file-info-size": "$1 × $2 piksel, ukuran berkas: $3, tipe MIME: $4, $5 {{PLURAL:$5|halaman|halaman}}"
 }
