@@ -51,6 +51,13 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	public const TIFF_METADATA_VERSION = '1.4';
 
 	/**
+	 * Known images cache
+	 *
+	 * @var array
+	 */
+	protected static $knownImages = [];
+
+	/**
 	 * @return bool
 	 */
 	public function isEnabled() {
@@ -95,6 +102,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			$ok = self::verifyMetaData( $meta, $error );
 
 			if ( !$ok ) {
+				self::getCachedTiffImage( $fileName )->resetMetaData();
 				call_user_func_array( [ $status, 'fatal' ], $error );
 			}
 		}
@@ -717,16 +725,28 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 */
 	private static function getTiffImage( $image, $path ) {
 		if ( !$image ) {
-			return new PagedTiffImage( $path );
+			return self::getCachedTiffImage( $path );
 		}
 
 		// If there is an Image object, we check whether there's already a TiffImage
 		// instance in there; if not, a new instance is created and stored in the Image object
 		if ( !isset( $image->tiffImage ) ) {
-			$image->tiffImage = new PagedTiffImage( $path );
+			$image->tiffImage = self::getCachedTiffImage( $path );
 		}
 
 		return $image->tiffImage;
+	}
+
+	/**
+	 * Gets a PagedTiffImage from the cache, or creates one
+	 * @param string $path path to the image
+	 * @return PagedTiffImage
+	 */
+	private static function getCachedTiffImage( $path ) {
+		if ( !array_key_exists( $path, self::$knownImages ) ) {
+			self::$knownImages[$path] = new PagedTiffImage( $path );
+		}
+		return self::$knownImages[$path];
 	}
 
 	/**
