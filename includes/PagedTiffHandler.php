@@ -25,17 +25,20 @@ namespace MediaWiki\Extension\PagedTiffHandler;
 use Exception;
 use File;
 use FormatMetadata;
-use Hooks;
 use IContextSource;
+use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MapCacheLRU;
+use MediaHandlerState;
 use MediaTransformError;
 use MediaTransformOutput;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Shell\Shell;
+use MediaWiki\Shell\CommandFactory;
+use MediaWiki\User\UserOptionsLookup;
 use Message;
 use RequestContext;
 use Status;
 use TransformationalImageHandler;
-use Wikimedia\AtEase\AtEase;
 
 class PagedTiffHandler extends TransformationalImageHandler {
 	// TIFF files over 10M are considered expensive to thumbnail
@@ -53,9 +56,36 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/**
 	 * Known images cache
 	 *
-	 * @var array
+	 * @var MapCacheLRU
 	 */
-	protected static $knownImages = [];
+	private $knownImages;
+
+	/** @var CommandFactory */
+	private $commandFactory;
+
+	/** @var HookContainer */
+	private $hookContainer;
+
+	/** @var UserOptionsLookup */
+	private $userOptionsLookup;
+
+	/** @var StatsdDataFactoryInterface */
+	private $statsdFactory;
+
+	/**
+	 * Number of images to keep in $knownImages
+	 */
+	private const CACHE_SIZE = 5;
+
+	public function __construct() {
+		$this->knownImages = new MapCacheLRU( self::CACHE_SIZE );
+
+		$services = MediaWikiServices::getInstance();
+		$this->commandFactory = $services->getShellCommandFactory();
+		$this->hookContainer = $services->getHookContainer();
+		$this->userOptionsLookup = $services->getUserOptionsLookup();
+		$this->statsdFactory = $services->getStatsdDataFactory();
+	}
 
 	/**
 	 * @return bool
@@ -94,15 +124,15 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 */
 	public function verifyUpload( $fileName ) {
 		$status = Status::newGood();
-		$meta = self::getTiffImage( false, $fileName )->retrieveMetaData();
+		$meta = $this->getTiffImage( false, $fileName )->retrieveMetaData();
 		if ( !$meta ) {
-			wfDebug( __METHOD__ . ": unable to retrieve metadata\n" );
+			wfDebug( __METHOD__ . ": unable to retrieve metadata" );
 			$status->fatal( 'tiff_out_of_service' );
 		} else {
-			$ok = self::verifyMetaData( $meta, $error );
+			$ok = $this->verifyMetaData( $meta, $error );
 
 			if ( !$ok ) {
-				self::getCachedTiffImage( $fileName )->resetMetaData();
+				$this->getCachedTiffImage( $fileName )->resetMetaData();
 				call_user_func_array( [ $status, 'fatal' ], $error );
 			}
 		}
@@ -115,36 +145,36 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param array &$error
 	 * @return bool
 	 */
-	private static function verifyMetaData( $meta, &$error ) {
+	private function verifyMetaData( $meta, &$error ) {
 		global $wgTiffMaxEmbedFiles, $wgTiffMaxMetaSize;
 
-		$errors = self::getMetadataErrors( $meta );
+		$errors = $this->getMetadataErrors( $meta );
 		if ( $errors ) {
-			$error = [ 'tiff_bad_file', self::joinMessages( $errors ) ];
+			$error = [ 'tiff_bad_file', $this->joinMessages( $errors ) ];
 
 			wfDebug( __METHOD__ . ": {$error[0]} " .
-				self::joinMessages( $errors, false ) . "\n" );
+				$this->joinMessages( $errors, false ) );
 			return false;
 		}
 
 		if ( $meta['page_count'] <= 0 || empty( $meta['page_data'] ) ) {
 			$error = [ 'tiff_page_error', $meta['page_count'] ];
-			wfDebug( __METHOD__ . ": {$error[0]}\n" );
+			wfDebug( __METHOD__ . ": {$error[0]}" );
 			return false;
 		}
 		if ( $wgTiffMaxEmbedFiles && $meta['page_count'] > $wgTiffMaxEmbedFiles ) {
 			$error = [ 'tiff_too_much_embed_files', $meta['page_count'], $wgTiffMaxEmbedFiles ];
-			wfDebug( __METHOD__ . ": {$error[0]}\n" );
+			wfDebug( __METHOD__ . ": {$error[0]}" );
 			return false;
 		}
 		$len = strlen( serialize( $meta ) );
 		if ( ( $len + 1 ) > $wgTiffMaxMetaSize ) {
 			$error = [ 'tiff_too_much_meta', $len, $wgTiffMaxMetaSize ];
-			wfDebug( __METHOD__ . ": {$error[0]}\n" );
+			wfDebug( __METHOD__ . ": {$error[0]}" );
 			return false;
 		}
 
-		wfDebug( __METHOD__ . ": metadata is ok\n" );
+		wfDebug( __METHOD__ . ": metadata is ok" );
 		return true;
 	}
 
@@ -267,7 +297,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			}
 		} else {
 			$page = $params['page'];
-			$data = $this->getMetaArray( $image );
+			$data = $image->getMetadataArray();
 
 			if ( !$this->isMetadataError( $data )
 				&& strtolower( $data['page_data'][$page]['alpha'] ?? '' ) == 'true'
@@ -283,14 +313,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	 * @param array|string|false $metadata
+	 * @param array|false $metadata
 	 * @return bool|string[] a list of errors or an error flag (true = error)
 	 */
-	private static function getMetadataErrors( $metadata ) {
-		if ( is_string( $metadata ) ) {
-			$metadata = unserialize( $metadata );
-		}
-
+	private function getMetadataErrors( $metadata ) {
 		if ( !$metadata ) {
 			return true;
 		} elseif ( !isset( $metadata['errors'] ) ) {
@@ -302,11 +328,11 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Is metadata an error condition?
-	 * @param array|string|false $metadata Metadata to test
+	 * @param array|false $metadata Metadata to test
 	 * @return bool True if metadata is an error, false if it has normal info
 	 */
 	private function isMetadataError( $metadata ) {
-		$errors = self::getMetadataErrors( $metadata );
+		$errors = $this->getMetadataErrors( $metadata );
 		if ( is_array( $errors ) ) {
 			return count( $errors ) > 0;
 		} else {
@@ -315,11 +341,11 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	 * @param array $errors_raw
+	 * @param array|string $errors_raw
 	 * @param bool $to_html
 	 * @return bool|string
 	 */
-	private static function joinMessages( $errors_raw, $to_html = true ) {
+	private function joinMessages( $errors_raw, $to_html = true ) {
 		if ( is_array( $errors_raw ) ) {
 			if ( !$errors_raw ) {
 				return false;
@@ -383,12 +409,12 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	protected function transformIM( $file, $scalerParams ) {
 		global $wgImageMagickConvertCommand, $wgMaxImageArea;
 
-		$meta = $this->getMetaArray( $file );
+		$meta = $file->getMetadataArray();
 
-		$errors = self::getMetadataErrors( $meta );
+		$errors = $this->getMetadataErrors( $meta );
 
 		if ( $errors ) {
-			$errors = self::joinMessages( $errors );
+			$errors = $this->joinMessages( $errors );
 			if ( is_string( $errors ) ) {
 				// TODO: original error as param // TESTME
 				return $this->doThumbError( $scalerParams, 'tiff_bad_file' );
@@ -397,7 +423,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			}
 		}
 
-		if ( !self::verifyMetaData( $meta, $error ) ) {
+		if ( !$this->verifyMetaData( $meta, $error ) ) {
 			return $this->doThumbError( $scalerParams, $error );
 		}
 		if ( !wfMkdirParents( dirname( $scalerParams['dstPath'] ), null, __METHOD__ ) ) {
@@ -418,22 +444,30 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return $this->doThumbError( $scalerParams, 'tiff_sourcefile_too_large' );
 		}
 
-		$cmd = Shell::escape( $wgImageMagickConvertCommand );
-		$cmd .= " " . Shell::escape( $srcPath );
-		$cmd .= " -depth 8 -resize {$width} ";
-		$cmd .= Shell::escape( $dstPath );
+		$command = $this->commandFactory->create()
+			->params(
+				$wgImageMagickConvertCommand,
+				$srcPath,
+				'-depth', '8',
+				'-resize', $width,
+				$dstPath
+			)
+			->includeStderr();
 
-		Hooks::run( 'PagedTiffHandlerRenderCommand',
-			[ &$cmd, $srcPath, $dstPath, $page, $width, $height, $scalerParams ]
-		);
+		$cmd = $command->getCommandString();
+		if ( $this->hookContainer->isRegistered( 'PagedTiffHandlerRenderCommand' ) ) {
+			$this->hookContainer->run( 'PagedTiffHandlerRenderCommand',
+				[ &$cmd, $srcPath, $dstPath, $page, $width, $height, $scalerParams ]
+			);
+			$command->unsafeCommand( $cmd );
+		}
 
-		wfDebug( __METHOD__ . ": $cmd\n" );
-		$retval = null;
-		$err = wfShellExecWithStderr( $cmd, $retval );
-
-		if ( $retval !== 0 ) {
+		$result = $command->execute();
+		$exitCode = $result->getExitCode();
+		if ( $exitCode !== 0 ) {
+			$err = $result->getStdout();
 			wfDebugLog( 'thumbnail', "thumbnail failed on " . wfHostname() .
-				"; error $retval \"$err\" from \"$cmd\"" );
+				"; error $exitCode \"$err\" from \"$cmd\"" );
 			return $this->getMediaTransformError( $scalerParams, $err );
 		} else {
 			return false; /* no error */
@@ -468,12 +502,11 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return int
 	 */
 	public function pageCount( File $image ) {
-		$data = $this->getMetaArray( $image );
+		$data = $image->getMetadataArray();
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
 		}
 
-		// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 		return intval( $data['page_count'] );
 	}
 
@@ -483,11 +516,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return int
 	 */
 	private function firstPage( $image ) {
-		$data = $this->getMetaArray( $image );
+		$data = $image->getMetadataArray();
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
 		}
-		// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 		return intval( $data['first_page'] );
 	}
 
@@ -497,11 +529,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return int
 	 */
 	private function lastPage( $image ) {
-		$data = $this->getMetaArray( $image );
+		$data = $image->getMetadataArray();
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
 		}
-		// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 		return intval( $data['last_page'] );
 	}
 
@@ -537,13 +568,12 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$errorParams = [];
 		if ( empty( $params['width'] ) ) {
 			$user = RequestContext::getMain()->getUser();
-			$userOptionsLookup = MediaWikiServices::getInstance()->getUserOptionsLookup();
 			// no usable width/height in the parameter array
 			// only happens if we don't have image meta-data, and no
 			// size was specified by the user.
 			// we need to pick *some* size, and the preferred
 			// thumbnail size seems sane.
-			$sz = $userOptionsLookup->getOption( $user, 'thumbsize' );
+			$sz = $this->userOptionsLookup->getOption( $user, 'thumbsize' );
 			$errorParams['clientWidth'] = $wgThumbLimits[ $sz ];
 			// we don't have a height or aspect ratio. make it square.
 			$errorParams['clientHeight'] = $wgThumbLimits[ $sz ];
@@ -562,84 +592,53 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	}
 
 	/**
-	 * Get handler-specific metadata which will be saved in the img_metadata field.
-	 *
-	 * @param File|bool $image the image object, or false if there isn't one
-	 * @param string $path path to the image?
-	 * @return string
+	 * @param MediaHandlerState $state
+	 * @param string $path
+	 * @return array
 	 */
-	public function getMetadata( $image, $path ) {
-		if ( !$image ) {
-			return serialize( self::getTiffImage( $image, $path )->retrieveMetaData() );
-		} else {
-			if ( !isset( $image->tiffMetaArray ) ) {
-				$image->tiffMetaArray = self::getTiffImage( $image, $path )->retrieveMetaData();
-			}
-
-			return serialize( $image->tiffMetaArray );
+	public function getSizeAndMetadata( $state, $path ) {
+		$metadata = $state->getHandlerState( 'TiffMetaArray' );
+		if ( !$metadata ) {
+			$metadata = $this->getTiffImage( $state, $path )->retrieveMetaData();
+			$state->setHandlerState( 'TiffMetaArray', $metadata );
 		}
-	}
 
-	/**
-	 * Creates detail information that is being displayed on image page.
-	 * @param File $image
-	 * @return string
-	 * @suppress PhanTypeArraySuspiciousNullable
-	 */
-	public function getLongDesc( $image ) {
-		global $wgLang, $wgRequest;
-
-		$page = $wgRequest->getInt( 'page', 1 );
-		$page = $this->adjustPage( $image, $page );
-		$metadata = $this->getMetaArray( $image );
-
-		if ( $this->isMetadataError( $metadata ) ) {
-			$params = [
-				'width' => intval( $metadata['page_data'][$page]['width'] ),
-				'height' => intval( $metadata['page_data'][$page]['height'] ),
-				'size' => $wgLang->formatSize( $image->getSize() ),
-				'mime' => $image->getMimeType(),
-				'page_count' => intval( $metadata['page_count'] )
-			];
-
-			// $1 × $2 pixels, file size: $3, MIME type: $4, $5 pages
-			return wfMessage( 'tiff-file-info-size' )
-				->numParams( $params['width'], $params['height'] )
-				->params( $params['size'], $params['mime'] )
-				->numParams( $params['page_count'] )
-				->parse();
+		$gis = getimagesize( $path );
+		if ( $gis ) {
+			[ $width, $height ] = $gis;
 		} else {
-			// If we have no metadata, we have no idea how many pages we
-			// have, so just fallback to the parent class.
-			return parent::getLongDesc( $image );
+			$width = 0;
+			$height = 0;
 		}
+
+		return [
+			'width' => $width,
+			'height' => $height,
+			'metadata' => $metadata
+		];
 	}
 
 	/**
 	 * Check if the metadata string is valid for this handler.
 	 * If it returns false, Image will reload the metadata from the file and update the database
 	 * @param File $image
-	 * @param array|string $metadata
 	 * @return bool
 	 */
-	public function isMetadataValid( $image, $metadata ) {
-		if ( is_string( $metadata ) ) {
-			$metadata = unserialize( $metadata );
-		}
-
+	public function isFileMetadataValid( $image ) {
+		$metadata = $image->getMetadataArray();
 		if ( isset( $metadata['errors'] ) ) {
 			// In the case of a broken file, we do not want to reload the
 			// metadata on every request.
-			return true;
+			return self::METADATA_GOOD;
 		}
 
 		if ( !isset( $metadata['TIFF_METADATA_VERSION'] )
 			|| $metadata['TIFF_METADATA_VERSION'] != self::TIFF_METADATA_VERSION
 		) {
-			return false;
+			return self::METADATA_BAD;
 		}
 
-		return true;
+		return self::METADATA_GOOD;
 	}
 
 	/**
@@ -685,7 +684,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$visibleFields = $this->visibleMetadataFields();
 		foreach ( $formatted as $name => $value ) {
 			$tag = strtolower( $name );
-			self::addMeta( $result,
+			$this->addMeta( $result,
 				in_array( $tag, $visibleFields ) ? 'visible' : 'collapsed',
 				'exif',
 				$tag,
@@ -693,10 +692,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			);
 		}
 		$meta = unserialize( $metadata );
-		$errors_raw = self::getMetadataErrors( $meta );
+		$errors_raw = $this->getMetadataErrors( $meta );
 		if ( $errors_raw ) {
-			$errors = self::joinMessages( $errors_raw );
-			self::addMeta( $result,
+			$errors = $this->joinMessages( $errors_raw );
+			$this->addMeta( $result,
 				'collapsed',
 				'metadata',
 				'error',
@@ -705,8 +704,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			// XXX: need translation for <metadata-error>
 		}
 		if ( !empty( $meta['warnings'] ) ) {
-			$warnings = self::joinMessages( $meta['warnings'] );
-			self::addMeta( $result,
+			$warnings = $this->joinMessages( $meta['warnings'] );
+			$this->addMeta( $result,
 				'collapsed',
 				'metadata',
 				'warning',
@@ -719,22 +718,24 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns a PagedTiffImage or creates a new one if it doesn't exist.
-	 * @param File|false $image The image object, or false if there isn't one
+	 * @param MediaHandlerState|false $state The image object, or false if there isn't one
 	 * @param string $path path to the image?
 	 * @return PagedTiffImage
 	 */
-	private static function getTiffImage( $image, $path ) {
-		if ( !$image ) {
-			return self::getCachedTiffImage( $path );
+	private function getTiffImage( $state, $path ) {
+		if ( !$state ) {
+			return $this->getCachedTiffImage( $path );
 		}
 
 		// If there is an Image object, we check whether there's already a TiffImage
 		// instance in there; if not, a new instance is created and stored in the Image object
-		if ( !isset( $image->tiffImage ) ) {
-			$image->tiffImage = self::getCachedTiffImage( $path );
+		$tiffImage = $state->getHandlerState( 'TiffImage' );
+		if ( !$tiffImage ) {
+			$tiffImage = $this->getCachedTiffImage( $path );
+			$state->setHandlerState( 'TiffImage', $tiffImage );
 		}
 
-		return $image->tiffImage;
+		return $tiffImage;
 	}
 
 	/**
@@ -742,38 +743,13 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param string $path path to the image
 	 * @return PagedTiffImage
 	 */
-	private static function getCachedTiffImage( $path ) {
-		if ( !array_key_exists( $path, self::$knownImages ) ) {
-			self::$knownImages[$path] = new PagedTiffImage( $path );
+	private function getCachedTiffImage( $path ) {
+		$image = $this->knownImages->get( $path );
+		if ( $image === null ) {
+			$image = new PagedTiffImage( $this->commandFactory, $this->statsdFactory, $path );
+			$this->knownImages->set( $path, $image );
 		}
-		return self::$knownImages[$path];
-	}
-
-	/**
-	 * Returns an Array with the Image metadata.
-	 *
-	 * @param File $image
-	 * @return bool|null|array
-	 */
-	private function getMetaArray( $image ) {
-		if ( isset( $image->tiffMetaArray ) ) {
-			return $image->tiffMetaArray;
-		}
-
-		$metadata = $image->getMetadata();
-
-		if ( !$this->isMetadataValid( $image, $metadata )
-			|| self::getMetadataErrors( $metadata )
-		) {
-			wfDebug( "Tiff metadata is invalid, missing or has errors.\n" );
-			return false;
-		}
-
-		AtEase::suppressWarnings();
-		$image->tiffMetaArray = unserialize( $metadata );
-		AtEase::restoreWarnings();
-
-		return $image->tiffMetaArray;
+		return $image;
 	}
 
 	/**
@@ -788,12 +764,12 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		// makeImageLink (Linker.php) sets $page to false if no page parameter
 		// is set in wiki code
 		$page = $this->adjustPage( $image, $page );
-		$data = $this->getMetaArray( $image );
+		$data = $image->getMetadataArray();
 		return PagedTiffImage::getPageSize( $data, $page );
 	}
 
 	public function isExpensiveToThumbnail( $file ) {
-		return $file->getSize() > static::EXPENSIVE_SIZE_LIMIT;
+		return $file->getSize() > self::EXPENSIVE_SIZE_LIMIT;
 	}
 
 	/**

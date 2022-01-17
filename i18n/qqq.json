@@ -20,6 +20,5 @@
 	"tiff_size_error": "Error message shown when the reported file size does not match the actual file size.",
 	"tiff_script_detected": "Error message shown when the uploaded file contains scripts.",
 	"tiff_bad_file": "Error message shown when the uploaded file contains errors. First parameter contains error messages.\n\nParameters:\n* $1 - list of errors",
-	"tiff_invalid_file": "Error message shown when the uploaded file is not a valid TIFF file.",
-	"tiff-file-info-size": "Information about the image dimensions etc. on image page.\n\nExtended by page information.\n\nParameters:\n* $1 - width\n* $2 - height\n* $3 - filesize\n* $4 - MIME type\n* $5 - number of pages"
+	"tiff_invalid_file": "Error message shown when the uploaded file is not a valid TIFF file."
 }

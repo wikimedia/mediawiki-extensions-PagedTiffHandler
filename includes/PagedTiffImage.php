@@ -23,7 +23,8 @@
 namespace MediaWiki\Extension\PagedTiffHandler;
 
 use BitmapMetadataHandler;
-use MediaWiki\MediaWikiServices;
+use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MediaWiki\Shell\CommandFactory;
 
 /**
  * inspired by djvuimage from Brion Vibber
@@ -33,15 +34,30 @@ use MediaWiki\MediaWikiServices;
 
 class PagedTiffImage {
 	/** @var array|null */
-	protected $metadata = null;
+	private $metadata = null;
+
 	/** @var string */
-	protected $mFilename;
+	private $filename;
+
+	/** @var CommandFactory */
+	private $commandFactory;
+
+	/** @var StatsdDataFactoryInterface */
+	private $statsdFactory;
 
 	/**
+	 * @param CommandFactory $commandFactory
+	 * @param StatsdDataFactoryInterface $statsdFactory
 	 * @param string $filename
 	 */
-	public function __construct( $filename ) {
-		$this->mFilename = $filename;
+	public function __construct(
+		CommandFactory $commandFactory,
+		StatsdDataFactoryInterface $statsdFactory,
+		$filename
+	) {
+		$this->commandFactory = $commandFactory;
+		$this->statsdFactory = $statsdFactory;
+		$this->filename = $filename;
 	}
 
 	/**
@@ -109,7 +125,7 @@ class PagedTiffImage {
 			return $this->metadata;
 		}
 
-		$command = MediaWikiServices::getInstance()->getShellCommandFactory()
+		$command = $this->commandFactory
 			->createBoxed( 'pagedtiffhandler' )
 			->disableNetwork()
 			->firejailDefaultSeccomp()
@@ -119,7 +135,7 @@ class PagedTiffImage {
 			->inputFileFromFile(
 				'scripts/retrieveMetaData.sh',
 				__DIR__ . '/../scripts/retrieveMetaData.sh' )
-			->inputFileFromFile( 'file.tiff', $this->mFilename )
+			->inputFileFromFile( 'file.tiff', $this->filename )
 			->environment( [
 				'TIFF_USETIFFINFO' => $wgTiffUseTiffinfo ? 'yes' : 'no',
 				'TIFF_TIFFINFO' => $wgTiffTiffinfoCommand,
@@ -140,18 +156,17 @@ class PagedTiffImage {
 
 		$result = $command->execute();
 		// Record in statsd
-		MediaWikiServices::getInstance()->getStatsdDataFactory()
-			->increment( 'pagedtiffhandler.shell.retrieve_meta_data' );
+		$this->statsdFactory->increment( 'pagedtiffhandler.shell.retrieve_meta_data' );
 
 		$overallExit = $result->getExitCode();
 		if ( $overallExit == 10 ) {
 			// tiffinfo failure
-			wfDebug( __METHOD__ . ": tiffinfo command failed: {$this->mFilename}" );
-			return [ 'errors' => [ "tiffinfo command failed: {$this->mFilename}" ] ];
+			wfDebug( __METHOD__ . ": tiffinfo command failed: {$this->filename}" );
+			return [ 'errors' => [ "tiffinfo command failed: {$this->filename}" ] ];
 		} elseif ( $overallExit == 11 ) {
 			// identify failure
-			wfDebug( __METHOD__ . ": identify command failed: {$this->mFilename}" );
-			return [ 'errors' => [ "identify command failed: {$this->mFilename}" ] ];
+			wfDebug( __METHOD__ . ": identify command failed: {$this->filename}" );
+			return [ 'errors' => [ "identify command failed: {$this->filename}" ] ];
 		}
 
 		if ( $wgTiffUseTiffinfo ) {
@@ -163,13 +178,13 @@ class PagedTiffImage {
 		$this->metadata['exif'] = [];
 
 		if ( !empty( $this->metadata['errors'] ) ) {
-			wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction\n" );
+			wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction" );
 		} elseif ( $wgTiffUseExiv ) {
 			$exivExit = (int)trim( $result->getFileContents( 'exiv_exit_code' ) );
 			if ( $exivExit != 0 ) {
 				// FIXME: $data is immediately overwritten?
-				$data = [ 'errors' => [ "exiv command failed: {$this->mFilename}" ] ];
-				wfDebug( __METHOD__ . ": exiv command failed: {$this->mFilename}\n" );
+				$data = [ 'errors' => [ "exiv command failed: {$this->filename}" ] ];
+				wfDebug( __METHOD__ . ": exiv command failed: {$this->filename}" );
 				// don't fail - we are missing info, just report
 			}
 
@@ -177,8 +192,8 @@ class PagedTiffImage {
 
 			$this->metadata['exif'] = $data;
 		} elseif ( $wgShowEXIF ) {
-			wfDebug( __METHOD__ . ": using internal Exif( {$this->mFilename} )\n" );
-			$this->metadata['exif'] = BitmapMetadataHandler::Tiff( $this->mFilename );
+			wfDebug( __METHOD__ . ": using internal Exif( {$this->filename} )" );
+			$this->metadata['exif'] = BitmapMetadataHandler::Tiff( $this->filename );
 		}
 
 		unset( $this->metadata['exif']['Image'] );

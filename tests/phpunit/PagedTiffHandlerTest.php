@@ -1,7 +1,6 @@
 <?php
 
 use MediaWiki\Extension\PagedTiffHandler\PagedTiffHandler;
-use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers MediaWiki\Extension\PagedTiffHandler\PagedTiffHandler
@@ -54,25 +53,9 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->setMwGlobals( 'wgTiffIntermediaryScaleStep', 2048 );
 	}
 
-	public function testMetadata() {
-		// ---- Metdata initialization
-		$this->handler->getMetadata( $this->multipage_image, $this->multipage_path );
-		$this->handler->getMetadata( $this->truncated_image, $this->truncated_path );
-
-		// ---- Metadata handling
-		$metadata = $this->handler->getMetadata( false, $this->multipage_path );
-		$this->assertTrue( strpos( $metadata, '"page_count";i:7' ) !== false );
-		$this->assertTrue( $this->handler->isMetadataValid( $this->multipage_image, $metadata ) );
-
-		$metadata = $this->handler->getMetadata( false, $this->mhz_path );
-		$this->assertTrue( strpos( $metadata, '"page_count";i:1' ) !== false );
-		$this->assertTrue( $this->handler->isMetadataValid( $this->mhz_image, $metadata ) );
-	}
-
-	public function testGetMetaArray() {
+	public function testGetMetadataArray() {
 		/** @var PagedTiffHandler $handler */
-		$handler = TestingAccessWrapper::newFromObject( $this->handler );
-		$metaArray = $handler->getMetaArray( $this->mhz_image );
+		$metaArray = $this->mhz_image->getMetadataArray();
 		if ( !empty( $metaArray['errors'] ) ) {
 			$this->fail( implode( '; ', $metaArray['error'] ) );
 		}
@@ -80,7 +63,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 		$this->assertEquals( 'true', strtolower( $metaArray['page_data'][1]['alpha'] ) );
 
-		$metaArray = $handler->getMetaArray( $this->multipage_image );
+		$metaArray = $this->multipage_image->getMetadataArray();
 		if ( !empty( $metaArray['errors'] ) ) {
 			$this->fail( implode( '; ', $metaArray['error'] ) );
 		}
@@ -225,21 +208,6 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$type = $this->handler->getThumbType( '.tiff', 'image/tiff', [ 'lossy' => 'lossless' ] );
 		$this->assertEquals( 'png', $type[0] );
 		$this->assertEquals( 'image/png', $type[1] );
-	}
-
-	public function testGetLongDesc() {
-		// English
-		$this->assertEquals(
-			wfMessage(
-				'tiff-file-info-size',
-				'1,024',
-				'768',
-				'2.64 MB',
-				'<span class="mime-type">image/tiff</span>',
-				'7'
-			)->text(),
-			$this->handler->getLongDesc( $this->multipage_image )
-		);
 	}
 
 	public function testPageCount() {
@@ -414,7 +382,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	 */
 	private function getMockTiffFile( $name, $dim ) {
 		$file = $this->getMockBuilder( UnregisteredLocalFile::class )
-			->onlyMethods( [ 'getWidth', 'getHeight', 'getMetadata', 'getLocalRefPath' ] )
+			->onlyMethods( [ 'getWidth', 'getHeight', 'getMetadataArray', 'getLocalRefPath' ] )
 			->setConstructorArgs( [
 				false,
 				$this->repo,
@@ -424,9 +392,81 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 			->getMock();
 		$file->expects( $this->any() )->method( 'getWidth' )->will( $this->returnValue( $dim[0] ) );
 		$file->expects( $this->any() )->method( 'getHeight' )->will( $this->returnValue( $dim[1] ) );
-		// phpcs:ignore Generic.Files.LineLength
-		$metadata = 'a:6:{s:9:"page_data";a:7:{i:1;a:5:{s:5:"width";i:1024;s:6:"height";i:768;s:4:"page";i:1;s:5:"alpha";s:5:"false";s:6:"pixels";i:786432;}i:2;a:5:{s:5:"width";i:640;s:6:"height";i:564;s:5:"alpha";s:4:"true";s:4:"page";i:2;s:6:"pixels";i:360960;}i:3;a:5:{s:5:"width";i:1024;s:6:"height";i:563;s:4:"page";i:3;s:5:"alpha";s:5:"false";s:6:"pixels";i:576512;}i:4;a:5:{s:5:"width";i:1024;s:6:"height";i:768;s:4:"page";i:4;s:5:"alpha";s:5:"false";s:6:"pixels";i:786432;}i:5;a:5:{s:5:"width";i:1024;s:6:"height";i:768;s:4:"page";i:5;s:5:"alpha";s:5:"false";s:6:"pixels";i:786432;}i:6;a:5:{s:5:"width";i:1024;s:6:"height";i:768;s:4:"page";i:6;s:5:"alpha";s:5:"false";s:6:"pixels";i:786432;}i:7;a:5:{s:5:"width";i:768;s:6:"height";i:1024;s:4:"page";i:7;s:5:"alpha";s:5:"false";s:6:"pixels";i:786432;}}s:10:"page_count";i:7;s:10:"first_page";i:1;s:9:"last_page";i:7;s:4:"exif";a:15:{s:10:"ImageWidth";i:1024;s:11:"ImageLength";i:768;s:13:"BitsPerSample";a:3:{i:0;i:8;i:1;i:8;i:2;i:8;}s:11:"Compression";i:7;s:25:"PhotometricInterpretation";i:2;s:11:"Orientation";i:1;s:15:"SamplesPerPixel";i:3;s:12:"RowsPerStrip";i:16;s:11:"XResolution";s:19:"1207959552/16777216";s:11:"YResolution";s:19:"1207959552/16777216";s:19:"PlanarConfiguration";i:1;s:14:"ResolutionUnit";i:2;s:8:"Software";s:68:"ImageMagick 6.5.0-0 2009-03-09 Q16 OpenMP http://www.imagemagick.org";s:16:"YCbCrSubSampling";a:2:{i:0;i:1;i:1;i:1;}s:22:"MEDIAWIKI_EXIF_VERSION";i:2;}s:21:"TIFF_METADATA_VERSION";s:3:"1.4";}';
-		$file->expects( $this->any() )->method( 'getMetadata' )->will( $this->returnValue( $metadata ) );
+		$metadata = [
+			'page_data' => [
+				1 => [
+					'width' => 1024,
+					'height' => 768,
+					'page' => 1,
+					'alpha' => 'false',
+					'pixels' => 786432,
+				],
+				2 => [
+					'width' => 640,
+					'height' => 564,
+					'alpha' => 'true',
+					'page' => 2,
+					'pixels' => 360960,
+				],
+				3 => [
+					'width' => 1024,
+					'height' => 563,
+					'page' => 3,
+					'alpha' => 'false',
+					'pixels' => 576512,
+				],
+				4 => [
+					'width' => 1024,
+					'height' => 768,
+					'page' => 4,
+					'alpha' => 'false',
+					'pixels' => 786432,
+				],
+				5 => [
+					'width' => 1024,
+					'height' => 768,
+					'page' => 5,
+					'alpha' => 'false',
+					'pixels' => 786432,
+				],
+				6 => [
+					'width' => 1024,
+					'height' => 768,
+					'page' => 6,
+					'alpha' => 'false',
+					'pixels' => 786432,
+				],
+				7 => [
+					'width' => 768,
+					'height' => 1024,
+					'page' => 7,
+					'alpha' => 'false',
+					'pixels' => 786432,
+				],
+			],
+			'page_count' => 7,
+			'first_page' => 1,
+			'last_page' => 7,
+			'exif' => [
+				'ImageWidth' => 1024,
+				'ImageLength' => 768,
+				'BitsPerSample' => [ 8, 8, 8 ],
+				'Compression' => 7,
+				'PhotometricInterpretation' => 2,
+				'Orientation' => 1,
+				'SamplesPerPixel' => 3,
+				'RowsPerStrip' => 16,
+				'XResolution' => '1207959552/16777216',
+				'YResolution' => '1207959552/16777216',
+				'PlanarConfiguration' => 1,
+				'ResolutionUnit' => 2,
+				'Software' => 'ImageMagick 6.5.0-0 2009-03-09 Q16 OpenMP http://www.imagemagick.org',
+				'YCbCrSubSampling' => [ 1, 1 ],
+				'MEDIAWIKI_EXIF_VERSION' => 2,
+			],
+			'TIFF_METADATA_VERSION' => '1.4',
+		];
+		$file->expects( $this->any() )->method( 'getMetadataArray' )->will( $this->returnValue( $metadata ) );
 		return $file;
 	}
 }
