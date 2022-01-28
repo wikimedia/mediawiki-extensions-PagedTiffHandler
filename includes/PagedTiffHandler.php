@@ -454,20 +454,15 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			)
 			->includeStderr();
 
-		$cmd = $command->getCommandString();
-		if ( $this->hookContainer->isRegistered( 'PagedTiffHandlerRenderCommand' ) ) {
-			$this->hookContainer->run( 'PagedTiffHandlerRenderCommand',
-				[ &$cmd, $srcPath, $dstPath, $page, $width, $height, $scalerParams ]
-			);
-			$command->unsafeCommand( $cmd );
-		}
-
 		$result = $command->execute();
 		$exitCode = $result->getExitCode();
 		if ( $exitCode !== 0 ) {
 			$err = $result->getStdout();
-			wfDebugLog( 'thumbnail', "thumbnail failed on " . wfHostname() .
-				"; error $exitCode \"$err\" from \"$cmd\"" );
+			$cmd = $command->getCommandString();
+			wfDebugLog(
+				'thumbnail',
+				"thumbnail failed on " . wfHostname() . "; error $exitCode \"$err\" from \"$cmd\""
+			);
 			return $this->getMediaTransformError( $scalerParams, $err );
 		} else {
 			return false; /* no error */
