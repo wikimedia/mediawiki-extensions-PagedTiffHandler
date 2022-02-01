@@ -17,6 +17,5 @@
 	"tiff_size_error": "Bildirilen dosya boyutu gerçek dosya boyutuyla eşleşmiyor.",
 	"tiff_script_detected": "Yüklenen dosya betikleri içeriyor.",
 	"tiff_bad_file": "Yüklenen dosya hata içeriyor: $1",
-	"tiff_invalid_file": "Yüklenen dosya geçerli bir TIFF dosyası değil.",
-	"tiff-file-info-size": "$1 × $2 pikseller, dosya boyutu: $3, MIME türü: $4, $5 {{PLURAL:$5|sayfa|sayfa}}"
+	"tiff_invalid_file": "Yüklenen dosya geçerli bir TIFF dosyası değil."
 }

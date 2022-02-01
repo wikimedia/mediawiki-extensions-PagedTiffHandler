@@ -16,6 +16,5 @@
 	"tiff_error_cached": "Maaari lamang muling ibigay ang talaksan pagkatapos ng tagal ng agwat ng pagkukubli.",
 	"tiff_size_error": "Hindi tumutugma ang inulat na sukat ng talaksan sa talagang sukat ng talaksan.",
 	"tiff_script_detected": "Naglalaman ng mga baybayin ang ikinargang talaksan.",
-	"tiff_bad_file": "Naglalaman ng mga kamalian ang ikinargang talaksan: $1",
-	"tiff-file-info-size": "$1 × $2 mga piksel, sukat ng talaksan: $3, uri ng MIME: $4, $5 {{PLURAL:$5|pahina|mga pahina}}"
+	"tiff_bad_file": "Naglalaman ng mga kamalian ang ikinargang talaksan: $1"
 }

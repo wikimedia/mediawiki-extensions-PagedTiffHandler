@@ -15,6 +15,5 @@
 	"tiff_error_cached": "Hierdie lêer kan slegs na die die kas-interval gerendeer word.",
 	"tiff_size_error": "Die gerapporteerde lêergrootte stem nie met die lêer se werklike grootte ooreen nie.",
 	"tiff_script_detected": "Die opgelaaide lêer bevat skrips.",
-	"tiff_bad_file": "Die opgelaaide lêer bevat foute: $1",
-	"tiff-file-info-size": "bladsy $5, $1 × $2 spikkels, lêergrootte: $3, MIME-tipe: $4"
+	"tiff_bad_file": "Die opgelaaide lêer bevat foute: $1"
 }

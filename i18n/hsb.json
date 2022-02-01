@@ -17,6 +17,5 @@
 	"tiff_size_error": "Zdźělena wulkosć dataje njewotpowěduje woprawdźitej wulkosći dataje.",
 	"tiff_script_detected": "Nahrata dataja wobsahuje skripty.",
 	"tiff_bad_file": "Nahrata dataja wobsahuje zmylki: $1",
-	"tiff_invalid_file": "Nahrata dataja płaćiwa TIFF-dataja njeje.",
-	"tiff-file-info-size": "$1 × $2 pikselow, wulkosć dataje: $3, MIME-typ: $4, $5 {{PLURAL:$5|strona|stronje|strony|stronow}}"
+	"tiff_invalid_file": "Nahrata dataja płaćiwa TIFF-dataja njeje."
 }

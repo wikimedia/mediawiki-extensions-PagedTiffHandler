@@ -20,6 +20,5 @@
 	"tiff_size_error": "보고된 파일 크기는 실제 파일 크기와 일치하지 않습니다.",
 	"tiff_script_detected": "올린 파일에 스크립트가 포함되어 있습니다.",
 	"tiff_bad_file": "올린 파일에 오류가 포함되어 있습니다: $1",
-	"tiff_invalid_file": "업로드한 파일은 올바른 TIFF 형식이 아닙니다.",
-	"tiff-file-info-size": "$1 × $2 픽셀, 파일 크기: $3, MIME 종류: $4, $5{{PLURAL:$5|페이지}}"
+	"tiff_invalid_file": "업로드한 파일은 올바른 TIFF 형식이 아닙니다."
 }

@@ -18,6 +18,5 @@
 	"tiff_size_error": "报告的文件大小与实际文件大小不匹配。",
 	"tiff_script_detected": "上传的文件包含脚本。",
 	"tiff_bad_file": "上传的档案有错误：$1",
-	"tiff_invalid_file": "上传的文件不是有效的TIFF",
-	"tiff-file-info-size": "$1 × $2 像素，文件大小: $3，MIME类型: $4, $5 个页面"
+	"tiff_invalid_file": "上传的文件不是有效的TIFF"
 }

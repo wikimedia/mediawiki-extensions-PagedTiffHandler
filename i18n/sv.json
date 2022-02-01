@@ -19,6 +19,5 @@
 	"tiff_size_error": "Den rapporterade filstorleken överensstämmer inte med den faktiska filstorleken.",
 	"tiff_script_detected": "Den uppladdade filen innehåller skript.",
 	"tiff_bad_file": "Den uppladdade filen innehåller fel: $1",
-	"tiff_invalid_file": "Den uppladdade filen är inte en giltig TIFF-fil.",
-	"tiff-file-info-size": "$1 × $2 pixlar, filstorlek: $3, MIME-typ: $4, $5 {{PLURAL:$5|sida|sidor}}"
+	"tiff_invalid_file": "Den uppladdade filen är inte en giltig TIFF-fil."
 }

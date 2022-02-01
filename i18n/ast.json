@@ -17,6 +17,5 @@
 	"tiff_size_error": "El tamañu del ficheru espublizáu nun casa col tamañu real del ficheru.",
 	"tiff_script_detected": "El ficheru cargáu contien scripts.",
 	"tiff_bad_file": "El ficheru cargáu contien errores: $1",
-	"tiff_invalid_file": "El ficheru xubíu nun ye un TIFF válidu",
-	"tiff-file-info-size": "$1 × $2 pixels, tamañu del ficheru: $3, tipu MIME: $4, $5 {{PLURAL:$5|páxina|páxines}}"
+	"tiff_invalid_file": "El ficheru xubíu nun ye un TIFF válidu"
 }

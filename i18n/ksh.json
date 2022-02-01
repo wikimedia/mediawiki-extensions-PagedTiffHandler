@@ -17,6 +17,5 @@
 	"tiff_size_error": "Der aanjejovve Ömfang vun dä Dattei es nit der verhaftijje Ömfang.",
 	"tiff_script_detected": "En dä huhjelaade Dattei sen Skrepte dren.",
 	"tiff_bad_file": "De huhjelaade Dattei hät Fähler: $1",
-	"tiff_invalid_file": "De huhjelahde Dahte sin kein jöltejje Dattei em <i lang=\"en\" xml:lang=\"en\" title=\"Tagged Image File Format\">TIFF</i>-Fommaht.",
-	"tiff-file-info-size": "$1&nbsp;×&nbsp;$2&nbsp;Pixelle, Ömfang:&nbsp;$3, de&nbsp;<i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Multi-Purpose Internet Mail Extensions\">MIME</i>-Zoot&nbsp;es: $4, {{PLURAL:$5|ein&nbsp;Sigg|$5&nbsp; Sigge|kein&nbsp;Sigg}}"
+	"tiff_invalid_file": "De huhjelahde Dahte sin kein jöltejje Dattei em <i lang=\"en\" xml:lang=\"en\" title=\"Tagged Image File Format\">TIFF</i>-Fommaht."
 }

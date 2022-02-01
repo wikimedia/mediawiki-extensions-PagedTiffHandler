@@ -17,6 +17,5 @@
 	"tiff_size_error": "Le grandor reportate del file non corresponde al grandor real del file.",
 	"tiff_script_detected": "Le file incargate contine scripts.",
 	"tiff_bad_file": "Le file incargate contine errores: $1",
-	"tiff_invalid_file": "Le file incargate non es un file TIFF valide.",
-	"tiff-file-info-size": "$1 × $2 pixels, dimension del file: $3, typo MIME: $4, $5 {{PLURAL:$5|pagina|paginas}}"
+	"tiff_invalid_file": "Le file incargate non es un file TIFF valide."
 }

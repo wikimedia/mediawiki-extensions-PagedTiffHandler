@@ -17,6 +17,5 @@
 	"tiff_size_error": "Hlášená velikost souboru nesouhlasí se skutečnou velikostí.",
 	"tiff_script_detected": "Načtený soubor obsahuje skripty.",
 	"tiff_bad_file": "Načtený soubor obsahuje chyby: $1",
-	"tiff_invalid_file": "Načtený soubor není platný TIFF",
-	"tiff-file-info-size": "$1 × $2 pixelů, velikost souboru: $3, MIME typ: $4, $5 {{PLURAL:$5|stránka|stránky|stránek}}"
+	"tiff_invalid_file": "Načtený soubor není platný TIFF"
 }

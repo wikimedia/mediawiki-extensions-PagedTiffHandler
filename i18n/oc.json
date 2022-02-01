@@ -16,6 +16,5 @@
 	"tiff_error_cached": "Aqueste fichièr pòt pas èsser regenerat qu'aprèp l'expiracion de l'escondedor.",
 	"tiff_size_error": "La talha de fichièr indicada correspond pas a la talha reala del fichièr.",
 	"tiff_script_detected": "Lo fichièr telecargat conten d'escripts.",
-	"tiff_bad_file": "Lo fichièr importat conten d'errors : $1",
-	"tiff-file-info-size": "$1 × $2 pixèls, talha del fichièr: $3, tipe MIME: $4, $5 {{PLURAL:$5|pagina|paginas}}"
+	"tiff_bad_file": "Lo fichièr importat conten d'errors : $1"
 }
