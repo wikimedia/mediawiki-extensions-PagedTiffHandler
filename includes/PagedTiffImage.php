@@ -289,7 +289,7 @@ class PagedTiffImage {
 				list( , $key, $value ) = $m;
 
 				if ( $key == 'Page Number' && preg_match( '/(\d+)-(\d+)/', $value, $m ) ) {
-					$state->setPageProperty( 'page', (int)$m[1] + 1 );
+					$state->setPageProperty( 'page', (string)( (int)$m[1] + 1 ) );
 				} elseif ( $key == 'Samples/Pixel' ) {
 					if ( $value == '4' ) {
 						$state->setPageProperty( 'alpha', 'true' );
@@ -299,9 +299,9 @@ class PagedTiffImage {
 						$state->setPageProperty( 'alpha', 'true' );
 					}
 				} elseif ( $key == 'Image Width' || $key == 'PixelXDimension' ) {
-					$state->setPageProperty( 'width', (int)$value );
+					$state->setPageProperty( 'width', (string)( (int)$value ) );
 				} elseif ( $key == 'Image Length' || $key == 'PixelYDimension' ) {
-					$state->setPageProperty( 'height', (int)$value );
+					$state->setPageProperty( 'height', (string)( (int)$value ) );
 				} elseif ( preg_match( '/.*IFDOffset/', $key ) ) {
 					# ignore extra IFDs,
 					# see <http://www.awaresystems.be/imaging/tiff/tifftags/exififd.html>
@@ -401,7 +401,7 @@ class PagedTiffImage {
 						$value = intval( $value ) + $pageOffset;
 					}
 				}
-				$state->setPageProperty( $key, $value );
+				$state->setPageProperty( $key, (string)$value );
 			}
 			$state->finishPage();
 		}
