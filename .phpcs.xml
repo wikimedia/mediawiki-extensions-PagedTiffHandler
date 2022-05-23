@@ -4,7 +4,9 @@
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPublic" />
+		<exclude name="MediaWiki.PHPUnit.SetMethods.SetMethods" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
+		<exclude name="PSR12.Functions.ReturnTypeDeclaration.SpaceBeforeColon" />
 		<exclude name="PSR2.Classes.PropertyDeclaration.Multiple" />
 	</rule>
 	<rule ref="Generic.Files.OneObjectStructurePerFile.MultipleFound">
