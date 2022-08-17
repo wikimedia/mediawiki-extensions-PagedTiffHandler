@@ -8,7 +8,7 @@
 	"tiff-desc": "טיפול בהצגת קובצי TIFF במצב תמונה",
 	"tiff_no_metadata": "לא ניתן לקבל מטא־נתונים מ־TIFF",
 	"tiff_page_error": "מספר הדף אינו בטווח",
-	"tiff_too_many_embed_files": "יש יותר מדי קבצים בתמונה",
+	"tiff_too_many_embed_files": "יש יותר מדי קבצים מוטבעים בתמונה.",
 	"tiff_sourcefile_too_large": "הרזולוציה של קובץ המקור גדולה מדי.\nלא תיווצר תמונה ממוזערת.",
 	"tiff_targetfile_too_large": "הרזולוציה של קובץ היעד גדולה מדי.\nלא תיווצר תמונה ממוזערת.",
 	"tiff_file_too_large": "הקובץ שהועלה היה גדול מדי ונדחה.",
