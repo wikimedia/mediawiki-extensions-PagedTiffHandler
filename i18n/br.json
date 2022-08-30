@@ -3,7 +3,8 @@
 		"authors": [
 			"Fohanno",
 			"Fulup",
-			"Y-M D"
+			"Y-M D",
+			"Huñvreüs"
 		]
 	},
 	"tiff-desc": "Maveg evit gwelet ar restroù TIFF e mod skeudenn",
@@ -18,6 +19,6 @@
 	"tiff_error_cached": "N'hall ar restr-mañ bezañ adderaouekaet nemet goude termen ar grubuilh.",
 	"tiff_size_error": "Ne glot ket ment ar restr meneget gant ment gwir ar restr.",
 	"tiff_script_detected": "Skriptoù zo er restr karget.",
-	"tiff_bad_file": "Fazioù zo er restr enporzhiet : $1",
+	"tiff_bad_file": "Fazioù zo er restr pellgaset : $1",
 	"tiff-file-info-size": "$1 × $2 piksel, ment ar restr : $3, seurt MIME : $4, $5 {{PLURAL:$5|pajenn|pajenn}}"
 }
