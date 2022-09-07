@@ -7,14 +7,15 @@
 			"Jagwar",
 			"Jean-Frédéric",
 			"Peter17",
-			"Urhixidur"
+			"Urhixidur",
+			"Verdy p"
 		]
 	},
 	"tiff-desc": "Gestionnaire pour visionner les fichiers TIFF en mode image",
 	"tiff_no_metadata": "Impossible d'obtenir les métadonnées depuis TIFF",
 	"tiff_page_error": "Le numéro de page n’est pas dans la plage.",
 	"tiff_too_many_embed_files": "L'image contient trop de fichiers embarqués.",
-	"tiff_sourcefile_too_large": "La résolution du fichier source est trop élevée. Aucune miniature ne sera générée.",
+	"tiff_sourcefile_too_large": "La résolution du fichier source est trop élevée.\nAucune vignette ne sera générée.",
 	"tiff_targetfile_too_large": "La résolution de l’image cible est trop importante. Aucun aperçu ne sera généré.",
 	"tiff_file_too_large": "Le fichier téléversé est trop grand et a été rejeté.",
 	"tiff_out_of_service": "Le fichier téléversé n'a pas pu être traité. ImageMagick n'est pas disponible.",
