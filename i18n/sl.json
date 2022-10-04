@@ -5,5 +5,6 @@
 			"Eleassar"
 		]
 	},
+	"tiff-desc": "Orodje za pregledovanje datotek TIFF v slikovnem načinu",
 	"tiff-file-info-size": "$1 × $2 pikslov, velikost datoteke: $3, vrsta MIME: $4, $5 {{PLURAL:$5|stran|strani}}"
 }
