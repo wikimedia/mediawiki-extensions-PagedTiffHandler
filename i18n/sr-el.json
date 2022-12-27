@@ -5,15 +5,15 @@
 			"Zoranzoki21"
 		]
 	},
-	"tiff-desc": "Rukovodilac za prikazivanje TIFF datoteka u režimu za slike",
-	"tiff_no_metadata": "Ne mogu se preuzeti metapodaci iz TIFF-a",
-	"tiff_page_error": "Broj strane nije u opsegu",
-	"tiff_too_many_embed_files": "Slika sadrži previše umetnutih fajlova.",
-	"tiff_file_too_large": "Poslati fajl je prevelik i odbačen je.",
-	"tiff_out_of_service": "Poslati fajl nije mogao biti obraćen. ImageMagick nije dostupan.",
+	"tiff-desc": "Rukovalac za prikaz TIFF datoteka u režimu za slike",
+	"tiff_no_metadata": "Ne mogu da preuzmem metapodatke iz TIFF-a",
+	"tiff_page_error": "Broj stranica van opsega",
+	"tiff_too_many_embed_files": "Slika sadrži previše ugrađenih datoteka.",
+	"tiff_file_too_large": "Poslata datoteka je prevelika i zato je odbačena.",
+	"tiff_out_of_service": "Poslata datoteka se ne može obraditi.\nImidžmedžik nije dostupan.",
 	"tiff_too_much_meta": "Metapodaci koriste previše prostora.",
-	"tiff_error_cached": "Ovaj fajl može biti renderovan samo nakon keširanja.",
-	"tiff_size_error": "Prijavljena veličina fajla ne odgovara njegovoj stvarnoj veličini.",
-	"tiff_script_detected": "Poslati fajl sadrži skripte.",
+	"tiff_error_cached": "Ova datoteka se može renderovati samo nakon perioda keširanja.",
+	"tiff_size_error": "Prijavljena veličina datoteke ne odgovara njenoj stvarnoj veličini.",
+	"tiff_script_detected": "Poslata datoteka sadrži skriptove.",
 	"tiff_bad_file": "Poslata datoteka sadrži greške: $1"
 }
