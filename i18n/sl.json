@@ -5,6 +5,19 @@
 			"Eleassar"
 		]
 	},
-	"tiff-desc": "Orodje za pregledovanje datotek TIFF v slikovnem načinu",
+	"tiff-desc": "Obravnavalnik za pregledovanje datotek TIFF v slikovnem načinu",
+	"tiff_no_metadata": "Metapodatkov ni mogoče pridobiti iz TIFF-a",
+	"tiff_page_error": "Ta številka strani ni v razponu dokumenta",
+	"tiff_too_many_embed_files": "Slika vsebuje preveč vdelanih datotek.",
+	"tiff_sourcefile_too_large": "Ločljivost izvorne datoteke je prevelika.\nSličica ne bo ustvarjena.",
+	"tiff_targetfile_too_large": "Ločljivost ciljne datoteke je prevelika.\nSličica ne bo ustvarjena.",
+	"tiff_file_too_large": "Naložena datoteka je prevelika in je bila zavrnjena.",
+	"tiff_out_of_service": "Naložene datoteke ni bilo mogoče obdelati.\nImageMagick ni na voljo.",
+	"tiff_too_much_meta": "Metapodatki zavzemajo preveč prostora.",
+	"tiff_error_cached": "To datoteko je mogoče znova upodobiti šele po intervalu predpomnjenja.",
+	"tiff_size_error": "Sporočena velikost datoteke se ne ujema z dejansko velikostjo datoteke.",
+	"tiff_script_detected": "Naložena datoteka vsebuje skripte.",
+	"tiff_bad_file": "Naložena datoteka vsebuje napake: $1",
+	"tiff_invalid_file": "Naložena datoteka ni veljavna datoteka TIFF.",
 	"tiff-file-info-size": "$1 × $2 pikslov, velikost datoteke: $3, vrsta MIME: $4, $5 {{PLURAL:$5|stran|strani}}"
 }
