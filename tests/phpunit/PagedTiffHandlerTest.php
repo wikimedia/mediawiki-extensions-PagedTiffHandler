@@ -251,8 +251,8 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 			$this->handler->getPageDimensions( $this->multipage_image, 6 ),
 			"multipage, page 6" );
 		$this->assertEquals(
-			$this->handler->getPageDimensions( $this->multipage_image, 7 ),
 			[ 'width' => 768, 'height' => 1024 ],
+			$this->handler->getPageDimensions( $this->multipage_image, 7 ),
 			"multipage, page 7"
 		);
 
