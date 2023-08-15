@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nokeoo"
+		]
+	},
+	"tiff_no_metadata": "Nepavyko gauti metaduomenų iš TIFF",
+	"tiff_page_error": "Puslapio numeris nėra diapazone",
+	"tiff_sourcefile_too_large": "Šaltinio failo rezoliucija per didelė.\nMiniatiūra nebus sugeneruota.",
+	"tiff_targetfile_too_large": "Tikslo failo rezoliucija per didelė.\nMiniatiūra nebus sugeneruota.",
+	"tiff_file_too_large": "Įkeltas failas per didelis ir buvo atmestas.",
+	"tiff_out_of_service": "Nepavyko apdoroti įkelto failo.\nImageMagick nepasiekiamas.",
+	"tiff_too_much_meta": "Metaduomenys užima per daug vietos.",
+	"tiff_size_error": "Deklaruotas failo dydis neatitinka realaus failo dydžio.",
+	"tiff_bad_file": "Įkeltame faile yra klaidų: $1",
+	"tiff_invalid_file": "Įkeltas failas nėra tinkamas TIFF failas."
+}
