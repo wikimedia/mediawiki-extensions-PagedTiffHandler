@@ -1,13 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"tiff-desc": "Xestor pa ver los ficheros TIFF en mou d'imaxe",
 	"tiff_no_metadata": "Nun se pudieron sacar los metadatos del TIFF",
 	"tiff_page_error": "El númberu de la páxina nun ta nel rangu",
-	"tiff_too_many_embed_files": "La imaxe contien demasiaos ficheros incrustaos.",
+	"tiff_too_many_embed_files": "La imaxe contién demasiaos ficheros incrustaos.",
 	"tiff_sourcefile_too_large": "La resolución del ficheru orixinal ye enforma grande. Nun se xenerarán miniatures.",
 	"tiff_targetfile_too_large": "La resolución del ficheru destín ye enforma grande. Nun se xenerarán miniatures.",
 	"tiff_file_too_large": "El ficheru cargáu ye mui grande y refugóse.",
@@ -15,7 +16,7 @@
 	"tiff_too_much_meta": "Los metadatos usan demasiáu espaciu.",
 	"tiff_error_cached": "Esti ficheru sólo pue volver a renderizase dempués del intervalu de la caché.",
 	"tiff_size_error": "El tamañu del ficheru espublizáu nun casa col tamañu real del ficheru.",
-	"tiff_script_detected": "El ficheru cargáu contien scripts.",
-	"tiff_bad_file": "El ficheru cargáu contien errores: $1",
+	"tiff_script_detected": "El ficheru cargáu contién scripts.",
+	"tiff_bad_file": "El ficheru cargáu contién errores: $1",
 	"tiff_invalid_file": "El ficheru xubíu nun ye un TIFF válidu"
 }
