@@ -34,7 +34,7 @@ use MediaTransformOutput;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Shell\CommandFactory;
-use MediaWiki\User\UserOptionsLookup;
+use MediaWiki\User\Options\UserOptionsLookup;
 use Message;
 use RequestContext;
 use Status;
