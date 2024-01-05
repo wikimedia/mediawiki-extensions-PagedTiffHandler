@@ -34,10 +34,10 @@ use MediaTransformOutput;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Shell\CommandFactory;
+use MediaWiki\Status\Status;
 use MediaWiki\User\Options\UserOptionsLookup;
 use Message;
 use RequestContext;
-use Status;
 use TransformationalImageHandler;
 
 class PagedTiffHandler extends TransformationalImageHandler {
