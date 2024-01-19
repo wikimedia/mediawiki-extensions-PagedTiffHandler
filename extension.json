@@ -91,9 +91,6 @@
 		},
 		"TiffIntermediaryScaleStep": {
 			"value": 2048
-		},
-		"TiffShell": {
-			"value": "/bin/sh"
 		}
 	},
 	"manifest_version": 2
