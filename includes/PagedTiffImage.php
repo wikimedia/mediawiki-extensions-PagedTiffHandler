@@ -119,7 +119,7 @@ class PagedTiffImage {
 	public function retrieveMetaData() {
 		global $wgImageMagickIdentifyCommand, $wgExiv2Command, $wgTiffUseExiv;
 		global $wgTiffUseTiffinfo, $wgTiffTiffinfoCommand;
-		global $wgShowEXIF, $wgTiffShell;
+		global $wgShowEXIF, $wgShellboxShell;
 
 		if ( $this->metadata !== null ) {
 			return $this->metadata;
@@ -131,7 +131,7 @@ class PagedTiffImage {
 			->firejailDefaultSeccomp()
 			->routeName( 'pagedtiffhandler-metadata' );
 		$command
-			->params( $wgTiffShell, 'scripts/retrieveMetaData.sh' )
+			->params( $wgShellboxShell, 'scripts/retrieveMetaData.sh' )
 			->inputFileFromFile(
 				'scripts/retrieveMetaData.sh',
 				__DIR__ . '/../scripts/retrieveMetaData.sh' )
