@@ -22,11 +22,11 @@
 
 namespace MediaWiki\Extension\PagedTiffHandler;
 
-use Exception;
 use File;
 use FormatMetadata;
 use IContextSource;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use LogicException;
 use MapCacheLRU;
 use MediaHandlerState;
 use MediaTransformError;
@@ -38,6 +38,7 @@ use MediaWiki\Status\Status;
 use MediaWiki\User\Options\UserOptionsLookup;
 use Message;
 use RequestContext;
+use RuntimeException;
 use TransformationalImageHandler;
 
 class PagedTiffHandler extends TransformationalImageHandler {
@@ -391,7 +392,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	protected function getScalerType( $dstPath, $checkDstPath = true ) {
 		if ( !$dstPath && $checkDstPath ) {
 			// We don't have the option of doing client side scaling for this filetype.
-			throw new Exception( "Cannot create thumbnail, no destination path" );
+			throw new RuntimeException( "Cannot create thumbnail, no destination path" );
 		}
 
 		return [ $this, 'transformIM' ];
@@ -855,7 +856,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		if ( $isInThisFunction ) {
 			// Sanity check, should never be reached
-			throw new Exception( "Loop detected in " . __METHOD__ );
+			throw new LogicException( "Loop detected in " . __METHOD__ );
 		}
 		$isInThisFunction = true;
 
