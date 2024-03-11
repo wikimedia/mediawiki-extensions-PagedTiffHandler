@@ -286,7 +286,7 @@ class PagedTiffImage {
 			} elseif ( preg_match( '/^\s*(.*?)\s*:\s*(.*?)\s*$/', $row, $m ) ) {
 				# handle key/value pair
 
-				list( , $key, $value ) = $m;
+				[ , $key, $value ] = $m;
 
 				if ( $key == 'Page Number' && preg_match( '/(\d+)-(\d+)/', $value, $m ) ) {
 					$state->setPageProperty( 'page', (string)( (int)$m[1] + 1 ) );
@@ -374,7 +374,7 @@ class PagedTiffImage {
 				if ( trim( $line ) == '' ) {
 					continue;
 				}
-				list( $key, $value ) = explode( '=', $line );
+				[ $key, $value ] = explode( '=', $line );
 				$key = trim( $key );
 				$value = trim( $value );
 				if ( $key === 'alpha' && $value === '%A' ) {

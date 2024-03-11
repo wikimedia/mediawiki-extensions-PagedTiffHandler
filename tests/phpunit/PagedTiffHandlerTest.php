@@ -390,8 +390,8 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 				'image/tiff'
 			] )
 			->getMock();
-		$file->expects( $this->any() )->method( 'getWidth' )->will( $this->returnValue( $dim[0] ) );
-		$file->expects( $this->any() )->method( 'getHeight' )->will( $this->returnValue( $dim[1] ) );
+		$file->expects( $this->any() )->method( 'getWidth' )->willReturn( $dim[0] );
+		$file->expects( $this->any() )->method( 'getHeight' )->willReturn( $dim[1] );
 		$metadata = [
 			'page_data' => [
 				1 => [
@@ -466,7 +466,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 			],
 			'TIFF_METADATA_VERSION' => '1.4',
 		];
-		$file->expects( $this->any() )->method( 'getMetadataArray' )->will( $this->returnValue( $metadata ) );
+		$file->expects( $this->any() )->method( 'getMetadataArray' )->willReturn( $metadata );
 		return $file;
 	}
 }
