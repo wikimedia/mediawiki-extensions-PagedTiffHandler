@@ -25,7 +25,6 @@ namespace MediaWiki\Extension\PagedTiffHandler;
 use File;
 use FormatMetadata;
 use IContextSource;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use LogicException;
 use MapCacheLRU;
 use MediaHandlerState;
@@ -40,6 +39,7 @@ use Message;
 use RequestContext;
 use RuntimeException;
 use TransformationalImageHandler;
+use Wikimedia\Stats\StatsFactory;
 
 class PagedTiffHandler extends TransformationalImageHandler {
 	// TIFF files over 10M are considered expensive to thumbnail
@@ -70,8 +70,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/** @var UserOptionsLookup */
 	private $userOptionsLookup;
 
-	/** @var StatsdDataFactoryInterface */
-	private $statsdFactory;
+	/** @var StatsFactory */
+	private $statsFactory;
 
 	/**
 	 * Number of images to keep in $knownImages
@@ -85,7 +85,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$this->commandFactory = $services->getShellCommandFactory();
 		$this->hookContainer = $services->getHookContainer();
 		$this->userOptionsLookup = $services->getUserOptionsLookup();
-		$this->statsdFactory = $services->getStatsdDataFactory();
+		$this->statsFactory = $services->getStatsFactory();
 	}
 
 	/**
@@ -742,7 +742,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	private function getCachedTiffImage( $path ) {
 		$image = $this->knownImages->get( $path );
 		if ( $image === null ) {
-			$image = new PagedTiffImage( $this->commandFactory, $this->statsdFactory, $path );
+			$image = new PagedTiffImage( $this->commandFactory, $this->statsFactory, $path );
 			$this->knownImages->set( $path, $image );
 		}
 		return $image;

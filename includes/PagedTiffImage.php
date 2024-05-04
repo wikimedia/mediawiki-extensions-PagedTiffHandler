@@ -23,8 +23,8 @@
 namespace MediaWiki\Extension\PagedTiffHandler;
 
 use BitmapMetadataHandler;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Shell\CommandFactory;
+use Wikimedia\Stats\StatsFactory;
 
 /**
  * inspired by djvuimage from Brion Vibber
@@ -42,21 +42,17 @@ class PagedTiffImage {
 	/** @var CommandFactory */
 	private $commandFactory;
 
-	/** @var StatsdDataFactoryInterface */
-	private $statsdFactory;
+	/** @var StatsFactory */
+	private $statsFactory;
 
 	/**
 	 * @param CommandFactory $commandFactory
-	 * @param StatsdDataFactoryInterface $statsdFactory
+	 * @param StatsFactory $statsFactory
 	 * @param string $filename
 	 */
-	public function __construct(
-		CommandFactory $commandFactory,
-		StatsdDataFactoryInterface $statsdFactory,
-		$filename
-	) {
+	public function __construct( CommandFactory $commandFactory, StatsFactory $statsFactory, $filename ) {
 		$this->commandFactory = $commandFactory;
-		$this->statsdFactory = $statsdFactory;
+		$this->statsFactory = $statsFactory;
 		$this->filename = $filename;
 	}
 
@@ -156,7 +152,9 @@ class PagedTiffImage {
 
 		$result = $command->execute();
 		// Record in statsd
-		$this->statsdFactory->increment( 'pagedtiffhandler.shell.retrieve_meta_data' );
+		$this->statsFactory->getCounter( 'pagedtiffhandler_shell_retrievemetadata_total' )
+			->copyToStatsdAt( 'pagedtiffhandler.shell.retrieve_meta_data' )
+			->increment();
 
 		$overallExit = $result->getExitCode();
 		if ( $overallExit == 10 ) {
