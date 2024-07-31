@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Extension\PagedTiffHandler\PagedTiffHandler;
+use MediaWiki\MainConfigNames;
 
 /**
  * @covers MediaWiki\Extension\PagedTiffHandler\PagedTiffHandler
@@ -48,9 +49,11 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->test_image = $this->dataFile( 'test.tiff', 'image/tiff' );
 		$this->large_image = $this->dataFile( 'large.tiff', 'image/tiff' );
 
-		// Max 50 Megapixels like on WMF
-		$this->setMwGlobals( 'wgMaxImageArea', 5e7 );
-		$this->setMwGlobals( 'wgTiffIntermediaryScaleStep', 2048 );
+		$this->overrideConfigValues( [
+			// Max 50 Megapixels like on WMF
+			MainConfigNames::MaxImageArea => 5e7,
+			'TiffIntermediaryScaleStep' => 2048,
+		] );
 	}
 
 	public function testGetMetadataArray() {
@@ -176,7 +179,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	public function testDoTransformLarge() {
 		// Artificially make this small. Jenkins kept OOMing on
 		// big images.
-		$this->setMwGlobals( 'wgTiffIntermediaryScaleStep', 480 );
+		$this->overrideConfigValue( 'TiffIntermediaryScaleStep', 480 );
 
 		$params = [ 'width' => 120, 'lossy' => 'lossy' ];
 		$thumb = $this->large_image->transform( $params, File::RENDER_FORCE );
@@ -296,7 +299,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	 */
 	public function testNormaliseParamsBoolean() {
 		// Make max image area bigger than one test file, smaller than the other
-		$this->setMwGlobals( 'wgMaxImageArea', 500000 );
+		$this->overrideConfigValue( MainConfigNames::MaxImageArea, 500000 );
 
 		$params = [];
 		$this->assertFalse(
