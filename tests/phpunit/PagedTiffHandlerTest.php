@@ -11,11 +11,27 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 	/** @var PagedTiffHandler */
 	private $handler;
 
-	/** @var string Paths to various test files. */
-	private $multipage_path, $truncated_path, $mhz_path, $test_path, $large_path;
+	/** @var string Paths to test file */
+	private $multipage_path;
+	/** @var string Paths to test file */
+	private $truncated_path;
+	/** @var string Paths to test file */
+	private $mhz_path;
+	/** @var string Paths to test file */
+	private $test_path;
+	/** @var string Paths to test file */
+	private $large_path;
 
-	/** @var UnregisteredLocalFile File objects for various test files. */
-	private $multipage_image, $truncated_image, $mhz_image, $test_image, $large_image;
+	/** @var UnregisteredLocalFile File object for test file */
+	private $multipage_image;
+	/** @var UnregisteredLocalFile File object for test file */
+	private $truncated_image;
+	/** @var UnregisteredLocalFile File object for test file */
+	private $mhz_image;
+	/** @var UnregisteredLocalFile File object for test file */
+	private $test_image;
+	/** @var UnregisteredLocalFile File object for test file */
+	private $large_image;
 
 	/**
 	 * Inform parent class where test files are located
