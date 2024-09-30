@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nemoralis"
+		]
+	},
+	"tiff-desc": "Şəkil rejimində TIFF fayllarına baxmaq üçün işləyici",
+	"tiff_no_metadata": "TIFF-dən metadata əldə etmək mümkün deyil",
+	"tiff_page_error": "Səhifə nömrəsi diapazonda deyil",
+	"tiff_too_many_embed_files": "Şəkildə çoxlu daxili fayl var."
+}
