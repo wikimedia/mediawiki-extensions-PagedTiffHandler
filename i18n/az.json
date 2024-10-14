@@ -7,5 +7,15 @@
 	"tiff-desc": "Şəkil rejimində TIFF fayllarına baxmaq üçün işləyici",
 	"tiff_no_metadata": "TIFF-dən metadata əldə etmək mümkün deyil",
 	"tiff_page_error": "Səhifə nömrəsi diapazonda deyil",
-	"tiff_too_many_embed_files": "Şəkildə çoxlu daxili fayl var."
+	"tiff_too_many_embed_files": "Şəkildə çoxlu daxili fayl var.",
+	"tiff_sourcefile_too_large": "Mənbə faylının çözümlülüyü çox böyükdür.\nHeç bir miniatür yaradılmayacaq.",
+	"tiff_targetfile_too_large": "Hədəf faylın çözümlülüyü çox böyükdür.\nHeç bir miniatür yaradılmayacaq.",
+	"tiff_file_too_large": "Yüklənmiş fayl çox böyükdür və rədd edildi.",
+	"tiff_out_of_service": "Yüklənmiş faylı emal etmək mümkün olmadı.\nImageMagick mövcud deyil.",
+	"tiff_too_much_meta": "Metadata çox yer istifadə edir.",
+	"tiff_error_cached": "Bu fayl yalnız keşləmə intervalından sonra yenidən göstərilə bilər.",
+	"tiff_size_error": "Bildirilən fayl ölçüsü faktiki fayl ölçüsünə uyğun gəlmir.",
+	"tiff_script_detected": "Yüklənmiş faylda skriptlər var.",
+	"tiff_bad_file": "Yüklənmiş faylda xətalar var: $1",
+	"tiff_invalid_file": "Yüklənmiş fayl etibarlı TIFF faylı deyil."
 }
