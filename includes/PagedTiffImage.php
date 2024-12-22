@@ -36,8 +36,7 @@ use Wikimedia\Stats\StatsFactory;
  * adapted to tiff by Hallo Welt! - Medienwerkstatt GmbH
  */
 class PagedTiffImage {
-	/** @var array|null */
-	private $metadata = null;
+	private ?array $metadata = null;
 
 	public function __construct(
 		private readonly CommandFactory $commandFactory,

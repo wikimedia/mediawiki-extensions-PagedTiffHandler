@@ -58,25 +58,13 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Known images cache
-	 *
-	 * @var MapCacheLRU
 	 */
-	private $knownImages;
-
-	/** @var CommandFactory */
-	private $commandFactory;
-
-	/** @var Config */
-	private $config;
-
-	/** @var HookContainer */
-	private $hookContainer;
-
-	/** @var UserOptionsLookup */
-	private $userOptionsLookup;
-
-	/** @var StatsFactory */
-	private $statsFactory;
+	private MapCacheLRU $knownImages;
+	private CommandFactory $commandFactory;
+	private Config $config;
+	private HookContainer $hookContainer;
+	private UserOptionsLookup $userOptionsLookup;
+	private StatsFactory $statsFactory;
 
 	/**
 	 * Number of images to keep in $knownImages
@@ -136,6 +124,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			wfDebug( __METHOD__ . ": unable to retrieve metadata" );
 			$status->fatal( 'tiff_out_of_service' );
 		} else {
+			$error = [];
 			$ok = $this->verifyMetaData( $meta, $error );
 
 			if ( !$ok ) {
@@ -148,12 +137,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		return $status;
 	}
 
-	/**
-	 * @param array $meta
-	 * @param array &$error
-	 * @return bool
-	 */
-	private function verifyMetaData( $meta, &$error ) {
+	private function verifyMetaData( array $meta, array &$error ): bool {
 		$errors = $this->getMetadataErrors( $meta );
 		if ( $errors ) {
 			$error = [ 'tiff_bad_file', $this->joinMessages( $errors ) ];
@@ -340,7 +324,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param array|false $metadata Metadata to test
 	 * @return bool True if metadata is an error, false if it has normal info
 	 */
-	private function isMetadataError( $metadata ) {
+	private function isMetadataError( $metadata ): bool {
 		$errors = $this->getMetadataErrors( $metadata );
 		if ( is_array( $errors ) ) {
 			return count( $errors ) > 0;
@@ -354,7 +338,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param bool $to_html
 	 * @return bool|string
 	 */
-	private function joinMessages( $errors_raw, $to_html = true ) {
+	private function joinMessages( $errors_raw, bool $to_html = true ) {
 		if ( is_array( $errors_raw ) ) {
 			if ( !$errors_raw ) {
 				return false;
@@ -430,6 +414,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			}
 		}
 
+		$error = [];
 		if ( !$this->verifyMetaData( $meta, $error ) ) {
 			return $this->doThumbError( $scalerParams, $error );
 		}
@@ -516,10 +501,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns the number of the first page in the file
-	 * @param File $image
-	 * @return int
 	 */
-	private function firstPage( $image ) {
+	private function firstPage( File $image ): int {
 		$data = $image->getMetadataArray();
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
@@ -529,10 +512,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 	/**
 	 * Returns the number of the last page in the file
-	 * @param File $image
-	 * @return int
 	 */
-	private function lastPage( $image ) {
+	private function lastPage( File $image ): int {
 		$data = $image->getMetadataArray();
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
@@ -546,7 +527,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param int|string $page
 	 * @return int
 	 */
-	private function adjustPage( $image, $page ) {
+	private function adjustPage( File $image, $page ): int {
 		$page = intval( $page );
 
 		if ( !$page || $page < $this->firstPage( $image ) ) {
@@ -725,7 +706,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param string $path path to the image?
 	 * @return PagedTiffImage
 	 */
-	private function getTiffImage( $state, $path ) {
+	private function getTiffImage( $state, string $path ): PagedTiffImage {
 		if ( !$state ) {
 			return $this->getCachedTiffImage( $path );
 		}
@@ -746,7 +727,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @param string $path path to the image
 	 * @return PagedTiffImage
 	 */
-	private function getCachedTiffImage( $path ) {
+	private function getCachedTiffImage( string $path ): PagedTiffImage {
 		$image = $this->knownImages->get( $path );
 		if ( $image === null ) {
 			$image = new PagedTiffImage(
@@ -826,7 +807,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 *   MediaTransformError on error. False if the doTransform method returns false
 	 *   MediaTransformOutput on success.
 	 */
-	private function getIntermediaryStep( $file, $params ) {
+	private function getIntermediaryStep( File $file, array $params ) {
 		$page = intval( $params['page'] );
 		$page = $this->adjustPage( $file, $page );
 		$srcWidth = $file->getWidth( $page );

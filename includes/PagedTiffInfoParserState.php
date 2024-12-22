@@ -23,14 +23,12 @@
 namespace MediaWiki\Extension\PagedTiffHandler;
 
 class PagedTiffInfoParserState {
-	/** @var array All data */
-	public $metadata;
+	/** All data */
+	public array $metadata;
 
-	/** @var array Current page */
-	public $page;
-
-	/** @var int */
-	public $prevPage;
+	/** Current page */
+	public array $page;
+	public int $prevPage;
 
 	public function __construct() {
 		$this->metadata = [];
