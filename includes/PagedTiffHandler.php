@@ -766,6 +766,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		return PagedTiffImage::getPageSize( $data, $page );
 	}
 
+	/**
+	 * @param File $file
+	 * @return bool
+	 */
 	public function isExpensiveToThumbnail( $file ) {
 		return $file->getSize() > self::EXPENSIVE_SIZE_LIMIT;
 	}

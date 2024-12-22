@@ -40,6 +40,9 @@ class PagedTiffInfoParserState {
 		$this->metadata['page_data'] = [];
 	}
 
+	/**
+	 * @param bool $finishPage
+	 */
 	public function finish( $finishPage = true ) {
 		if ( $finishPage ) {
 			$this->finishPage();
@@ -92,34 +95,63 @@ class PagedTiffInfoParserState {
 		return true;
 	}
 
+	/**
+	 * @param string $key
+	 * @param mixed $value
+	 */
 	public function setPageProperty( $key, $value ) {
 		$this->page[$key] = $value;
 	}
 
+	/**
+	 * @param string $key
+	 * @return bool
+	 */
 	public function hasPageProperty( $key ) {
 		return isset( $this->page[$key] ) && $this->page[$key] !== null;
 	}
 
+	/**
+	 * @param string $key
+	 * @param mixed $value
+	 */
 	public function setFileProperty( $key, $value ) {
 		$this->metadata[$key] = $value;
 	}
 
+	/**
+	 * @param string $key
+	 * @param mixed $value
+	 * @return bool
+	 */
 	public function hasFileProperty( $key, $value ) {
 		return isset( $this->metadata[$key] ) && $this->metadata[$key] !== null;
 	}
 
+	/**
+	 * @param string $message
+	 */
 	public function addError( $message ) {
 		$this->metadata['errors'][] = $message;
 	}
 
+	/**
+	 * @param string $message
+	 */
 	public function addWarning( $message ) {
 		$this->metadata['warnings'][] = $message;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getMetadata() {
 		return $this->metadata;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function hasErrors() {
 		return !empty( $this->metadata['errors'] );
 	}
