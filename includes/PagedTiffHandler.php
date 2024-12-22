@@ -221,7 +221,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 				}
 
 				return false;
-			} elseif ( $value <= 0 || $value > 65535 ) { // ImageMagick overflows for values > 65536
+			} elseif ( $value <= 0 || $value > 65535 ) {
+				// ImageMagick overflows for values > 65536
 				return false;
 			} else {
 				return true;
@@ -466,7 +467,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			);
 			return $this->getMediaTransformError( $scalerParams, $err );
 		} else {
-			return false; /* no error */
+			// no error
+			return false;
 		}
 	}
 

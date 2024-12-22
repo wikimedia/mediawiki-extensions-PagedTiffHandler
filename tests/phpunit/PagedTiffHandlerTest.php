@@ -92,7 +92,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		$this->assertEquals( 'true', strtolower( $metaArray['page_data'][2]['alpha'] ) );
 
 		$interp = $metaArray['exif']['PhotometricInterpretation'];
-		$this->assertTrue( $interp == 2 || $interp == 'RGB' ); // RGB
+		$this->assertTrue( $interp == 2 || $interp == 'RGB' );
 	}
 
 	public function testValidateParam() {
