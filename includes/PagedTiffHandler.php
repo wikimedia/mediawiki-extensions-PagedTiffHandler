@@ -134,7 +134,8 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 			if ( !$ok ) {
 				$this->getCachedTiffImage( $fileName )->resetMetaData();
-				call_user_func_array( [ $status, 'fatal' ], $error );
+				// @phan-suppress-next-line PhanParamTooFewUnpack
+				$status->fatal( ...$error );
 			}
 		}
 
