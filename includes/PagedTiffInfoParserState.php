@@ -70,7 +70,7 @@ class PagedTiffInfoParserState {
 		$this->page = [];
 	}
 
-	public function finishPage() {
+	public function finishPage(): bool {
 		if ( !isset( $this->page['page'] ) ) {
 			$this->page['page'] = $this->prevPage + 1;
 		} else {
