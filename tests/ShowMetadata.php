@@ -11,6 +11,7 @@
  */
 
 use MediaWiki\Extension\PagedTiffHandler\PagedTiffHandler;
+use MediaWiki\FileRepo\File\UnregisteredLocalFile;
 use MediaWiki\Maintenance\Maintenance;
 
 if ( getenv( 'MW_INSTALL_PATH' ) ) {

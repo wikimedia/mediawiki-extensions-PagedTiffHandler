@@ -22,7 +22,6 @@
 
 namespace MediaWiki\Extension\PagedTiffHandler;
 
-use File;
 use FormatMetadata;
 use LogicException;
 use MapCacheLRU;
@@ -31,6 +30,7 @@ use MediaTransformError;
 use MediaTransformOutput;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\FileRepo\File\File;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;

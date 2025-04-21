@@ -1,6 +1,8 @@
 <?php
 
 use MediaWiki\Extension\PagedTiffHandler\PagedTiffHandler;
+use MediaWiki\FileRepo\File\File;
+use MediaWiki\FileRepo\File\UnregisteredLocalFile;
 use MediaWiki\MainConfigNames;
 
 /**
