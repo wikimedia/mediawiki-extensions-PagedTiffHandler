@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"BaRaN6161 TURK"
+			"BaRaN6161 TURK",
+			"Cobija"
 		]
 	},
 	"tiff-desc": "Görüntü modunda TIFF dosyalarını görüntülemek için işleyici",
-	"tiff_no_metadata": "TIFF'den meta veri alınamıyor",
+	"tiff_no_metadata": "TIFF'den üstveri alınamıyor",
 	"tiff_page_error": "Sayfa numarası aralıkta değil",
 	"tiff_too_many_embed_files": "Görüntü çok fazla gömülü dosya içeriyor.",
 	"tiff_sourcefile_too_large": "Kaynak dosyanın çözünürlüğü çok büyük.\nHiçbir küçük resim oluşturulmaz.",
