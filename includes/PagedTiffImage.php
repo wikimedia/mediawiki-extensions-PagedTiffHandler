@@ -23,6 +23,8 @@
 namespace MediaWiki\Extension\PagedTiffHandler;
 
 use BitmapMetadataHandler;
+use MediaWiki\Config\Config;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Shell\CommandFactory;
 use Wikimedia\Stats\StatsFactory;
 
@@ -42,16 +44,26 @@ class PagedTiffImage {
 	/** @var CommandFactory */
 	private $commandFactory;
 
+	/** @var Config */
+	private $config;
+
 	/** @var StatsFactory */
 	private $statsFactory;
 
 	/**
 	 * @param CommandFactory $commandFactory
+	 * @param Config $config
 	 * @param StatsFactory $statsFactory
 	 * @param string $filename
 	 */
-	public function __construct( CommandFactory $commandFactory, StatsFactory $statsFactory, $filename ) {
+	public function __construct(
+		CommandFactory $commandFactory,
+		Config $config,
+		StatsFactory $statsFactory,
+		$filename
+	) {
 		$this->commandFactory = $commandFactory;
+		$this->config = $config;
 		$this->statsFactory = $statsFactory;
 		$this->filename = $filename;
 	}
@@ -113,38 +125,36 @@ class PagedTiffImage {
 	 * meta['warnings'] = identify-warnings
 	 */
 	public function retrieveMetaData() {
-		global $wgImageMagickIdentifyCommand, $wgExiv2Command, $wgTiffUseExiv;
-		global $wgTiffUseTiffinfo, $wgTiffTiffinfoCommand;
-		global $wgShowEXIF, $wgShellboxShell;
-
 		if ( $this->metadata !== null ) {
 			return $this->metadata;
 		}
 
+		$useTiffinfo = $this->config->get( 'TiffUseTiffinfo' );
+		$useExiv = $this->config->get( 'TiffUseExiv' );
 		$command = $this->commandFactory
 			->createBoxed( 'pagedtiffhandler' )
 			->disableNetwork()
 			->firejailDefaultSeccomp()
 			->routeName( 'pagedtiffhandler-metadata' );
 		$command
-			->params( $wgShellboxShell, 'scripts/retrieveMetaData.sh' )
+			->params( $this->config->get( MainConfigNames::ShellboxShell ), 'scripts/retrieveMetaData.sh' )
 			->inputFileFromFile(
 				'scripts/retrieveMetaData.sh',
 				__DIR__ . '/../scripts/retrieveMetaData.sh' )
 			->inputFileFromFile( 'file.tiff', $this->filename )
 			->environment( [
-				'TIFF_USETIFFINFO' => $wgTiffUseTiffinfo ? 'yes' : 'no',
-				'TIFF_TIFFINFO' => $wgTiffTiffinfoCommand,
-				'TIFF_IDENTIFY' => $wgImageMagickIdentifyCommand,
-				'TIFF_USEEXIV' => $wgTiffUseExiv ? 'yes' : 'no',
-				'TIFF_EXIV2' => $wgExiv2Command,
+				'TIFF_USETIFFINFO' => $useTiffinfo ? 'yes' : 'no',
+				'TIFF_TIFFINFO' => $this->config->get( 'TiffTiffinfoCommand' ),
+				'TIFF_IDENTIFY' => $this->config->get( 'ImageMagickIdentifyCommand' ),
+				'TIFF_USEEXIV' => $useExiv ? 'yes' : 'no',
+				'TIFF_EXIV2' => $this->config->get( MainConfigNames::Exiv2Command ),
 			] );
-		if ( $wgTiffUseTiffinfo ) {
+		if ( $useTiffinfo ) {
 			$command->outputFileToString( 'info' );
 		} else {
 			$command->outputFileToString( 'identified' );
 		}
-		if ( $wgTiffUseExiv ) {
+		if ( $useExiv ) {
 			$command
 				->outputFileToString( 'extended' )
 				->outputFileToString( 'exiv_exit_code' );
@@ -167,7 +177,7 @@ class PagedTiffImage {
 			return [ 'errors' => [ "identify command failed: {$this->filename}" ] ];
 		}
 
-		if ( $wgTiffUseTiffinfo ) {
+		if ( $useTiffinfo ) {
 			$this->metadata = $this->parseTiffinfoOutput( $result->getFileContents( 'info' ) );
 		} else {
 			$this->metadata = $this->parseIdentifyOutput( $result->getFileContents( 'identified' ) );
@@ -177,7 +187,7 @@ class PagedTiffImage {
 
 		if ( !empty( $this->metadata['errors'] ) ) {
 			wfDebug( __METHOD__ . ": found errors, skipping EXIF extraction" );
-		} elseif ( $wgTiffUseExiv ) {
+		} elseif ( $useExiv ) {
 			$exivExit = (int)trim( $result->getFileContents( 'exiv_exit_code' ) );
 			if ( $exivExit != 0 ) {
 				// FIXME: $data is immediately overwritten?
@@ -189,7 +199,7 @@ class PagedTiffImage {
 			$data = $this->parseExiv2Output( $result->getFileContents( 'extended' ) );
 
 			$this->metadata['exif'] = $data;
-		} elseif ( $wgShowEXIF ) {
+		} elseif ( $this->config->get( MainConfigNames::ShowEXIF ) ) {
 			wfDebug( __METHOD__ . ": using internal Exif( {$this->filename} )" );
 			$this->metadata['exif'] = BitmapMetadataHandler::Tiff( $this->filename );
 		}
@@ -212,8 +222,6 @@ class PagedTiffImage {
 	 * @return array
 	 */
 	protected function parseTiffinfoOutput( $dump ) {
-		global $wgTiffTiffinfoRejectMessages, $wgTiffTiffinfoBypassMessages;
-
 		# HACK: width and length are given on a single line...
 		$dump = preg_replace( '/ Image Length:/', "\n  Image Length:", $dump );
 		$rows = preg_split( '/[\r\n]+\s*/', $dump );
@@ -234,7 +242,7 @@ class PagedTiffImage {
 			$error = false;
 
 			# handle fatal errors
-			foreach ( $wgTiffTiffinfoRejectMessages as $pattern ) {
+			foreach ( $this->config->get( 'TiffTiffinfoRejectMessages' ) as $pattern ) {
 				if ( preg_match( $pattern, trim( $row ) ) ) {
 					$state->addError( $row );
 					$error = true;
@@ -271,7 +279,7 @@ class PagedTiffImage {
 				$bypass = false;
 				$msg = $m[3];
 
-				foreach ( $wgTiffTiffinfoBypassMessages as $pattern ) {
+				foreach ( $this->config->get( 'TiffTiffinfoBypassMessages' ) as $pattern ) {
 					if ( preg_match( $pattern, trim( $row ) ) ) {
 						$bypass = true;
 						break;
@@ -349,8 +357,6 @@ class PagedTiffImage {
 	 * @return array
 	 */
 	protected function parseIdentifyOutput( $dump ) {
-		global $wgTiffIdentifyRejectMessages, $wgTiffIdentifyBypassMessages;
-
 		$state = new PagedTiffInfoParserState();
 
 		if ( strval( $dump ) == '' ) {
@@ -414,7 +420,7 @@ class PagedTiffImage {
 				}
 
 				$knownError = false;
-				foreach ( $wgTiffIdentifyRejectMessages as $msg ) {
+				foreach ( $this->config->get( 'TiffIdentifyRejectMessages' ) as $msg ) {
 					if ( preg_match( $msg, trim( $error ) ) ) {
 						$state->addError( $error );
 						$knownError = true;
@@ -423,7 +429,7 @@ class PagedTiffImage {
 				}
 				if ( !$knownError ) {
 					// ignore messages that match $wgTiffIdentifyBypassMessages
-					foreach ( $wgTiffIdentifyBypassMessages as $msg ) {
+					foreach ( $this->config->get( 'TiffIdentifyBypassMessages' ) as $msg ) {
 						if ( preg_match( $msg, trim( $error ) ) ) {
 							$knownError = true;
 							break;

@@ -28,10 +28,12 @@ use MapCacheLRU;
 use MediaHandlerState;
 use MediaTransformError;
 use MediaTransformOutput;
+use MediaWiki\Config\Config;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\FileRepo\File\File;
 use MediaWiki\HookContainer\HookContainer;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use MediaWiki\Shell\CommandFactory;
@@ -64,6 +66,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	/** @var CommandFactory */
 	private $commandFactory;
 
+	/** @var Config */
+	private $config;
+
 	/** @var HookContainer */
 	private $hookContainer;
 
@@ -83,6 +88,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		$services = MediaWikiServices::getInstance();
 		$this->commandFactory = $services->getShellCommandFactory();
+		$this->config = $services->getMainConfig();
 		$this->hookContainer = $services->getHookContainer();
 		$this->userOptionsLookup = $services->getUserOptionsLookup();
 		$this->statsFactory = $services->getStatsFactory();
@@ -148,8 +154,6 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return bool
 	 */
 	private function verifyMetaData( $meta, &$error ) {
-		global $wgTiffMaxEmbedFiles, $wgTiffMaxMetaSize;
-
 		$errors = $this->getMetadataErrors( $meta );
 		if ( $errors ) {
 			$error = [ 'tiff_bad_file', $this->joinMessages( $errors ) ];
@@ -164,14 +168,16 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			wfDebug( __METHOD__ . ": {$error[0]}" );
 			return false;
 		}
-		if ( $wgTiffMaxEmbedFiles && $meta['page_count'] > $wgTiffMaxEmbedFiles ) {
-			$error = [ 'tiff_too_much_embed_files', $meta['page_count'], $wgTiffMaxEmbedFiles ];
+		$maxEmbedFiles = $this->config->get( 'TiffMaxEmbedFiles' );
+		if ( $maxEmbedFiles && $meta['page_count'] > $maxEmbedFiles ) {
+			$error = [ 'tiff_too_much_embed_files', $meta['page_count'], $maxEmbedFiles ];
 			wfDebug( __METHOD__ . ": {$error[0]}" );
 			return false;
 		}
 		$len = strlen( serialize( $meta ) );
-		if ( ( $len + 1 ) > $wgTiffMaxMetaSize ) {
-			$error = [ 'tiff_too_much_meta', $len, $wgTiffMaxMetaSize ];
+		$maxMetaSize = $this->config->get( 'TiffMaxMetaSize' );
+		if ( ( $len + 1 ) > $maxMetaSize ) {
+			$error = [ 'tiff_too_much_meta', $len, $maxMetaSize ];
 			wfDebug( __METHOD__ . ": {$error[0]}" );
 			return false;
 		}
@@ -410,8 +416,6 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @note Success is noted by $scalerParams['dstPath'] no longer being a 0 byte file.
 	 */
 	protected function transformIM( $file, $scalerParams ) {
-		global $wgImageMagickConvertCommand, $wgMaxImageArea;
-
 		$meta = $file->getMetadataArray();
 
 		$errors = $this->getMetadataErrors( $meta );
@@ -439,17 +443,18 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$page = intval( $scalerParams['page'] );
 		$srcPath = $this->escapeMagickInput( $scalerParams['srcPath'], (string)( $page - 1 ) );
 		$dstPath = $this->escapeMagickOutput( $scalerParams['dstPath'] );
+		$maxImageArea = $this->config->get( MainConfigNames::MaxImageArea );
 
-		if ( $wgMaxImageArea
+		if ( $maxImageArea
 			&& isset( $meta['page_data'][$page]['pixels'] )
-			&& $meta['page_data'][$page]['pixels'] > $wgMaxImageArea
+			&& $meta['page_data'][$page]['pixels'] > $maxImageArea
 		) {
 			return $this->doThumbError( $scalerParams, 'tiff_sourcefile_too_large' );
 		}
 
 		$command = $this->commandFactory->create()
 			->params(
-				$wgImageMagickConvertCommand,
+				$this->config->get( MainConfigNames::ImageMagickConvertCommand ),
 				$srcPath,
 				'-depth', '8',
 				'-resize', $width,
@@ -562,10 +567,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return MediaTransformError
 	 */
 	protected function doThumbError( $params, $msg ) {
-		global $wgThumbLimits;
-
 		$errorParams = [];
 		if ( empty( $params['width'] ) ) {
+			$thumbLimits = $this->config->get( MainConfigNames::ThumbLimits );
 			$user = RequestContext::getMain()->getUser();
 			// no usable width/height in the parameter array
 			// only happens if we don't have image meta-data, and no
@@ -573,9 +577,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			// we need to pick *some* size, and the preferred
 			// thumbnail size seems sane.
 			$sz = $this->userOptionsLookup->getOption( $user, 'thumbsize' );
-			$errorParams['clientWidth'] = $wgThumbLimits[ $sz ];
+			$errorParams['clientWidth'] = $thumbLimits[ $sz ];
 			// we don't have a height or aspect ratio. make it square.
-			$errorParams['clientHeight'] = $wgThumbLimits[ $sz ];
+			$errorParams['clientHeight'] = $thumbLimits[ $sz ];
 		} else {
 			$errorParams['clientWidth'] = intval( $params['width'] );
 
@@ -745,7 +749,12 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	private function getCachedTiffImage( $path ) {
 		$image = $this->knownImages->get( $path );
 		if ( $image === null ) {
-			$image = new PagedTiffImage( $this->commandFactory, $this->statsFactory, $path );
+			$image = new PagedTiffImage(
+				$this->commandFactory,
+				$this->config,
+				$this->statsFactory,
+				$path
+			);
 			$this->knownImages->set( $path, $image );
 		}
 		return $image;
@@ -818,14 +827,13 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 *   MediaTransformOutput on success.
 	 */
 	private function getIntermediaryStep( $file, $params ) {
-		global $wgTiffIntermediaryScaleStep, $wgThumbnailMinimumBucketDistance;
-
 		$page = intval( $params['page'] );
 		$page = $this->adjustPage( $file, $page );
 		$srcWidth = $file->getWidth( $page );
 		$srcHeight = $file->getHeight( $page );
+		$intermediaryScaleStep = $this->config->get( 'TiffIntermediaryScaleStep' );
 
-		if ( $srcWidth <= $wgTiffIntermediaryScaleStep ) {
+		if ( $srcWidth <= $intermediaryScaleStep ) {
 			// Image is already smaller than intermediary step or at that step
 			return false;
 		}
@@ -834,7 +842,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 
 		// Try and get a width that's easy for VipsScaler to work with
 		// i.e. Is an integer shrink factor.
-		$rx = floor( $srcWidth / ( $wgTiffIntermediaryScaleStep + 0.125 ) );
+		$rx = floor( $srcWidth / ( $intermediaryScaleStep + 0.125 ) );
 		$intermediaryWidth = intval( floor( $srcWidth / $rx ) );
 		$intermediaryHeight = intval( floor( $srcHeight / $rx ) );
 
@@ -852,8 +860,9 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			}
 		}
 
+		$distance = $this->config->get( MainConfigNames::ThumbnailMinimumBucketDistance );
 		if (
-			$intermediaryWidth <= $widthOfFinalThumb + $wgThumbnailMinimumBucketDistance || $rx < 2
+			$intermediaryWidth <= $widthOfFinalThumb + $distance || $rx < 2
 		) {
 			// Need to scale the original full sized thumb
 			return false;
