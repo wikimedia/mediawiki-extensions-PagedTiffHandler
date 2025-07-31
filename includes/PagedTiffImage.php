@@ -23,6 +23,8 @@
 namespace MediaWiki\Extension\PagedTiffHandler;
 
 use BitmapMetadataHandler;
+use ExifBitmapHandler;
+use InvalidTiffException;
 use MediaWiki\Config\Config;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Shell\CommandFactory;
@@ -177,8 +179,15 @@ class PagedTiffImage {
 
 			$this->metadata['exif'] = $data;
 		} elseif ( $this->config->get( MainConfigNames::ShowEXIF ) ) {
-			wfDebug( __METHOD__ . ": using internal Exif( {$this->filename} )" );
-			$this->metadata['exif'] = BitmapMetadataHandler::Tiff( $this->filename );
+			try {
+				wfDebug( __METHOD__ . ": using internal Exif( {$this->filename} )" );
+				$this->metadata['exif'] = BitmapMetadataHandler::Tiff( $this->filename );
+			} catch ( InvalidTiffException $e ) {
+				// BitmapMetadataHandler throws an exception in certain exceptional for invalid exif data
+				wfDebug( __METHOD__ . ': ' . $e->getMessage() );
+
+				$this->metadata['_error'] = ExifBitmapHandler::BROKEN_FILE;
+			}
 		}
 
 		unset( $this->metadata['exif']['Image'] );
