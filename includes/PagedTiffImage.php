@@ -38,34 +38,12 @@ class PagedTiffImage {
 	/** @var array|null */
 	private $metadata = null;
 
-	/** @var string */
-	private $filename;
-
-	/** @var CommandFactory */
-	private $commandFactory;
-
-	/** @var Config */
-	private $config;
-
-	/** @var StatsFactory */
-	private $statsFactory;
-
-	/**
-	 * @param CommandFactory $commandFactory
-	 * @param Config $config
-	 * @param StatsFactory $statsFactory
-	 * @param string $filename
-	 */
 	public function __construct(
-		CommandFactory $commandFactory,
-		Config $config,
-		StatsFactory $statsFactory,
-		$filename
+		private readonly CommandFactory $commandFactory,
+		private readonly Config $config,
+		private readonly StatsFactory $statsFactory,
+		private readonly string $filename,
 	) {
-		$this->commandFactory = $commandFactory;
-		$this->config = $config;
-		$this->statsFactory = $statsFactory;
-		$this->filename = $filename;
 	}
 
 	/**
