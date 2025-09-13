@@ -33,7 +33,6 @@ use Wikimedia\Stats\StatsFactory;
  * modified and written by xarax
  * adapted to tiff by Hallo Welt! - Medienwerkstatt GmbH
  */
-
 class PagedTiffImage {
 	/** @var array|null */
 	private $metadata = null;
