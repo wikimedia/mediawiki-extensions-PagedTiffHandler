@@ -57,19 +57,19 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	public const TIFF_METADATA_VERSION = '1.4';
 
 	/**
-	 * Known images cache
-	 */
-	private MapCacheLRU $knownImages;
-	private CommandFactory $commandFactory;
-	private Config $config;
-	private HookContainer $hookContainer;
-	private UserOptionsLookup $userOptionsLookup;
-	private StatsFactory $statsFactory;
-
-	/**
 	 * Number of images to keep in $knownImages
 	 */
 	private const CACHE_SIZE = 5;
+
+	/**
+	 * Known images cache
+	 */
+	private readonly MapCacheLRU $knownImages;
+	private readonly CommandFactory $commandFactory;
+	private readonly Config $config;
+	private readonly HookContainer $hookContainer;
+	private readonly UserOptionsLookup $userOptionsLookup;
+	private readonly StatsFactory $statsFactory;
 
 	public function __construct() {
 		$this->knownImages = new MapCacheLRU( self::CACHE_SIZE );
