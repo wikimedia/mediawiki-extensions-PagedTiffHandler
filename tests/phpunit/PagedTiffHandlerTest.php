@@ -165,11 +165,10 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 		// check
 		// TODO: check other images
 		$status = $this->handler->verifyUpload( $this->multipage_path );
-		$this->assertTrue( $status->isGood() );
+		$this->assertStatusGood( $status );
 
 		$status = $this->handler->verifyUpload( $this->truncated_path );
-		$this->assertFalse( $status->isGood() );
-		$this->assertTrue( $status->hasMessage( 'tiff_bad_file' ) );
+		$this->assertStatusError( 'tiff_bad_file', $status );
 	}
 
 	public function testDoTransform() {
