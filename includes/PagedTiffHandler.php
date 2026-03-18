@@ -200,7 +200,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return bool
 	 */
 	public function validateParam( $name, $value ) {
-		if ( in_array( $name, [ 'width', 'height', 'page', 'lossy' ] ) ) {
+		if ( in_array( $name, [ 'width', 'height', 'page', 'lossy', 'physicalWidth', 'physicalHeight' ] ) ) {
 			if ( $name === 'page' && trim( $value ) !== (string)intval( $value ) ) {
 				// Extra junk on the end of page, probably actually a caption
 				// e.g. [[File:Foo.tiff|thumb|Page 3 of the document shows foo]]
@@ -238,13 +238,12 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * @return string|false
 	 */
 	public function makeParamString( $params ) {
-		if (
-			!isset( $params['width'] ) || !isset( $params['lossy'] ) || !isset( $params['page'] )
-		) {
+		$width = $params['physicalWidth'] ?? $params['width'] ?? null;
+		if ( !$width || !isset( $params['lossy'] ) || !isset( $params['page'] ) ) {
 			return false;
 		}
 
-		return "{$params['lossy']}-page{$params['page']}-{$params['width']}px";
+		return "{$params['lossy']}-page{$params['page']}-{$width}px";
 	}
 
 	/**
