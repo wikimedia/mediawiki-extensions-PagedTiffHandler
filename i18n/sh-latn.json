@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aca",
 			"Winston Sung"
 		]
 	},
@@ -17,5 +18,5 @@
 	"tiff_size_error": "Prijavljena veličina datoteke ne se podudara sa stvarnom.",
 	"tiff_script_detected": "Poslana datoteka sadrži skripte.",
 	"tiff_bad_file": "Poslana datoteka sadrži greške: $1",
-	"tiff_invalid_file": "Poslana datoteka ne predstavlja važeći TIFF"
+	"tiff_invalid_file": "Poslana datoteka nije ispravna TIFF datoteka"
 }
