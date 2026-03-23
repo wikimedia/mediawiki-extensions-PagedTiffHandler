@@ -6,7 +6,7 @@
 		]
 	},
 	"tiff-desc": "Rukovodilac za prikazivanje TIFF datoteka u slikovnom režimu",
-	"tiff_no_metadata": "Ne mogu se preuzeti metapodaci iz TIFF-a",
+	"tiff_no_metadata": "Nije moguće preuzeti metapodatke iz TIFF-a",
 	"tiff_page_error": "Broj stranice je nadvor od raspona",
 	"tiff_too_many_embed_files": "Slika sadrži previše umetnutih datoteka.",
 	"tiff_sourcefile_too_large": "Razdjeljenost izvorne datoteke je prevelika. Minijatura neće biti generisana.",
