@@ -187,12 +187,14 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	 * Checks whether parameters are valid and have valid values.
 	 * Check for lossy was added.
 	 * @param string $name
-	 * @param string $value
+	 * @param mixed $value
 	 * @return bool
 	 */
 	public function validateParam( $name, $value ) {
 		if ( in_array( $name, [ 'width', 'height', 'page', 'lossy', 'physicalWidth', 'physicalHeight' ] ) ) {
-			if ( $name === 'page' && trim( $value ) !== (string)intval( $value ) ) {
+			if ( $name === 'page' &&
+				( !is_string( $value ) || trim( $value ) !== (string)intval( $value ) )
+			) {
 				// Extra junk on the end of page, probably actually a caption
 				// e.g. [[File:Foo.tiff|thumb|Page 3 of the document shows foo]]
 				return false;
@@ -212,11 +214,10 @@ class PagedTiffHandler extends TransformationalImageHandler {
 				}
 
 				return false;
-			} elseif ( $value <= 0 || $value > 65535 ) {
-				// ImageMagick overflows for values > 65536
-				return false;
 			} else {
-				return true;
+				$value = (int)$value;
+				// ImageMagick overflows for values > 65536
+				return $value > 0 && $value <= 65535;
 			}
 		} else {
 			return false;
