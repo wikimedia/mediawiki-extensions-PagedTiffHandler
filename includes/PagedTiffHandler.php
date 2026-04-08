@@ -518,7 +518,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
 		}
-		return intval( $data['first_page'] );
+		return intval( $data['first_page'] ?? 1 );
 	}
 
 	/**
@@ -531,7 +531,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		if ( $this->isMetadataError( $data ) ) {
 			return 1;
 		}
-		return intval( $data['last_page'] );
+		return intval( $data['last_page'] ?? $data['page_count'] ?? 1 );
 	}
 
 	/**
