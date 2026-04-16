@@ -22,11 +22,11 @@
 
 namespace MediaWiki\Extension\PagedTiffHandler;
 
-use BitmapMetadataHandler;
-use ExifBitmapHandler;
-use InvalidTiffException;
 use MediaWiki\Config\Config;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Media\BitmapMetadataHandler;
+use MediaWiki\Media\ExifBitmapHandler;
+use MediaWiki\Media\InvalidTiffException;
 use MediaWiki\Shell\CommandFactory;
 use Wikimedia\Stats\StatsFactory;
 

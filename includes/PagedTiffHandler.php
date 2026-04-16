@@ -22,25 +22,25 @@
 
 namespace MediaWiki\Extension\PagedTiffHandler;
 
-use FormatMetadata;
 use LogicException;
-use MapCacheLRU;
-use MediaHandlerState;
-use MediaTransformError;
-use MediaTransformOutput;
 use MediaWiki\Config\Config;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\FileRepo\File\File;
 use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Media\FormatMetadata;
+use MediaWiki\Media\MediaHandlerState;
+use MediaWiki\Media\MediaTransformError;
+use MediaWiki\Media\MediaTransformOutput;
+use MediaWiki\Media\TransformationalImageHandler;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use MediaWiki\Shell\CommandFactory;
 use MediaWiki\Status\Status;
 use MediaWiki\User\Options\UserOptionsLookup;
 use RuntimeException;
-use TransformationalImageHandler;
+use Wikimedia\ObjectCache\MapCacheLRU;
 use Wikimedia\Stats\StatsFactory;
 
 class PagedTiffHandler extends TransformationalImageHandler {
