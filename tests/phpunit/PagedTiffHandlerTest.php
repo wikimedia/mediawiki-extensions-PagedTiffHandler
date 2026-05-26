@@ -302,6 +302,7 @@ class PagedTiffHandlerTest extends MediaWikiMediaTestCase {
 
 	public function testFormatMetadata() {
 		$formattedMetadata = $this->handler->formatMetadata( $this->multipage_image );
+		$this->assertNotFalse( $formattedMetadata );
 
 		foreach ( $formattedMetadata['collapsed'] as $k => $e ) {
 			if ( $e['id'] == 'exif-photometricinterpretation' ) {
