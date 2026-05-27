@@ -31,7 +31,7 @@ use MediaWiki\Shell\CommandFactory;
 use Wikimedia\Stats\StatsFactory;
 
 /**
- * inspired by djvuimage from Brion Vibber
+ * inspired by djvuimage from Brooke Vibber
  * modified and written by xarax
  * adapted to tiff by Hallo Welt! - Medienwerkstatt GmbH
  */
