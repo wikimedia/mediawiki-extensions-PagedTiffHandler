@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"AhmedG612"
+		]
+	},
+	"tiff-desc": "Maareeye lagu daawado faylasha TIFF ee habka sawirka",
+	"tiff_no_metadata": "Lama heli karo xogta metadata ee TIFF",
+	"tiff_page_error": "Lambarka bogga kuma jiro xadka la oggol yahay",
+	"tiff_too_many_embed_files": "Sawirku wuxuu ka kooban yahay faylal aad u badan oo ku dhex jira.",
+	"tiff_sourcefile_too_large": "Xallinta faylka asalka ah waa aad u weyn. Sawir-yar lama abuuri doono.",
+	"tiff_targetfile_too_large": "Xallinta faylka la beegsanayo waa aad u weyn. Sawir-yar lama abuuri doono.",
+	"tiff_file_too_large": "Faylka la soo geliyay waa aad u weyn, waana la diiday.",
+	"tiff_out_of_service": "Faylka la soo geliyay lama farsameyn karo. ImageMagick lama heli karo.",
+	"tiff_too_much_meta": "Xogta metadata waxay isticmaashaa meel aad u badan.",
+	"tiff_error_cached": "Faylkan dib looma soo samayn karo ilaa muddada kaydinta ay dhammaato.",
+	"tiff_size_error": "Cabbirka faylka la sheegay ma waafaqsana cabbirka dhabta ah ee faylka.",
+	"tiff_script_detected": "Faylka la soo geliyay wuxuu ka kooban yahay qoraallo.",
+	"tiff_bad_file": "Faylka la soo geliyay wuxuu ka kooban yahay khaladaad: $1",
+	"tiff_invalid_file": "Faylka la soo geliyay ma aha fayl TIFF sax ah."
+}
