@@ -502,7 +502,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			return 1;
 		}
 
-		return intval( $data['page_count'] );
+		return intval( $data['page_count'] ?? 1 );
 	}
 
 	/**
