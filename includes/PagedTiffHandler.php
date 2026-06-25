@@ -652,11 +652,11 @@ class PagedTiffHandler extends TransformationalImageHandler {
 			'visible' => [],
 			'collapsed' => []
 		];
-		$metadata = $image->getMetadata();
+		$metadata = $image->getMetadataArray();
 		if ( !$metadata ) {
 			return false;
 		}
-		$exif = unserialize( $metadata );
+		$exif = $metadata;
 		if ( !isset( $exif['exif'] ) || !$exif['exif'] ) {
 			return false;
 		}
@@ -675,7 +675,7 @@ class PagedTiffHandler extends TransformationalImageHandler {
 				$value
 			);
 		}
-		$meta = unserialize( $metadata );
+		$meta = $metadata;
 		$errors_raw = $this->getMetadataErrors( $meta );
 		if ( $errors_raw ) {
 			$errors = $this->joinMessages( $errors_raw );
