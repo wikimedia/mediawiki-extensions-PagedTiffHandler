@@ -141,7 +141,6 @@ class PagedTiffImage {
 		$result = $command->execute();
 		// Record in statsd
 		$this->statsFactory->getCounter( 'pagedtiffhandler_shell_retrievemetadata_total' )
-			->copyToStatsdAt( 'pagedtiffhandler.shell.retrieve_meta_data' )
 			->increment();
 
 		$overallExit = $result->getExitCode();
