@@ -27,7 +27,6 @@ use MediaWiki\Config\Config;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\FileRepo\File\File;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Media\FormatMetadata;
 use MediaWiki\Media\MediaHandlerState;
@@ -67,7 +66,6 @@ class PagedTiffHandler extends TransformationalImageHandler {
 	private readonly MapCacheLRU $knownImages;
 	private readonly CommandFactory $commandFactory;
 	private readonly Config $config;
-	private readonly HookContainer $hookContainer;
 	private readonly UserOptionsLookup $userOptionsLookup;
 	private readonly StatsFactory $statsFactory;
 
@@ -77,7 +75,6 @@ class PagedTiffHandler extends TransformationalImageHandler {
 		$services = MediaWikiServices::getInstance();
 		$this->commandFactory = $services->getShellCommandFactory();
 		$this->config = $services->getMainConfig();
-		$this->hookContainer = $services->getHookContainer();
 		$this->userOptionsLookup = $services->getUserOptionsLookup();
 		$this->statsFactory = $services->getStatsFactory();
 	}
