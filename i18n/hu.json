@@ -3,17 +3,23 @@
 		"authors": [
 			"BáthoryPéter",
 			"Dani",
+			"Dj",
 			"Glanthor Reviol",
 			"Tacsipacsi"
 		]
 	},
+	"tiff-desc": "TIFF-fájlok kép módban történő megjelenítését lehetővé tevő kezelő",
 	"tiff_no_metadata": "Nem sikerült lekérni a TIFF metaadatait",
 	"tiff_page_error": "Az oldalszám a tartományon kívül esik",
 	"tiff_too_many_embed_files": "A kép túl sok beágyazott fájlt tartalmaz.",
+	"tiff_sourcefile_too_large": "A forrásfájl felbontása túl nagy.\nNem készül bélyegkép.",
 	"tiff_targetfile_too_large": "A célfájl felbontása túl nagy. Nem fog bélyegkép készülni hozzá.",
 	"tiff_file_too_large": "A feltöltött fájl túl nagy, vissza lett utasítva.",
 	"tiff_out_of_service": "A feltöltött fájlt nem sikerült feldolgozni.\nAz ImageMagick nem érhető el.",
 	"tiff_too_much_meta": "A metaadatok túl sok helyet foglalnak.",
+	"tiff_error_cached": "Ez a fájl csak a gyorsítótárazási időköz letelte után jeleníthető meg újra.",
+	"tiff_size_error": "A megadott fájlméret nem egyezik meg a tényleges fájlmérettel.",
 	"tiff_script_detected": "A feltöltött fájl parancsfájlokat tartalmaz.",
-	"tiff_bad_file": "A feltöltött fájl hibákat tartalmaz: $1"
+	"tiff_bad_file": "A feltöltött fájl hibákat tartalmaz: $1",
+	"tiff_invalid_file": "A feltöltött fájl nem érvényes TIFF-fájl."
 }
